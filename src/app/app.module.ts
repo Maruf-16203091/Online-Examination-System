@@ -13,7 +13,6 @@ import { MatPaginatorModule } from '@angular/material/paginator'; // For paginat
 import { MatSidenavModule } from '@angular/material/sidenav'; // For Side navigation bar
 import { MatMenuModule } from '@angular/material/menu'; // For menu items (in navbar)
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // For loaders/spinners
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
