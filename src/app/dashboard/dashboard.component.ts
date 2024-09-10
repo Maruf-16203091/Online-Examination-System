@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { timer, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
-  // Sample data for cards
+export class DashboardComponent implements OnInit, OnDestroy {
   dashboardStats = [
     { title: 'Total Quizzes', value: 24 },
     { title: 'Active Quizzes', value: 6 },
@@ -14,52 +14,54 @@ export class DashboardComponent {
     { title: 'Completed Quizzes', value: 14 }
   ];
 
-  // Sample quiz data
-  quizzes = [
+  quizzes = [  // Sample quizzes data
     { id: 1, title: 'Math Quiz', subject: 'Mathematics', status: 'Active' },
     { id: 2, title: 'Science Quiz', subject: 'Science', status: 'Completed' },
     { id: 3, title: 'History Quiz', subject: 'History', status: 'Upcoming' }
   ];
 
-  // Method to navigate to the profile page
+  isBouncing = false;
+  bounceSubscription!: Subscription;
+
+  ngOnInit() {
+    this.bounceSubscription = timer(0, 10000).subscribe(() => {
+      this.isBouncing = true;
+      setTimeout(() => this.isBouncing = false, 1000);
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.bounceSubscription) {
+      this.bounceSubscription.unsubscribe();
+    }
+  }
+
+  // Add a getter to check if there is an active quiz
+  get hasActiveQuiz(): boolean {
+    return this.quizzes.some(quiz => quiz.status === 'Active');
+  }
+
   goToProfile() {
     console.log('Navigating to profile...');
-    // Implement navigation logic here
   }
 
-  // Method to update profile
   updateProfile() {
     console.log('Updating profile...');
-    // Implement update profile logic here
   }
 
-  // Method to logout
   logout() {
     console.log('Logging out...');
-    // Implement logout logic here
   }
 
-  // Method to filter quizzes by category
   filterByCategory(category: string) {
     console.log(`Filtering quizzes by category: ${category}`);
-    // Implement category filtering logic here
   }
 
-  // Method to navigate to the quiz page
   goToQuiz() {
     console.log('Navigating to quiz...');
-    // Implement navigation to quiz page here
   }
 
-  // Method to view results
   viewResults() {
     console.log('Viewing results...');
-    // Implement navigation to results page here
-  }
-
-  // Method to navigate to types of quiz
-  goToTypesOfQuiz() {
-    console.log('Navigating to types of quiz...');
-    // Implement navigation to types of quiz page here
   }
 }

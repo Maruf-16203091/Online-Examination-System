@@ -27,7 +27,8 @@ import { ResultComponent } from './results/result/result.component';
 import { ResultsAdminComponent } from './results/results-admin/results-admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,  // Required for Angular Material
+    BrowserAnimationsModule,
     MatToolbarModule,         // Navbar
     MatButtonModule,          // Buttons (e.g., Submit, Take Quiz)
     MatCardModule,            // Card layout (for quizzes, results, etc.)
@@ -60,11 +61,10 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     MatPaginatorModule,       // Pagination for tables
     MatSidenavModule,         // For sidebar (if needed)
     MatMenuModule,            // For dropdown menus in navbar
-    MatProgressSpinnerModule  // Loading spinner while fetching data
+    MatProgressSpinnerModule, // Loading spinner while fetching data
+
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
