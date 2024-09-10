@@ -1,0 +1,29 @@
+/* dashboard.component.css */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.dashboard-header {
+  margin-bottom: 20px;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  text-align: center;
+}
+
+.quiz-list-container {
+  margin-top: 20px;
+}
+
+.quiz-list {
+  margin-bottom: 20px;
+}
