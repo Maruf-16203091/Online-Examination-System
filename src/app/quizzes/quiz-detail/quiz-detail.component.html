@@ -1,51 +1,5 @@
-<div class="page-container">
-  <header class="dashboard-header">
-    <div class="header-left">
-      <img
-        src="assets/logo/logo.png"
-        alt="Logo"
-        routerLink="/dashboard"
-        class="logo"
-      />
-      <h1>QuizzyBee</h1>
-    </div>
 
-    <div class="header-right">
-      <!-- Categories Dropdown -->
-      <div class="category-dropdown">
-        <span>Categories</span>
-        <div class="dropdown-content">
-          <button>Mathematics</button>
-          <button>Science</button>
-          <button>History</button>
-          <button>General Knowledge</button>
-        </div>
-      </div>
-      <div>
-        <button class="training" mat-button>Training</button>
-      </div>
-      <div>
-        <button class="result" mat-button>Results</button>
-      </div>
-
-      <!-- Profile Picture with Dropdown Trigger -->
-      <div class="profile-menu" [matMenuTriggerFor]="profileMenu">
-        <img
-          src="assets/profile/profile.jpg"
-          alt="Profile Picture"
-          class="profile-pic"
-        />
-        <mat-icon>expand_more</mat-icon>
-      </div>
-
-      <!-- Profile Dropdown Menu -->
-      <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item>View Profile</button>
-        <button mat-menu-item>Update Profile</button>
-        <button mat-menu-item>Logout</button>
-      </mat-menu>
-    </div>
-  </header>
+  <app-header></app-header>
 
   <div class="start-quiz-container">
     <div class="quiz-header">
@@ -77,4 +31,4 @@
       </button>
     </div>
   </div>
-</div>
+

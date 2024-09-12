@@ -10,9 +10,9 @@ export class QuizDetailComponent {
   quizSubject: string = 'Mathematics';
   quizInstructions: string = 'Please read the following instructions carefully before starting the quiz.';
 
-  // Handle starting the quiz
+
   startQuiz() {
     console.log('Quiz started!');
-    // Navigate to the quiz component or begin the quiz logic here
+
   }
 }

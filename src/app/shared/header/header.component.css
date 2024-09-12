@@ -1,0 +1,153 @@
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #f7f7fa;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 40px;
+  margin-right: 20px;
+  border-radius: 40%;
+  cursor: pointer;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Updated Dropdown Style */
+.category-dropdown {
+  position: relative;
+  margin: 5px;
+}
+
+.category-trigger {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  padding-right: 10px;
+  border: 1px solid #43a76e;
+  border-radius: 4px;
+  background-color: #43a76e;
+  color: #fff;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+
+
+.category-dropdown:hover .category-trigger {
+  background-color: #388e3c;
+  transform: scale(1.05);
+}
+
+/* Dropdown Content Styling */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  margin-top: 2px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  top: 100%;
+  left: -4px;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.category-dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-content button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-content button mat-icon {
+  margin-right: 8px;
+}
+
+.dropdown-content button:hover {
+  background-color: #43a76e;
+  color: white;
+}
+
+/* Training and Result Button */
+.training,
+.result {
+  padding: 10px;
+  border-radius: 4px;
+  margin: 5px;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.training {
+  background-color: #3f51b5;
+  color: white !important;
+  border-color: #092efd;
+}
+
+.training:hover {
+  background-color: #2e3d8f;
+  transform: scale(1.1);
+}
+
+.result {
+  background-color: rgb(89, 174, 243);
+  color: white !important;
+}
+
+.result:hover {
+  background-color: rgb(70, 150, 220);
+  transform: scale(1.1);
+}
+
+/* Profile Menu */
+.profile-menu {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: transform 0.3s ease;
+}
+
+.profile-menu:hover {
+  transform: scale(1.05);
+}
+
+.profile-pic {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+  transition: transform 0.3s ease;
+}
+
+.profile-menu:hover .profile-pic {
+  transform: scale(1.1);
+}

@@ -1,58 +1,5 @@
 <div class="page-container">
-  <!-- Header Section with Profile Picture and Dropdown -->
-  <header class="dashboard-header">
-    <div class="header-left">
-      <img
-        src="assets/logo/logo.png"
-        alt="Logo"
-        routerLink="/dashboard"
-        class="logo"
-      />
-      <h1>QuizzyBee</h1>
-    </div>
-
-    <div class="header-right">
-      <!-- Categories Dropdown -->
-      <div class="category-dropdown">
-        <span>Categories</span>
-        <div class="dropdown-content">
-          <button (click)="filterByCategory('Mathematics')">Mathematics</button>
-          <button (click)="filterByCategory('Science')">Science</button>
-          <button (click)="filterByCategory('History')">History</button>
-          <button (click)="filterByCategory('General Knowledge')">
-            General Knowledge
-          </button>
-        </div>
-      </div>
-      <div>
-        <button class="training" mat-button (click)="viewResults()">
-          Training
-        </button>
-      </div>
-      <div>
-        <button class="result" mat-button (click)="viewResults()">
-          Results
-        </button>
-      </div>
-
-      <!-- Profile Picture with Dropdown Trigger -->
-      <div class="profile-menu" [matMenuTriggerFor]="profileMenu">
-        <img
-          src="assets/profile/profile.jpg"
-          alt="Profile Picture"
-          class="profile-pic"
-        />
-        <mat-icon>expand_more</mat-icon>
-      </div>
-
-      <!-- Profile Dropdown Menu -->
-      <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item (click)="goToProfile()">View Profile</button>
-        <button mat-menu-item (click)="updateProfile()">Update Profile</button>
-        <button mat-menu-item (click)="logout()">Logout</button>
-      </mat-menu>
-    </div>
-  </header>
+  <app-header></app-header>
 
   <!-- Key Stats Section -->
   <div class="stats-container">
@@ -77,7 +24,7 @@
             <p><strong>Subject:</strong> {{ quiz.subject }}</p>
             <p><strong>Status:</strong> {{ quiz.status }}</p>
           </mat-card-content>
-          <mat-card-actions>
+          <mat-card-actions class="btn-all">
             <button
               mat-raised-button
               color="primary"

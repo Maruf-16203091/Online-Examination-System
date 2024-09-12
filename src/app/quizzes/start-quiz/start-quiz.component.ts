@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -8,7 +8,7 @@ import { DialogComponent } from '../dialog/dialog.component';
   templateUrl: './start-quiz.component.html',
   styleUrls: ['./start-quiz.component.css']
 })
-export class StartQuizComponent implements OnInit {
+export class StartQuizComponent implements OnInit, OnDestroy {
   quizTitle: string = 'General Knowledge Quiz';
   questions: any[] = [
     {
@@ -75,6 +75,9 @@ export class StartQuizComponent implements OnInit {
     this.startTimer();
   }
 
+  ngOnDestroy() {
+    this.clearTimer();
+  }
   nextQuestion() {
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;

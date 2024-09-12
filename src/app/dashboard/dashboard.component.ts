@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { timer, Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -41,27 +42,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return this.quizzes.some(quiz => quiz.status === 'Active');
   }
 
-  goToProfile() {
-    console.log('Navigating to profile...');
-  }
 
-  updateProfile() {
-    console.log('Updating profile...');
-  }
-
-  logout() {
-    console.log('Logging out...');
-  }
-
-  filterByCategory(category: string) {
-    console.log(`Filtering quizzes by category: ${category}`);
-  }
-
-  goToQuiz() {
-    console.log('Navigating to quiz...');
-  }
-
-  viewResults() {
-    console.log('Viewing results...');
-  }
 }

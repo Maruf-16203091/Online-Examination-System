@@ -33,6 +33,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import { DialogComponent } from './quizzes/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HeaderComponent } from './shared/header/header.component';
 
 
 
@@ -53,7 +54,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ProfileComponent,
     NavbarComponent,
     StartQuizComponent,
-    DialogComponent
+    DialogComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
