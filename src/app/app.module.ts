@@ -31,6 +31,8 @@ import { StartQuizComponent } from './quizzes/start-quiz/start-quiz.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
+import { DialogComponent } from './quizzes/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -50,7 +52,8 @@ import { FormsModule } from '@angular/forms';
     ResultsAdminComponent,
     ProfileComponent,
     NavbarComponent,
-    StartQuizComponent
+    StartQuizComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ import { FormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     FormsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule
 
   ],
   providers: [],

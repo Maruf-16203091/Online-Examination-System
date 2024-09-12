@@ -1,0 +1,20 @@
+<!-- dialog.component.html -->
+<div *ngIf="data.type === 'success'" class="success">
+  <h1 mat-dialog-title class="title-success">{{ data.title }}</h1>
+  <div mat-dialog-content>
+    <p class="message-body">{{ data.message }}</p>
+  </div>
+  <div mat-dialog-actions class="dialog-ok">
+    <button class="ok" mat-button (click)="onClose()">OK</button>
+  </div>
+</div>
+
+<div *ngIf="data.type === 'end'" class="end">
+  <h1 mat-dialog-title class="title-time-end">{{ data.title }}</h1>
+  <div mat-dialog-content>
+    <p class="message-body">{{ data.message }}</p>
+  </div>
+  <div mat-dialog-actions class="dialog-ok">
+    <button class="ok" mat-button (click)="onClose()">OK</button>
+  </div>
+</div>

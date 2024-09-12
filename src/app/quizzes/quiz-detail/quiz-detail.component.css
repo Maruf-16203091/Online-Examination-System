@@ -113,8 +113,6 @@
 }
 
 
-
-
 .start-quiz-container {
   max-width: 600px;
   margin: 25px auto;
@@ -140,10 +138,12 @@
   font-weight: 500;
 
 }
+
 .subject {
   font-weight: 400;
   color: #555;
 }
+
 .quiz-instructions {
   margin: 20px 0;
 }

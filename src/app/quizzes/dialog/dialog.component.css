@@ -1,0 +1,24 @@
+.ok {
+  background-color: #010536;
+  color: white;
+
+}
+
+.message-body {
+  color: black;
+  font-weight: 500;
+}
+
+.dialog-ok {
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.title-time-end {
+  color: red;
+}
+
+.title-success {
+  color: #43A76E;
+}

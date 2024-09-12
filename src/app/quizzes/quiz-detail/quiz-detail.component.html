@@ -50,8 +50,9 @@
   <div class="start-quiz-container">
     <div class="quiz-header">
       <h1>{{ quizTitle }}</h1>
-      <p>Subject:
-        <span class="subject">{{ quizSubject }}</span></p>
+      <p>
+        Subject: <span class="subject">{{ quizSubject }}</span>
+      </p>
     </div>
 
     <div class="quiz-instructions">
@@ -66,8 +67,13 @@
     </div>
 
     <div class="start-quiz-button">
-      <button mat-raised-button color="primary" routerLink="/start-quiz"  (click)="startQuiz()">
-        Start Quiz
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/start-quiz"
+        (click)="startQuiz()"
+      >
+        Start
       </button>
     </div>
   </div>

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartQuizComponent } from './quizzes/start-quiz/start-quiz.component';
 import { QuizDetailComponent } from './quizzes/quiz-detail/quiz-detail.component';
+import { DialogComponent } from './quizzes/dialog/dialog.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },  // Dashboard Route

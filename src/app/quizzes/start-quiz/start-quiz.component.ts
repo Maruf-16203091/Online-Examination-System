@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-start-quiz',
@@ -64,9 +66,10 @@ export class StartQuizComponent implements OnInit {
 
   currentQuestionIndex: number = 0;
   selectedOption: string | undefined;
-  timer: number = 600000; // 10 minutes for demo purposes
+  timer: number = 30000; // 10 minutes for demo purposes
+  interval: any;  // Store the interval reference here
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.startTimer();
@@ -89,18 +92,24 @@ export class StartQuizComponent implements OnInit {
   }
 
   submitQuiz() {
-    console.log('Quiz Submitted!');
-    this.router.navigate(['/results']);
+    this.clearTimer();  // Stop the timer when the quiz is submitted
+    this.openDialog('Quiz Submitted!', 'Success', 'success');
   }
 
   startTimer() {
-    const interval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.timer -= 1000;
       if (this.timer <= 0) {
-        clearInterval(interval); // Stop the interval
-        this.submitQuiz(); // Auto-submit when the time is up
+        this.clearTimer();  // Stop the timer if time runs out
+        this.openDialog('Time is up! Try next time.', 'Time Over', 'end');
       }
     }, 1000);
+  }
+
+  clearTimer() {
+    if (this.interval) {
+      clearInterval(this.interval);  // Clear the interval to stop the timer
+    }
   }
 
   get formattedTime() {
@@ -115,5 +124,16 @@ export class StartQuizComponent implements OnInit {
 
   get isLastQuestion() {
     return this.currentQuestionIndex === this.questions.length - 1;
+  }
+
+  openDialog(message: string, title: string, type: string) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      width: '300px',
+      data: { message, title, type }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/dashboard']);
+    });
   }
 }
