@@ -1,65 +1,71 @@
-<header class="dashboard-header">
-  <div class="header-left">
-    <img
-      src="assets/logo/logo.png"
-      alt="Logo"
-      routerLink="/dashboard"
-      class="logo"
-    />
-    <h1>QuizzyBee</h1>
-  </div>
+<div class="header-wrapper">
+  <header class="dashboard-header">
+    <div class="header-left">
+      <img
+        src="assets/logo/logo.png"
+        alt="Logo"
+        routerLink="/dashboard"
+        class="logo"
+      />
+      <h1>QuizzyBee</h1>
+    </div>
 
-  <div class="header-right">
-    <!-- Categories Dropdown with Icon -->
-    <div class="category-dropdown">
-      <span class="category-trigger">
-        <mat-icon>arrow_drop_down</mat-icon>
-        Categories
-      </span>
+    <div class="header-right">
+      <!-- Categories Dropdown with Icon -->
+      <div class="category-dropdown">
+        <span class="category-trigger">
+          <mat-icon>arrow_drop_down</mat-icon>
+          Categories
+        </span>
 
-      <div class="dropdown-content">
-        <button (click)="filterByCategory('Mathematics')">
-          <mat-icon>calculate</mat-icon> Mathematics
-        </button>
-        <button (click)="filterByCategory('Science')">
-          <mat-icon>science</mat-icon> Science
-        </button>
-        <button (click)="filterByCategory('History')">
-          <mat-icon>history_edu</mat-icon> History
-        </button>
-        <button (click)="filterByCategory('General Knowledge')">
-          <mat-icon>public</mat-icon> General Knowledge
+        <div class="dropdown-content">
+          <button (click)="filterByCategory('Mathematics')">
+            <mat-icon>calculate</mat-icon> Mathematics
+          </button>
+          <button (click)="filterByCategory('Science')">
+            <mat-icon>science</mat-icon> Science
+          </button>
+          <button (click)="filterByCategory('History')">
+            <mat-icon>history_edu</mat-icon> History
+          </button>
+          <button (click)="filterByCategory('General Knowledge')">
+            <mat-icon>public</mat-icon> General Knowledge
+          </button>
+        </div>
+      </div>
+
+      <!-- Other elements in the header -->
+      <div>
+        <button
+          class="training"
+          mat-button
+          [routerLink]="'/training'"
+          (click)="viewResults()"
+        >
+          Training
         </button>
       </div>
-    </div>
 
-    <!-- Other elements in the header -->
-    <div>
-      <button
-        class="training"
-        mat-button
-        [routerLink]="'/training'"
-        (click)="viewResults()"
-      >
-        Training
-      </button>
-    </div>
+      <div>
+        <button class="result" mat-button (click)="training()">Results</button>
+      </div>
 
-    <div>
-      <button class="result" mat-button (click)="training()">Results</button>
-    </div>
+      <!-- Profile Picture with Dropdown Trigger -->
+      <div class="profile-menu" [matMenuTriggerFor]="profileMenu">
+        <img
+          src="assets/profile/profile.jpg"
+          alt="Profile Picture"
+          class="profile-pic"
+        />
+        <mat-icon>expand_more</mat-icon>
+      </div>
 
-    <!-- Profile Picture with Dropdown Trigger -->
-    <div class="profile-menu" [matMenuTriggerFor]="profileMenu">
-      <img src="assets/profile/profile.jpg" alt="Profile Picture" class="profile-pic" />
-      <mat-icon>expand_more</mat-icon>
+      <!-- Profile Dropdown Menu -->
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item (click)="goToProfile()">View Profile</button>
+        <button mat-menu-item (click)="updateProfile()">Update Profile</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
     </div>
-
-    <!-- Profile Dropdown Menu -->
-    <mat-menu #profileMenu="matMenu">
-      <button mat-menu-item (click)="goToProfile()">View Profile</button>
-      <button mat-menu-item (click)="updateProfile()">Update Profile</button>
-      <button mat-menu-item (click)="logout()">Logout</button>
-    </mat-menu>
-  </div>
-</header>
+  </header>
+</div>

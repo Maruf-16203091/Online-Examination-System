@@ -1,14 +1,13 @@
-<div class="page-container">
-  <app-header></app-header>
+<app-header></app-header>
 
-  <div class="training-container">
-    <mat-card>
-
-
-      <mat-card-content>
-        <!-- Filter Section -->
-        <div class="filter-section">
-          <mat-form-field appearance="outline">
+<div class="training-container">
+  <mat-card>
+    <mat-card-content>
+      <!-- Filter Section -->
+      <div class="filter-section">
+        <!-- First Row of Filters -->
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-item">
             <mat-label>Search by Category</mat-label>
             <mat-select [formControl]="selectedCategory">
               <mat-option
@@ -20,7 +19,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="filter-item">
             <mat-label>Select Difficulty</mat-label>
             <mat-select [formControl]="selectedDifficulty">
               <mat-option
@@ -32,7 +31,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="filter-item">
             <mat-label>Date Range</mat-label>
             <mat-select [formControl]="selectedDateRange">
               <mat-option *ngFor="let range of dateRanges" [value]="range">
@@ -40,8 +39,11 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+        </div>
 
-          <mat-form-field appearance="outline">
+        <!-- Second Row of Filters -->
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="filter-item">
             <mat-label>Question Type</mat-label>
             <mat-select [formControl]="selectedQuestionType">
               <mat-option *ngFor="let type of questionTypes" [value]="type">
@@ -50,54 +52,91 @@
             </mat-select>
           </mat-form-field>
 
-          <button mat-raised-button color="primary" (click)="applyFilter()">
+          <mat-form-field appearance="outline" class="filter-item">
+            <mat-label>Sort By</mat-label>
+            <mat-select [formControl]="selectedSortBy">
+              <mat-option *ngFor="let sort of sortOptions" [value]="sort">
+                {{ sort }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="filter-item">
+            <mat-label>Rating</mat-label>
+            <mat-select [formControl]="selectedRating">
+              <mat-option *ngFor="let rating of ratings" [value]="rating">
+                {{ rating }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="filter-submit">
+          <button
+            mat-raised-button
+            class="btn-search"
+            color="primary"
+            (click)="applyFilter()"
+          >
             Search
           </button>
         </div>
+      </div>
 
-        <!-- Data Table -->
-        <div class="table-container">
-          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <!-- Columns Definitions -->
-            <ng-container matColumnDef="category">
-              <th mat-header-cell *matHeaderCellDef>Category</th>
-              <td mat-cell *matCellDef="let element">{{ element.category }}</td>
-            </ng-container>
+      <!-- Top Pagination -->
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+      ></mat-paginator>
 
-            <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef>Description</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.description }}
-              </td>
-            </ng-container>
+      <!-- Data Table -->
+      <div class="table-container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Columns Definitions -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+          </ng-container>
 
-            <ng-container matColumnDef="questions">
-              <th mat-header-cell *matHeaderCellDef>Number of Questions</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.questions }}
-              </td>
-            </ng-container>
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.description }}
+            </td>
+          </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-          </table>
-        </div>
+          <ng-container matColumnDef="questions">
+            <th mat-header-cell *matHeaderCellDef>Number of Questions</th>
+            <td mat-cell *matCellDef="let element">{{ element.questions }}</td>
+          </ng-container>
 
-        <!-- Sample Questions Section -->
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>Sample Questions</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <div class="sample-questions">
-              <div *ngFor="let sample of sampleQuestions">
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+      ></mat-paginator>
+
+      <!-- Sample Questions Section -->
+      <mat-card class="sample-questions-card">
+        <mat-card-header>
+          <mat-card-title>Sample Questions</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="sample-questions">
+            <div *ngFor="let sample of sampleQuestions">
+              <div class="sample-question-item">
                 <h3>{{ sample.question }}</h3>
                 <p><strong>Answer:</strong> {{ sample.answer }}</p>
               </div>
             </div>
-          </mat-card-content>
-        </mat-card>
-      </mat-card-content>
-    </mat-card>
-  </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>
 </div>
