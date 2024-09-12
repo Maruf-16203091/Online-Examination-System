@@ -54,7 +54,7 @@ export class TrainingComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator; // <-- Assign paginator after view initialization
+    this.dataSource.paginator = this.paginator;
   }
 
   applyFilter() {
@@ -68,7 +68,7 @@ export class TrainingComponent implements OnInit {
     this.dataSource.filterPredicate = (data: QuizCategory, filter: string) => {
       const matchesCategory = categoryValue ? data.category === categoryValue : true;
       const matchesDifficulty = difficultyValue ? data.difficulty === difficultyValue : true;
-      // Add logic for date range and question type filters if needed
+
       return matchesCategory && matchesDifficulty;
     };
 

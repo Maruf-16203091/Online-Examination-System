@@ -1,6 +1,6 @@
-<div class="page-container">
-  <app-header></app-header>
+<app-header></app-header>
 
+<div class="page-container">
   <!-- Key Stats Section -->
   <div class="stats-container">
     <div class="stat-card" *ngFor="let stat of dashboardStats">
@@ -14,6 +14,82 @@
   </div>
 
   <!-- Quiz List Section -->
+  <div class="quiz-list-container">
+    <h2>Available Quizzes</h2>
+    <div class="quiz-list">
+      <div *ngFor="let quiz of quizzes" class="quiz-card">
+        <mat-card>
+          <mat-card-content>
+            <h3>{{ quiz.title }}</h3>
+            <p><strong>Subject:</strong> {{ quiz.subject }}</p>
+            <p><strong>Status:</strong> {{ quiz.status }}</p>
+          </mat-card-content>
+          <mat-card-actions class="btn-all">
+            <button
+              mat-raised-button
+              color="primary"
+              routerLink="/quiz-detail"
+              *ngIf="quiz.status === 'Active'"
+            >
+              Start Quiz
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              *ngIf="quiz.status === 'Upcoming'"
+            >
+              Coming Soon
+            </button>
+            <button
+              mat-raised-button
+              disabled
+              *ngIf="quiz.status === 'Completed'"
+            >
+              View Result
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <div class="quiz-list-container">
+    <h2>Available Quizzes</h2>
+    <div class="quiz-list">
+      <div *ngFor="let quiz of quizzes" class="quiz-card">
+        <mat-card>
+          <mat-card-content>
+            <h3>{{ quiz.title }}</h3>
+            <p><strong>Subject:</strong> {{ quiz.subject }}</p>
+            <p><strong>Status:</strong> {{ quiz.status }}</p>
+          </mat-card-content>
+          <mat-card-actions class="btn-all">
+            <button
+              mat-raised-button
+              color="primary"
+              routerLink="/quiz-detail"
+              *ngIf="quiz.status === 'Active'"
+            >
+              Start Quiz
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              *ngIf="quiz.status === 'Upcoming'"
+            >
+              Coming Soon
+            </button>
+            <button
+              mat-raised-button
+              disabled
+              *ngIf="quiz.status === 'Completed'"
+            >
+              View Result
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
   <div class="quiz-list-container">
     <h2>Available Quizzes</h2>
     <div class="quiz-list">
