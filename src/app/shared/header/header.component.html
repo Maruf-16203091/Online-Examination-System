@@ -35,10 +35,18 @@
 
     <!-- Other elements in the header -->
     <div>
-      <button class="training" mat-button (click)="viewResults()">Training</button>
+      <button
+        class="training"
+        mat-button
+        [routerLink]="'/training'"
+        (click)="viewResults()"
+      >
+        Training
+      </button>
     </div>
+
     <div>
-      <button class="result" mat-button (click)="viewResults()">Results</button>
+      <button class="result" mat-button (click)="training()">Results</button>
     </div>
 
     <!-- Profile Picture with Dropdown Trigger -->

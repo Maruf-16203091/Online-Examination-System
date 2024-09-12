@@ -30,10 +30,13 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { StartQuizComponent } from './quizzes/start-quiz/start-quiz.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { DialogComponent } from './quizzes/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './shared/header/header.component';
+import { TrainingComponent } from './training/training.component';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 
@@ -55,7 +58,8 @@ import { HeaderComponent } from './shared/header/header.component';
     NavbarComponent,
     StartQuizComponent,
     DialogComponent,
-    HeaderComponent
+    HeaderComponent,
+    TrainingComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +80,9 @@ import { HeaderComponent } from './shared/header/header.component';
     MatProgressBarModule,
     FormsModule,
     MatRadioModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    ReactiveFormsModule
 
   ],
   providers: [],

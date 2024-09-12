@@ -29,4 +29,8 @@ export class HeaderComponent {
   viewResults() {
     console.log('Viewing results...');
   }
+
+  training() {
+    console.log('Viewing results...');
+  } 
 }

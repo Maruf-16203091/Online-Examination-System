@@ -1,0 +1,38 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #F5F5F5;
+
+}
+
+.training-container {
+  padding: 20px;
+}
+
+.filter-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+.sample-questions {
+  margin-top: 20px;
+}
+
+.sample-questions h3 {
+  margin: 0;
+}
+
+.sample-questions p {
+  margin: 5px 0;
+}
