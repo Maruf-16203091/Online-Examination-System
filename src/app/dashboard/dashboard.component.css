@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #F5F5F5; /* Light gray background for the container */
+  background-color: #F5F5F5;
+
 }
 
 .dashboard-header {
@@ -12,7 +13,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  background-color: #f7f7fa; /* Light sea green background for the header */
+  background-color: #f7f7fa;
   border-radius: 8px;
   padding: 10px;
 }
@@ -35,25 +36,25 @@
 
 .category-dropdown {
   position: relative;
-  margin-right: 20px;
+  margin-left: 30px;
 }
 
 .category-dropdown span {
   cursor: pointer;
-  font-weight: bold;
-  padding: 10px;
-  border: 1px solid #2E8B57; /* Ocean Green border */
+  padding: 7.5px;
+  border: 1px solid #43a76e;
   border-radius: 4px;
-  background-color: #2E8B57; /* Ocean Green background */
-  color: #FFFFFF; /* White text */
+  background-color: #43a76e;
+  color: #FFFFFF;
+  font-weight: 500;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  margin-top: 13px;
-  background-color: #FFFFFF; /* White */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  margin-top: 10px;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   top: 100%;
   left: 0;
@@ -72,11 +73,14 @@
   padding: 10px;
   text-align: left;
   cursor: pointer;
-  border-bottom: 1px solid #F0F0F0; /* Light gray for divider */
+  border-bottom: 1px solid #F0F0F0;
+  /* Light gray for divider */
 }
 
 .dropdown-content button:hover {
-  background-color: #d1d1d8; /* Light sea green hover background */
+  background-color: #43a76e;
+  color: white;
+
 }
 
 .profile-menu {
@@ -127,7 +131,8 @@
 .quiz-card {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   flex: 1 1 calc(33% - 20px);
-  background-color: #FFFFFF; /* White */
+  background-color: #FFFFFF;
+  /* White */
   border: 1px solid #aaf0cd;
   border-radius: 10px;
 }
@@ -139,18 +144,38 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
+
   40% {
-    transform: translateY(-30px);
+    transform: translateY(-20px);
   }
+
   60% {
-    transform: translateY(-15px);
+    transform: translateY(-10px);
   }
 }
 
 .bounce {
-  animation: bounce 1s infinite;
+  animation: bounce 1.2s infinite;
 }
 
+.takeQuize {
+  background-color: #3F51B5;
+  color: white !important;
+  padding: 10px;
+  border: 1px solid #092efd;
+  border-radius: 4px;
+}
+
+.result {
+  background-color: rgb(89, 174, 243);
+  color: white !important;
+  margin: 5px;
+}

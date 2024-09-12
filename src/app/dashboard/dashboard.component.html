@@ -7,6 +7,15 @@
     </div>
 
     <div class="header-right">
+
+      <button
+      class="takeQuize"
+      mat-button
+       *ngIf="hasActiveQuiz"
+       [ngClass]="{'bounce': isBouncing}">
+       Take Quiz
+     </button>
+
       <!-- Categories Dropdown -->
       <div class="category-dropdown">
         <span>Categories</span>
@@ -18,17 +27,9 @@
         </div>
       </div>
 
-      <!-- Additional Options -->
-      <button
-        mat-raised-button
-        color="primary"
-        *ngIf="hasActiveQuiz"
-        [ngClass]="{'bounce': isBouncing}">
-        Take Quiz
-      </button>
 
       <div>
-        <button mat-button (click)="viewResults()">Results</button>
+        <button class="result" mat-button (click)="viewResults()">Results</button>
       </div>
 
       <!-- Profile Picture with Dropdown Trigger -->
