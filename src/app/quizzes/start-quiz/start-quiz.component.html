@@ -47,27 +47,40 @@
     </div>
   </header>
 
-  <div class="start-quiz-container">
+  <div class="quiz-container">
     <div class="quiz-header">
-      <h1>{{ quizTitle }}</h1>
-      <p>Subject:
-        <span class="subject">{{ quizSubject }}</span></p>
+      <h2>{{ quizTitle }}</h2>
+      <div class="timer">
+        <span>Time Left: {{ formattedTime }}</span>
+      </div>
     </div>
 
-    <div class="quiz-instructions">
-      <h2>Instructions</h2>
-      <p>{{ quizInstructions }}</p>
-      <ul>
-        <li>Each question carries 1 point.</li>
-        <li>There is no negative marking for incorrect answers.</li>
-        <li>You will have 10 minutes to complete the quiz.</li>
-        <li>Make sure you are connected to the internet.</li>
-      </ul>
+    <!-- Progress Bar -->
+    <mat-progress-bar
+      mode="determinate"
+      [value]="(currentQuestionIndex / questions.length) * 100"
+    ></mat-progress-bar>
+
+    <!-- Question Display -->
+    <div class="question-section">
+      <h3>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</h3>
+      <p>{{ questions[currentQuestionIndex].question }}</p>
+
+      <!-- Options as radio buttons -->
+      <mat-radio-group [(ngModel)]="selectedOption" aria-label="Select an answer">
+        <mat-radio-button
+          *ngFor="let option of questions[currentQuestionIndex].options"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-radio-button>
+      </mat-radio-group>
     </div>
 
-    <div class="start-quiz-button">
-      <button mat-raised-button color="primary" routerLink="/start-quiz"  (click)="startQuiz()">
-        Start Quiz
+    <!-- Navigation Buttons -->
+    <div class="button-section">
+      <button mat-raised-button color="primary" (click)="nextQuestion()">
+        {{ currentQuestionIndex + 1 === questions.length ? 'Submit Quiz' : 'Next' }}
       </button>
     </div>
   </div>

@@ -27,6 +27,11 @@ import { ResultComponent } from './results/result/result.component';
 import { ResultsAdminComponent } from './results/results-admin/results-admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { StartQuizComponent } from './quizzes/start-quiz/start-quiz.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -44,7 +49,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     ResultComponent,
     ResultsAdminComponent,
     ProfileComponent,
-    NavbarComponent
+    NavbarComponent,
+    StartQuizComponent
   ],
   imports: [
     BrowserModule,
@@ -59,9 +65,12 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     MatListModule,            // Lists for quizzes or profile items
     MatTableModule,           // Tables for displaying results
     MatPaginatorModule,       // Pagination for tables
-    MatSidenavModule,         // For sidebar (if needed)
-    MatMenuModule,            // For dropdown menus in navbar
-    MatProgressSpinnerModule, // Loading spinner while fetching data
+    MatSidenavModule,
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    FormsModule,
+    MatRadioModule
 
   ],
   providers: [],
