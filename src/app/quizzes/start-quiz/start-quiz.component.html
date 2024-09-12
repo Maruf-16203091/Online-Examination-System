@@ -79,8 +79,11 @@
 
     <!-- Navigation Buttons -->
     <div class="button-section">
-      <button mat-raised-button color="primary" (click)="nextQuestion()">
-        {{ currentQuestionIndex + 1 === questions.length ? 'Submit Quiz' : 'Next' }}
+      <button mat-raised-button class="previous-button" (click)="previousQuestion()" *ngIf="!isFirstQuestion">
+        Previous
+      </button>
+      <button mat-raised-button class="next-button" (click)="nextQuestion()">
+        {{ isLastQuestion ? 'Submit Quiz' : 'Next' }}
       </button>
     </div>
   </div>

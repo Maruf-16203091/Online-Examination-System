@@ -148,7 +148,26 @@ mat-radio-group {
 }
 
 .button-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   text-align: center;
+}
+
+.button-section button {
+  margin: 0 10px; /* Adds horizontal margin to each button */
+}
+
+.previous-button {
+  background-color: #F44A3E !important;
+  color: white !important;
+  border: none;
+}
+
+.next-button {
+  background-color: #3F51B5 !important;
+  color: white !important;
+  border: none;
 }
 
 
