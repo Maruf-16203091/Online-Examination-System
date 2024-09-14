@@ -1,4 +1,4 @@
-<app-header></app-header>
+
 
 <div class="result-page-container">
   <mat-card>
@@ -27,37 +27,47 @@
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 category-table">
         <!-- Category Column -->
         <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef> Category </th>
-          <td mat-cell *matCellDef="let element"> {{ element.category }} </td>
+          <th mat-header-cell *matHeaderCellDef>Category</th>
+          <td mat-cell *matCellDef="let element">{{ element.category }}</td>
         </ng-container>
 
         <!-- Questions Attempted Column -->
         <ng-container matColumnDef="attempted">
-          <th mat-header-cell *matHeaderCellDef> Questions Attempted </th>
-          <td mat-cell *matCellDef="let element"> {{ element.attempted }} </td>
+          <th mat-header-cell *matHeaderCellDef>Questions Attempted</th>
+          <td mat-cell *matCellDef="let element">{{ element.attempted }}</td>
         </ng-container>
 
         <!-- Correct Answers Column -->
         <ng-container matColumnDef="correct">
-          <th mat-header-cell *matHeaderCellDef> Correct Answers </th>
-          <td mat-cell *matCellDef="let element"> {{ element.correct }} </td>
+          <th mat-header-cell *matHeaderCellDef>Correct Answers</th>
+          <td mat-cell *matCellDef="let element">{{ element.correct }}</td>
         </ng-container>
 
         <!-- Score Column -->
         <ng-container matColumnDef="score">
-          <th mat-header-cell *matHeaderCellDef> Score </th>
-          <td mat-cell *matCellDef="let element"> {{ element.score }} </td>
+          <th mat-header-cell *matHeaderCellDef>Score</th>
+          <td mat-cell *matCellDef="let element">{{ element.score }}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
 
-      <!-- Graphical Representation (Optional) -->
+      <!-- Graphical Representation (Pie Chart) -->
       <div class="graph-section">
         <h3>Performance Overview</h3>
-        <!-- Graph Placeholder (Can use a library like Chart.js) -->
-        <img src="assets/graph.jpeg" alt="Graph showing performance" />
+        <!-- Pie Chart -->
+        <div style="display: block">
+          <canvas
+            baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [type]="pieChartType"
+            [options]="pieChartOptions"
+            [legend]="pieChartLegend"
+          >
+          </canvas>
+        </div>
       </div>
 
       <!-- Action Buttons -->

@@ -1,0 +1,33 @@
+/* footer.component.css */
+.footer {
+  background-color: #010536;
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 97%;
+  margin-top: 50px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-links a {
+  color: #ffffff;
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-info {
+  font-size: 14px;
+}

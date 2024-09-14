@@ -2,32 +2,14 @@
   padding: 20px;
 }
 
-.mat-card-title {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.mat-card-subtitle {
-  font-size: 18px;
-  color: #666;
-}
-
 .overall-summary {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .summary-item h3 {
-  font-size: 20px;
   margin: 0;
-  color: #1976d2;
-}
-
-.summary-item p {
-  font-size: 24px;
-  margin: 0;
-  font-weight: bold;
 }
 
 .category-table {
@@ -35,23 +17,18 @@
   width: 100%;
 }
 
-.mat-header-cell, .mat-cell {
-  font-size: 16px;
-  padding: 10px;
-}
-
 .graph-section {
   margin-top: 30px;
   text-align: center;
 }
 
-.graph-section img {
-  width: 100%;
-  max-width: 600px;
+.graph-section canvas {
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 .action-buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
+  justify-content: space-around;
+  margin-top: 30px;
 }

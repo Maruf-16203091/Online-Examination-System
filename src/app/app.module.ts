@@ -36,6 +36,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './shared/header/header.component';
 import { TrainingComponent } from './training/training.component';
 import { MatSelectModule } from '@angular/material/select';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { FooterComponent } from './shared/footer/footer.component';
+
 
 
 
@@ -59,7 +62,8 @@ import { MatSelectModule } from '@angular/material/select';
     StartQuizComponent,
     DialogComponent,
     HeaderComponent,
-    TrainingComponent
+    TrainingComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -82,10 +86,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatDialogModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BaseChartDirective
+
 
   ],
-  providers: [],
+  providers: [provideCharts(withDefaultRegisterables())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
