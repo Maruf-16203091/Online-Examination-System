@@ -1,0 +1,19 @@
+.contact-us {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-us h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.contact-us form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-us mat-form-field {
+  margin-bottom: 16px;
+}

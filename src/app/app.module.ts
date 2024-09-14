@@ -38,6 +38,10 @@ import { TrainingComponent } from './training/training.component';
 import { MatSelectModule } from '@angular/material/select';
 import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { FooterComponent } from './shared/footer/footer.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 
 
 
@@ -63,7 +67,11 @@ import { FooterComponent } from './shared/footer/footer.component';
     DialogComponent,
     HeaderComponent,
     TrainingComponent,
-    FooterComponent
+    FooterComponent,
+    AboutUsComponent,
+    ContactUsComponent,
+    PrivacyPolicyComponent,
+    TermsOfServiceComponent
   ],
   imports: [
     BrowserModule,
