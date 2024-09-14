@@ -1,1 +1,30 @@
-<p>register works!</p>
+<div class="register-container">
+  <h2>Register</h2>
+  <form (ngSubmit)="onRegister()">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="name" name="name" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="email" name="email" type="email" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput [(ngModel)]="password" name="password" type="password" required />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Register</button>
+  </form>
+  <div class="social-login">
+    <p>Or register with:</p>
+    <button mat-stroked-button color="primary" (click)="registerWithFacebook()">
+      <mat-icon>facebook</mat-icon>
+      Facebook
+    </button>
+    <button mat-stroked-button color="accent" (click)="registerWithGoogle()">
+      <mat-icon>google</mat-icon>
+      Google
+    </button>
+  </div>
+  <p class="login-link">Already have an account? <a routerLink="/login">Login</a></p>
+</div>

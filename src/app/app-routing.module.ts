@@ -11,7 +11,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
-
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 
 
@@ -28,6 +29,8 @@ const routes: Routes = [
   { path: 'terms-of-service', component: TermsOfServiceComponent }, // terms-of-service Route
   { path: 'profile', component: ProfileComponent }, // terms-of-service Route
   { path: 'update-profile', component: UpdateProfileComponent }, // update-profile Route
+  { path: 'login', component: LoginComponent }, // login Route
+  { path: 'register', component: RegisterComponent }, // register Route
 
 
 
