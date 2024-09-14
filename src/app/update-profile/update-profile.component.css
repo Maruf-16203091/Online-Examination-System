@@ -1,10 +1,20 @@
 .update-profile-container {
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background-color: #f9f9f9;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-column {
+  flex: 1;
+  padding: 10px;
 }
 
 .form-group {
@@ -17,10 +27,63 @@
   font-weight: bold;
 }
 
-.form-control {
+.form-control, .form-control-file {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.profile-pic-group {
+  text-align: center;
+}
+
+.profile-pic-preview {
+  margin-top: 10px;
+}
+
+.profile-pic-preview img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+/* Password field container */
+.password-field {
+  position: relative;
+}
+
+/* Styling for the eye icon */
+.eye-icon {
+  position: absolute;
+  top: 80%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 18px;
+  color: #666;
+}
+
+.eye-icon:hover {
+  color: #000;
+}
+
+.eye-icon mat-icon {
+  font-size: 18px;
+}
+.profile-pic-group {
+  text-align: center;
+}
+
+.profile-pic-preview img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  margin-top: 10px;
 }

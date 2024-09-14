@@ -10,28 +10,58 @@ export class UpdateProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
   user = {
     name: 'Md Maruf Hosen',
-    email: 'maruf.hosen@example.com', // Default email, can be dynamically fetched
-    profilePicture: 'assets/images/profile-picture.jpg'
+    email: 'maruf.hosen@example.com',
+    bio: 'Web Developer at Bosch Rexroth.',
+    contactNumber: '+491234567890',
+    profilePicture: 'assets/profile/profile.jpg'
   };
+  selectedProfileImage: string | ArrayBuffer | null = this.user.profilePicture;
+
+  // Track visibility for password fields
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(private fb: FormBuilder) {
     this.updateProfileForm = this.fb.group({
       name: [this.user.name, Validators.required],
       email: [this.user.email, [Validators.required, Validators.email]],
-      profilePicture: [this.user.profilePicture]
+      bio: [this.user.bio, Validators.required],
+      contactNumber: [this.user.contactNumber, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
+      profilePicture: [null],
+      password: ['', [Validators.minLength(6)]],
+      confirmPassword: ['']
     });
   }
 
   ngOnInit(): void {
-    // Optionally fetch user data from a service
+
   }
 
   onSubmit(): void {
     if (this.updateProfileForm.valid) {
-      // Here you would typically send the form data to a server
       const updatedUser = this.updateProfileForm.value;
       console.log('Profile updated', updatedUser);
-      // For demonstration, we just log it
     }
+  }
+
+  // Method to preview selected image
+  onFileChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.selectedProfileImage = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  // Toggle password visibility
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 }
