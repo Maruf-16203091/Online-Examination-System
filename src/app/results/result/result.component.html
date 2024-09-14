@@ -1,1 +1,71 @@
-<p>result works!</p>
+<app-header></app-header>
+
+<div class="result-page-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Quiz Results</mat-card-title>
+      <mat-card-subtitle>Applicant: John Doe</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Overall Performance Summary -->
+      <div class="overall-summary">
+        <div class="summary-item">
+          <h3>Total Score</h3>
+          <p>85 / 100</p>
+        </div>
+        <div class="summary-item">
+          <h3>Percentage</h3>
+          <p>85%</p>
+        </div>
+        <div class="summary-item">
+          <h3>Time Taken</h3>
+          <p>35 minutes</p>
+        </div>
+      </div>
+
+      <!-- Category-Wise Performance Table -->
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 category-table">
+        <!-- Category Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef> Category </th>
+          <td mat-cell *matCellDef="let element"> {{ element.category }} </td>
+        </ng-container>
+
+        <!-- Questions Attempted Column -->
+        <ng-container matColumnDef="attempted">
+          <th mat-header-cell *matHeaderCellDef> Questions Attempted </th>
+          <td mat-cell *matCellDef="let element"> {{ element.attempted }} </td>
+        </ng-container>
+
+        <!-- Correct Answers Column -->
+        <ng-container matColumnDef="correct">
+          <th mat-header-cell *matHeaderCellDef> Correct Answers </th>
+          <td mat-cell *matCellDef="let element"> {{ element.correct }} </td>
+        </ng-container>
+
+        <!-- Score Column -->
+        <ng-container matColumnDef="score">
+          <th mat-header-cell *matHeaderCellDef> Score </th>
+          <td mat-cell *matCellDef="let element"> {{ element.score }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <!-- Graphical Representation (Optional) -->
+      <div class="graph-section">
+        <h3>Performance Overview</h3>
+        <!-- Graph Placeholder (Can use a library like Chart.js) -->
+        <img src="assets/graph.jpeg" alt="Graph showing performance" />
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button mat-raised-button color="primary">Retry Quiz</button>
+        <button mat-raised-button color="accent">View Detailed Answers</button>
+        <button mat-raised-button color="warn">Return to Dashboard</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -40,14 +40,14 @@
           class="training"
           mat-button
           [routerLink]="'/training'"
-          (click)="viewResults()"
+          (click)="training()"
         >
           Training
         </button>
       </div>
 
       <div>
-        <button class="result" mat-button (click)="training()">Results</button>
+        <button class="result"  [routerLink]="'/result'" mat-button (click)="viewResults()">Results</button>
       </div>
 
       <!-- Profile Picture with Dropdown Trigger -->
