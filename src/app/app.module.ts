@@ -42,6 +42,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
 
 
 
@@ -71,7 +72,8 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
     AboutUsComponent,
     ContactUsComponent,
     PrivacyPolicyComponent,
-    TermsOfServiceComponent
+    TermsOfServiceComponent,
+    UpdateProfileComponent
   ],
   imports: [
     BrowserModule,

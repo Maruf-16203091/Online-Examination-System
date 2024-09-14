@@ -62,8 +62,8 @@
 
       <!-- Profile Dropdown Menu -->
       <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item (click)="goToProfile()">View Profile</button>
-        <button mat-menu-item (click)="updateProfile()">Update Profile</button>
+        <button mat-menu-item [routerLink]="'/profile'" (click)="goToProfile()">View Profile</button>
+        <button mat-menu-item [routerLink]="'/update-profile'" (click)="updateProfile()">Update Profile</button>
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
     </div>

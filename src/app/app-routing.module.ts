@@ -1,3 +1,4 @@
+import { ProfileComponent } from './profile/profile.component';
 import { ResultComponent } from './results/result/result.component';
 import { TrainingComponent } from './training/training.component';
 import { NgModule } from '@angular/core';
@@ -9,6 +10,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
 
 
 
@@ -24,6 +26,8 @@ const routes: Routes = [
   { path: 'contact-us', component: ContactUsComponent }, // contact-us Route
   { path: 'privacy-policy', component: PrivacyPolicyComponent }, // privacy-policy Route
   { path: 'terms-of-service', component: TermsOfServiceComponent }, // terms-of-service Route
+  { path: 'profile', component: ProfileComponent }, // terms-of-service Route
+  { path: 'update-profile', component: UpdateProfileComponent }, // update-profile Route
 
 
 
