@@ -11,6 +11,10 @@
 .summary-item h3 {
   margin: 0;
 }
+.summary-item p {
+ 
+  text-align: center;
+}
 
 .category-table {
   margin-top: 20px;

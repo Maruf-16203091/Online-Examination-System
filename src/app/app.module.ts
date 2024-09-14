@@ -43,6 +43,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -73,7 +74,8 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
     ContactUsComponent,
     PrivacyPolicyComponent,
     TermsOfServiceComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
