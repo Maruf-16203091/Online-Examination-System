@@ -1,3 +1,22 @@
+<div class="header-wrapper">
+  <header class="home-header">
+    <div class="header-content">
+      <div class="logo">
+        <div class="header-left">
+          <img src="assets/logo/logo.png"
+          routerLink="/home" alt="QuizzyBee Logo" />
+          <h1 class="header-QuizzyBee">QuizzyBee</h1>
+          <div class="header-advertisement">
+            <p>🎉 Explore 500+ quizzes now! 🎉</p>
+          </div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a routerLink="/login" class="btn btn-login">Login</a>
+      </nav>
+    </div>
+  </header>
+</div>
 <div class="register-container">
   <h2>Register</h2>
   <form (ngSubmit)="onRegister()">
@@ -11,7 +30,13 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput [(ngModel)]="password" name="password" type="password" required />
+      <input
+        matInput
+        [(ngModel)]="password"
+        name="password"
+        type="password"
+        required
+      />
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Register</button>
   </form>
@@ -26,5 +51,8 @@
       Google
     </button>
   </div>
-  <p class="login-link">Already have an account? <a routerLink="/login">Login</a></p>
+  <p class="login-link">
+    Already have an account? <a routerLink="/login">Login</a>
+  </p>
 </div>
+<app-footer></app-footer>

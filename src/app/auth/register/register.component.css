@@ -1,6 +1,6 @@
 .register-container {
   max-width: 400px;
-  margin: auto;
+  margin: 20px auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -48,3 +48,80 @@ mat-icon {
 .login-link a {
   color: #3f51b5;
 }
+
+/* Header */
+.header-wrapper {
+  position: -webkit-sticky;
+  /* For Safari */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.home-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #FF6F61;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-QuizzyBee {
+  margin-left: 20px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.logo img {
+  width: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.nav-links .btn {
+  background-color: #ffffff;
+  color: #FF6F61;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.nav-links .btn-login {
+  margin-right: 15px;
+}
+
+.nav-links .btn:hover {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+
+
+/* Advertisement Banner */
+.header-advertisement {
+  background-color: #F7AA27;
+  color: #010536;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  margin-left: 40px;
+
+}
+

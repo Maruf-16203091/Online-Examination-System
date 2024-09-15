@@ -13,6 +13,7 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -31,11 +32,12 @@ const routes: Routes = [
   { path: 'update-profile', component: UpdateProfileComponent }, // update-profile Route
   { path: 'login', component: LoginComponent }, // login Route
   { path: 'register', component: RegisterComponent }, // register Route
+  { path: 'home', component: HomeComponent }, // Home Route
 
 
 
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },  // Default route to Dashboard
-  { path: '**', redirectTo: '/dashboard' }  // Fallback route for any invalid paths
+  { path: '', redirectTo: '/home', pathMatch: 'full' },  // Default route to home
+  { path: '**', redirectTo: '/home' }  // Fallback route for any invalid paths
 ];
 
 @NgModule({

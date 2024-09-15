@@ -1,1 +1,79 @@
-<p>home works!</p>
+<main class="main">
+  <!-- Home Component -->
+  <div class="header-wrapper">
+    <header class="home-header">
+      <div class="header-content">
+        <div class="logo">
+          <div class="header-left">
+            <img src="assets/logo/logo.png"
+            routerLink="/home" alt="QuizzyBee Logo" />
+            <h1 class="header-QuizzyBee">QuizzyBee</h1>
+            <div class="header-advertisement">
+              <p>🎉 Explore 500+ quizzes now! 🎉</p>
+            </div>
+          </div>
+
+        </div>
+        <nav class="nav-links">
+          <a routerLink="/login" class="btn btn-login">Login</a>
+          <a routerLink="/register" class="btn btn-register">Register</a>
+        </nav>
+      </div>
+    </header>
+  </div>
+
+
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to QuizzyBee!</h1>
+      <p>The ultimate platform for quiz lovers and knowledge seekers.</p>
+      <a routerLink="/quiz-detail" class="btn btn-primary">Start Your First Quiz</a>
+    </div>
+    <div class="hero-animation">
+      <img src="assets/hero/hero1.jpg" alt="Quiz Animation" />
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <h2>Why QuizzyBee?</h2>
+    <div class="features-container">
+      <div *ngFor="let feature of features" class="feature">
+        <mat-icon>{{ feature.icon }}</mat-icon>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fun Facts Section -->
+  <section class="fun-facts">
+    <h2>Fun Facts About Quizzes</h2>
+    <div class="facts-container">
+      <div class="fact-card">
+        <h3>Did you know?</h3>
+        <p>Quizzes are an amazing way to boost memory retention!</p>
+      </div>
+      <div class="fact-card">
+        <h3>Did you know?</h3>
+        <p>Our quizzes cover over 50+ categories and topics.</p>
+      </div>
+      <div class="fact-card">
+        <h3>Did you know?</h3>
+        <p>Competing in quizzes improves cognitive skills!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="cta-section">
+    <h2>Ready to challenge yourself?</h2>
+    <a routerLink="/register" class="btn btn-secondary">Join QuizzyBee Today!</a>
+  </section>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
+</main>

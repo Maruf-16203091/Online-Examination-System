@@ -1,8 +1,12 @@
 <main class="main">
   <div class="content">
-    <app-header></app-header>
-    <router-outlet></router-outlet>
-    <app-footer></app-footer>
+    <!-- Conditionally render the header -->
+    <app-header *ngIf="shouldDisplayHeaderFooter()"></app-header>
 
+    <!-- Router Outlet -->
+    <router-outlet></router-outlet>
+
+    <!-- Conditionally render the footer -->
+    <app-footer *ngIf="shouldDisplayHeaderFooter()"></app-footer>
   </div>
 </main>

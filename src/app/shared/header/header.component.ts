@@ -1,11 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit  } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  isScrolled = false;
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+    if (this.isScrolled) {
+      document.querySelector('.header-wrapper')?.classList.add('scrolled');
+    } else {
+      document.querySelector('.header-wrapper')?.classList.remove('scrolled');
+    }
+  }
   goToProfile() {
     console.log('Navigating to profile...');
   }
@@ -32,5 +43,11 @@ export class HeaderComponent {
 
   training() {
     console.log('Viewing results...');
-  } 
+  }
+  ngOnInit() {
+    // Ensure the banner animation class is applied if needed
+    if (this.isScrolled) {
+      document.querySelector('.header-advertisement')?.classList.add('animate');
+    }
+  }
 }

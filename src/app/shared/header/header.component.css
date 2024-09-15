@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  background-color: #f7f7fa;
+  background-color: #FF6F61;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -18,18 +18,71 @@
 .header-left {
   display: flex;
   align-items: center;
+  color: white;
 }
 
 .logo {
-  height: 40px;
+  width: 40px;
   margin-right: 20px;
-  border-radius: 40%;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .header-right {
   display: flex;
   align-items: center;
+}
+
+
+/* Advertisement Banner */
+.header-advertisement {
+  background-color: #F7AA27;
+  color: #010536;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  margin-left: 40px;
+  opacity: 0;
+  /* Initially hidden */
+  transform: translateY(-10px);
+  /* Start slightly above */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  /* Animation for opacity and transform */
+}
+
+/* When the header is scrolled */
+.header-wrapper.scrolled .header-advertisement {
+  opacity: 1;
+  /* Show the banner */
+  transform: translateY(0);
+  /* Reset the transform */
+}
+
+/* Keyframes for fade in and out animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Applying the animation */
+.header-advertisement.animate {
+  animation: fadeInOut 3s ease-in-out infinite;
+  /* Looping animation */
 }
 
 /* Updated Dropdown Style */
