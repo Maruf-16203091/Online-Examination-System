@@ -1,0 +1,35 @@
+.quiz-list-container {
+  margin: 20px;
+}
+
+.quiz-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.quiz-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  flex: 1 1 calc(33% - 20px);
+  border: 1px solid #FF6F61;
+  border-radius: 10px;
+}
+
+.quiz-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(224, 182, 182, 0.2);
+}
+
+mat-card {
+  padding: 20px;
+}
+
+.btn-all {
+  margin-left: 6px;
+}
+
+h2 {
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}

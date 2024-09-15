@@ -22,24 +22,34 @@
         </span>
 
         <div class="dropdown-content">
-          <button (click)="filterByCategory('Mathematics')">
+          <button
+            routerLink="/all-quiz"
+            (click)="filterByCategory('Mathematics')"
+          >
             <mat-icon>calculate</mat-icon> Mathematics
           </button>
-          <button (click)="filterByCategory('Science')">
+          <button routerLink="/all-quiz" (click)="filterByCategory('Science')">
             <mat-icon>science</mat-icon> Science
           </button>
-          <button (click)="filterByCategory('History')">
+          <button routerLink="/all-quiz" (click)="filterByCategory('History')">
             <mat-icon>history_edu</mat-icon> History
           </button>
-          <button (click)="filterByCategory('General Knowledge')">
+          <button
+            routerLink="/all-quiz"
+            (click)="filterByCategory('General Knowledge')"
+          >
             <mat-icon>public</mat-icon> General Knowledge
           </button>
         </div>
       </div>
 
       <nav class="nav-links">
-        <a routerLink="/training"  (click)="training()" class="btn btn-login">Training</a>
-        <a routerLink="/result" (click)="viewResults()" class="btn btn-register">Results</a>
+        <a routerLink="/training" (click)="training()" class="btn btn-login"
+          >Training</a
+        >
+        <a routerLink="/result" (click)="viewResults()" class="btn btn-register"
+          >Results</a
+        >
       </nav>
 
       <!-- Profile Picture with Dropdown Trigger -->
@@ -54,8 +64,16 @@
 
       <!-- Profile Dropdown Menu -->
       <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item [routerLink]="'/profile'" (click)="goToProfile()">View Profile</button>
-        <button mat-menu-item [routerLink]="'/update-profile'" (click)="updateProfile()">Update Profile</button>
+        <button mat-menu-item [routerLink]="'/profile'" (click)="goToProfile()">
+          View Profile
+        </button>
+        <button
+          mat-menu-item
+          [routerLink]="'/update-profile'"
+          (click)="updateProfile()"
+        >
+          Update Profile
+        </button>
         <button mat-menu-item (click)="logout()">Logout</button>
       </mat-menu>
     </div>

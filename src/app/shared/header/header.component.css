@@ -213,6 +213,7 @@
 
 .profile-menu:hover {
   transform: scale(1.05);
+
 }
 
 .profile-pic {
@@ -226,3 +227,4 @@
 .profile-menu:hover .profile-pic {
   transform: scale(1.1);
 }
+

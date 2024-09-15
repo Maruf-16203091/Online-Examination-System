@@ -1,3 +1,4 @@
+import { AllQuizComponent } from './all-quiz/all-quiz.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResultComponent } from './results/result/result.component';
 import { TrainingComponent } from './training/training.component';
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // login Route
   { path: 'register', component: RegisterComponent }, // register Route
   { path: 'home', component: HomeComponent }, // Home Route
+  { path: 'all-quiz', component: AllQuizComponent }, // Home Route
 
 
 

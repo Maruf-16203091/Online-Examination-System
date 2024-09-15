@@ -22,14 +22,24 @@
 
 }
 
-.stat-card:hover {
-  transform: scale(1.05);
-  background-color: #2E8B57;
+.stat-card h3 {
 
+  color: #FF6F61;
+
+}
+
+.stat-card:hover {
+  transform: scale(.9);
+  background-color: #FF6F61;
 }
 
 .quiz-list-container {
   margin-top: 20px;
+
+}
+
+.quiz-list-container h2 {
+  color: #FF6F61;
 }
 
 .quiz-list {
@@ -41,10 +51,10 @@
 .quiz-card {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   flex: 1 1 calc(33% - 20px);
-  background-color: #FFFFFF;
-  /* White */
-  border: 1px solid #aaf0cd;
+
+  border: 1px solid #FF6F61;
   border-radius: 10px;
+
 }
 
 .quiz-card:hover {
@@ -53,6 +63,20 @@
 
 }
 
-.btn-all {
-  margin-left: 7px;
+
+
+.soon-btn {
+  color: #FF6F61 !important;
+  border-radius: 14px;
+  font-weight: bolder;
+}
+
+.start-btn {
+  border-radius: 14px;
+}
+
+.result-btn {
+  border-radius: 14px;
+  background-color: #FF6F61 !important;
+  color: white !important;
 }

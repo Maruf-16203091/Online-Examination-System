@@ -20,8 +20,8 @@
   flex: 1;
 }
 
-.profile-info h1 {
-  margin: 0;
+.profile-info h2 {
+color: #FF6F61;
 }
 
 .profile-info p {

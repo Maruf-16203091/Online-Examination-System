@@ -1,5 +1,5 @@
 <div class="update-profile-container">
-  <h2>Update Profile</h2>
+  <h2 class="update">Update Profile</h2>
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <div class="form-column">
@@ -23,7 +23,7 @@
 
       <div class="form-column">
         <div class="form-group profile-pic-group">
-          <label for="profilePicture">Profile Picture</label>
+          <label for="profilePicture pic">Profile Picture</label>
           <input id="profilePicture" type="file" (change)="onFileChange($event)" class="form-control-file" />
           <div class="profile-pic-preview">
             <img [src]="selectedProfileImage" alt="Profile Picture Preview" *ngIf="selectedProfileImage" />

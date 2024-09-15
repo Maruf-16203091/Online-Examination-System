@@ -44,6 +44,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { HomeComponent } from './home/home.component';
+import { AllQuizComponent } from './all-quiz/all-quiz.component';
 
 
 
@@ -75,7 +76,8 @@ import { HomeComponent } from './home/home.component';
     PrivacyPolicyComponent,
     TermsOfServiceComponent,
     UpdateProfileComponent,
-    HomeComponent
+    HomeComponent,
+    AllQuizComponent
   ],
   imports: [
     BrowserModule,
