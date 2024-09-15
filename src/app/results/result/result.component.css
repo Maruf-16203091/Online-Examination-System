@@ -10,15 +10,27 @@
 
 .summary-item h3 {
   margin: 0;
+  color: #FF6F61;
 }
 .summary-item p {
- 
+
   text-align: center;
 }
 
 .category-table {
   margin-top: 20px;
   width: 100%;
+
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #FF6F61 !important;
+  color: white;
 }
 
 .graph-section {
@@ -33,6 +45,22 @@
 
 .action-buttons {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin-top: 30px;
+
+}
+.buttons-container {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+button {
+  background-color: #FF6F61;
+  color: white;
+}
+
+button:hover {
+  background-color: #e65b55;
 }

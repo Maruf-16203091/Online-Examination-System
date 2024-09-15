@@ -45,6 +45,7 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { HomeComponent } from './home/home.component';
 import { AllQuizComponent } from './all-quiz/all-quiz.component';
+import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
 
 
 
@@ -77,7 +78,8 @@ import { AllQuizComponent } from './all-quiz/all-quiz.component';
     TermsOfServiceComponent,
     UpdateProfileComponent,
     HomeComponent,
-    AllQuizComponent
+    AllQuizComponent,
+    ViewDetailAnswerComponent
   ],
   imports: [
     BrowserModule,

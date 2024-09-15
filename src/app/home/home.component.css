@@ -118,6 +118,56 @@
 }
 
 
+
+/* Advertisement Banner-1 */
+.header-advertisement-1 {
+  background-color: white;
+  color: #FF6F61;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  margin-left: 40px;
+  opacity: 0;
+  transform: translateY(-10px);
+  /* Start slightly above */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.header-wrapper.scrolled .header-advertisement-1 {
+  opacity: 1;
+  /* Show the banner */
+  transform: translateY(0);
+  /* Reset the transform */
+}
+
+/* Keyframes for fade in and out animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Applying the animation */
+.header-advertisement-1.animate {
+  animation: fadeInOut 3s ease-in-out infinite;
+  /* Looping animation */
+}
+
+
 /* Hero Section */
 .hero {
   display: flex;

@@ -51,6 +51,10 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+      <div class="buttons-container">
+        <button mat-raised-button color="primary" (click)="downloadTable()">Download</button>
+        <button mat-raised-button color="accent" (click)="printTable()">Print</button>
+      </div>
 
       <!-- Graphical Representation (Pie Chart) -->
       <div class="graph-section">
@@ -71,9 +75,9 @@
 
       <!-- Action Buttons -->
       <div class="action-buttons">
-        <button mat-raised-button color="primary">Retry Quiz</button>
-        <button mat-raised-button color="accent">View Detailed Answers</button>
-        <button mat-raised-button color="warn">Return to Dashboard</button>
+
+        <button  routerLink="/view-detail-answer" mat-raised-button color="accent">View Detailed Answers</button>
+        <button  routerLink="/dashboard" mat-raised-button color="warn">Return to Dashboard</button>
       </div>
     </mat-card-content>
   </mat-card>

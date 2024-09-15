@@ -1,21 +1,33 @@
-<div class="contact-us">
-  <h2>Contact Us</h2>
-  <form>
-    <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Your Name">
-    </mat-form-field>
+<div class="contact-us-container">
+  <div class="contact-us-header">
+    <img src="assets/contact/contact.png" alt="Contact Us" class="contact-us-header-image" />
+    <h2>Contact Us</h2>
+  </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput placeholder="Your Email">
-    </mat-form-field>
+  <div class="contact-us-content">
+    <div class="contact-us-text">
+      <p>Have any questions or feedback? We'd love to hear from you! Fill out the form below, and our team will get back to you as soon as possible.</p>
+    </div>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Message</mat-label>
-      <textarea matInput placeholder="Your Message"></textarea>
-    </mat-form-field>
+    <div class="contact-us-form">
+      <form>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Your Name">
+        </mat-form-field>
 
-    <button mat-raised-button color="primary">Send</button>
-  </form>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Your Email">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Message</mat-label>
+          <textarea matInput placeholder="Your Message"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="submit-btn">Send Message</button>
+      </form>
+    </div>
+  </div>
 </div>

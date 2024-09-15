@@ -41,12 +41,58 @@
               Coming Soon
             </button>
             <button
+            class="start-btn"
+            mat-raised-button
+            color="primary"
+            routerLink="/quiz-detail"
+            *ngIf="quiz.status === 'Completed'"
+          >
+            Start Quiz
+          </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Quiz Section -->
+  <div class="quiz-list-container">
+    <h2>My Quizzes</h2>
+    <div class="quiz-list">
+      <div *ngFor="let quiz of quizzes" class="quiz-card">
+        <mat-card>
+          <mat-card-content>
+            <h3>{{ quiz.title }}</h3>
+            <p><strong>Subject:</strong> {{ quiz.subject }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+
+            <button
               class="result-btn"
               mat-raised-button
+              routerLink="/view-detail-answer"
               *ngIf="quiz.status === 'Completed'"
             >
               View Result
             </button>
+            <button
+            class="result-btn"
+            routerLink="/view-detail-answer"
+            mat-raised-button
+            *ngIf="quiz.status === 'Active'"
+          >
+            View Result
+          </button>
+
+          <button
+            class="result-btn"
+            mat-raised-button
+            routerLink="/view-detail-answer"
+            *ngIf="quiz.status === 'Upcoming'"
+          >
+            View Result
+          </button>
+
           </mat-card-actions>
         </mat-card>
       </div>

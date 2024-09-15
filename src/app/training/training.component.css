@@ -48,6 +48,15 @@
   margin-top: 20px;
 }
 
+th, td {
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #FF6F61 !important;
+  color: white;
+}
 .sample-questions-card {
   margin-top: 20px;
 }

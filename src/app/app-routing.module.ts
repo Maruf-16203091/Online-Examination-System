@@ -15,6 +15,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
+import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
 
 
 
@@ -34,7 +35,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // login Route
   { path: 'register', component: RegisterComponent }, // register Route
   { path: 'home', component: HomeComponent }, // Home Route
-  { path: 'all-quiz', component: AllQuizComponent }, // Home Route
+  { path: 'all-quiz', component: AllQuizComponent }, // all-quiz Route
+  { path: 'view-detail-answer', component: ViewDetailAnswerComponent }, // view-detail-answer Route
 
 
 

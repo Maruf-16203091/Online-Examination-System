@@ -1,0 +1,52 @@
+.container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  color: #FF6F61;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #FF6F61 !important;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+button {
+  background-color: #FF6F61;
+  color: white;
+}
+
+button:hover {
+  background-color: #e65b55;
+}

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartOptions, ChartType, ChartData } from 'chart.js'; // Updated ChartData import
+import jsPDF from 'jspdf';   // Import jsPDF
+import 'jspdf-autotable';    // Import autoTable to extend jsPDF
+import { ChartOptions, ChartType, ChartData } from 'chart.js'; // Import other chart-related types
 
 @Component({
   selector: 'app-result',
@@ -20,8 +22,6 @@ export class ResultComponent implements OnInit {
 
   // Pie chart configuration
   public pieChartLabels: string[] = ['Correct Answers', 'Incorrect Answers'];
-
-  // The 'data' object should now be an array of datasets.
   public pieChartData: ChartData<'pie'> = {
     labels: this.pieChartLabels,
     datasets: [
@@ -31,7 +31,6 @@ export class ResultComponent implements OnInit {
       }
     ]
   };
-
   public pieChartType: ChartType = 'pie';
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -48,5 +47,46 @@ export class ResultComponent implements OnInit {
 
     // Update pie chart data dynamically
     this.pieChartData.datasets[0].data = [totalCorrect, totalIncorrect];
+  }
+
+  downloadTable() {
+    const doc = new jsPDF();
+
+    // Add title to the document
+    doc.text('Quiz Results', 14, 16);
+
+    // Define table columns
+    const columns = ['Category', 'Attempted', 'Correct', 'Score'];
+
+    // Define table rows based on ELEMENT_DATA
+    const rows = this.ELEMENT_DATA.map(item => [
+      item.category,
+      item.attempted,
+      item.correct,
+      item.score
+    ]);
+
+    // Use 'autoTable' to generate the table
+    (doc as any).autoTable({
+      head: [columns],
+      body: rows,
+      startY: 20,  // Start position below the title
+      theme: 'grid',  // Optional theme customization
+      headStyles: { fillColor: '#FF6F61' }, // Table header color
+    });
+
+    // Save the PDF
+    doc.save('quiz_results.pdf');
+  }
+
+  printTable() {
+    const printContent = document.querySelector('table')?.outerHTML || '';
+    const printWindow = window.open('', '', 'height=600,width=800');
+    printWindow?.document.write('<html><head><title>Print Quiz Details</title>');
+    printWindow?.document.write('</head><body >');
+    printWindow?.document.write(printContent);
+    printWindow?.document.write('</body></html>');
+    printWindow?.document.close();
+    printWindow?.print();
   }
 }
