@@ -1,16 +1,35 @@
-.terms-of-service {
+.terms-of-service-container {
   padding: 20px;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-.terms-of-service h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
+.terms-of-service-header {
+  position: relative;
+  margin-bottom: 30px;
 }
 
-.terms-of-service p {
+.terms-of-service-header-image {
+  width: 100%;
+  height: 300px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.terms-of-service-header h2 {
+  font-size: 2.5em;
+  margin-top: 20px;
+  color: #FF6F61;
+}
+
+.terms-of-service-content {
   font-size: 1.2em;
-  line-height: 1.6;
+  line-height: 1.8;
+  color: #333;
   text-align: justify;
+  padding: 0 15px;
+}
+
+.terms-of-service-content p {
+  margin-bottom: 20px;
 }
