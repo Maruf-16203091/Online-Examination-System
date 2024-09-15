@@ -37,21 +37,10 @@
         </div>
       </div>
 
-      <!-- Other elements in the header -->
-      <div>
-        <button
-          class="training"
-          mat-button
-          [routerLink]="'/training'"
-          (click)="training()"
-        >
-          Training
-        </button>
-      </div>
-
-      <div>
-        <button class="result"  [routerLink]="'/result'" mat-button (click)="viewResults()">Results</button>
-      </div>
+      <nav class="nav-links">
+        <a routerLink="/training"  (click)="training()" class="btn btn-login">Training</a>
+        <a routerLink="/result" (click)="viewResults()" class="btn btn-register">Results</a>
+      </nav>
 
       <!-- Profile Picture with Dropdown Trigger -->
       <div class="profile-menu" [matMenuTriggerFor]="profileMenu">

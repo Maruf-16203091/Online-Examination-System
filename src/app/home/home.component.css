@@ -148,6 +148,7 @@
   text-transform: uppercase;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  text-decoration: none;
 }
 
 .hero-content .btn-primary:hover {
@@ -177,7 +178,6 @@
   padding: 60px 40px;
   text-align: center;
   background-color: #f0f8ff;
-  margin-bottom: 50px;
 }
 
 .features-section h2 {
@@ -259,14 +259,13 @@
 
 /* Call to Action Section */
 .cta-section {
-  padding: 60px 0;
+  padding: 180px 80px;
   text-align: center;
   background-color: #f0f8ff;
 }
 
 .cta-section h2 {
   font-size: 2.5em;
-  margin-bottom: 20px;
 }
 
 .cta-section .btn-secondary {
@@ -277,6 +276,7 @@
   text-transform: uppercase;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  text-decoration: none;
 }
 
 .cta-section .btn-secondary:hover {

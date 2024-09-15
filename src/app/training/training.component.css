@@ -28,11 +28,11 @@
 .btn-search {
   width: 200px; /* Increased width */
   height: 60px; /* Increased height */
-  background-color: #1976d2; /* Primary color */
+  background-color: #FF4D4D !important;
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 18px; /* Increased font size */
+  border-radius: 24px;
+  font-size: 22px; /* Increased font size */
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
