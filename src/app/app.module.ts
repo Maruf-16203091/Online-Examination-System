@@ -46,6 +46,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
 import { HomeComponent } from './home/home.component';
 import { AllQuizComponent } from './all-quiz/all-quiz.component';
 import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -103,7 +104,8 @@ import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answ
     MatDialogModule,
     MatSelectModule,
     ReactiveFormsModule,
-    BaseChartDirective
+    BaseChartDirective,
+    HttpClientModule
 
 
   ],
