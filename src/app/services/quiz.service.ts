@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class QuizService {
 
-  private apiUrl = 'http://localhost:5000/api/quizzes'; // URL of your backend API
+  private apiUrl = 'http://localhost:5000/api/quizzes'; 
 
   constructor(private http: HttpClient) { }
 
