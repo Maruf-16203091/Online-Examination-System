@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-training',
@@ -39,9 +40,24 @@ export class TrainingComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
-  constructor() {}
+  private apiUrl = 'http://localhost:5000/api/training'; // Your API endpoint
+
+  constructor(private http: HttpClient) {}
+
+  fetchQuizData() {
+    this.http.get<QuizCategory[]>(this.apiUrl).subscribe(
+      (data) => {
+        this.dataSource.data = data; // Assign fetched data to dataSource
+      },
+      (error) => {
+        console.error('Error fetching quiz data', error);
+      }
+    );
+  }
 
   ngOnInit() {
+
+    this.fetchQuizData();
     // Subscribe to form control value changes to filter data
     this.selectedCategory.valueChanges.subscribe(() => this.applyFilter());
     this.selectedDifficulty.valueChanges.subscribe(() => this.applyFilter());

@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const quizRoutes = require("./routes/quizRoutes"); // Import the quiz routes
+const quizRoutes = require("./routes/quizRoutes");
+const trainingRoutes = require("./routes/trainingRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -31,7 +32,10 @@ app.get("/", (req, res) => {
 });
 
 // Use the quiz routes
-app.use("/api", quizRoutes); // Mount the quiz routes at /api
+app.use("/api", quizRoutes);
+
+// Use the quiz routes
+app.use("/api", trainingRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
