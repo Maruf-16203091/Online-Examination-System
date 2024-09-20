@@ -16,10 +16,13 @@ router.get('/quizzes', async (req, res) => {
 // @route POST /api/quizzes
 // @desc Create a new quiz
 router.post('/quizzes', async (req, res) => {
-  const { title, description, questions } = req.body;
+  const { category, description, difficulty, type,rating, questions } = req.body;
   const newQuiz = new Quiz({
-    title,
+    category,
     description,
+    difficulty,
+    type,
+    rating,
     questions
   });
 
