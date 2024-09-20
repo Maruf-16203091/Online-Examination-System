@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const quizRoutes = require("./routes/quizRoutes");
 const trainingRoutes = require("./routes/trainingRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -16,7 +17,10 @@ app.use(express.json());
 // MongoDB connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("MongoDB connected...");
   } catch (error) {
     console.error(`Error: ${error.message}`);
@@ -30,6 +34,9 @@ connectDB();
 app.get("/", (req, res) => {
   res.send("Quiz App Backend");
 });
+
+// Use the user routes
+app.use("/api", userRoutes);
 
 // Use the quiz routes
 app.use("/api", quizRoutes);
