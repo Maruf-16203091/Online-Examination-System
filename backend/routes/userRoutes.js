@@ -2,10 +2,11 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const { protect } = require("../middlewares/authMiddleware");
 
 // @route GET /api/users
 // @desc Get all users
-router.get("/users", async (req, res) => {
+router.get("/users", protect, async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -16,7 +17,7 @@ router.get("/users", async (req, res) => {
 
 // @route POST /api/users
 // @desc Register a new user
-router.post("/users", async (req, res) => {
+router.post("/users", protect, async (req, res) => {
   const { name, email, password, profileImage, phone, bio, role } = req.body;
 
   const newUser = new User({
@@ -39,7 +40,7 @@ router.post("/users", async (req, res) => {
 
 // @route GET /api/users/:id
 // @desc Get a single user by ID
-router.get("/users/:id", async (req, res) => {
+router.get("/users/:id", protect, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -53,7 +54,7 @@ router.get("/users/:id", async (req, res) => {
 
 // @route PUT /api/users/:id
 // @desc Update a user by ID
-router.put("/users/:id", async (req, res) => {
+router.put("/users/:id", protect, async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -69,7 +70,7 @@ router.put("/users/:id", async (req, res) => {
 
 // @route DELETE /api/users/:id
 // @desc Delete a user by ID
-router.delete("/users/:id", async (req, res) => {
+router.delete("/users/:id", protect, async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
     if (!deletedUser) {

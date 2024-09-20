@@ -4,9 +4,11 @@ const dotenv = require("dotenv");
 const quizRoutes = require("./routes/quizRoutes");
 const trainingRoutes = require("./routes/trainingRoutes");
 const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 
-// Load environment variables
+
 dotenv.config();
+
 
 // Initialize Express app
 const app = express();
@@ -29,6 +31,8 @@ const connectDB = async () => {
 };
 
 connectDB();
+
+app.use("/api/auth", authRoutes);  // Auth routes
 
 // Define a simple route
 app.get("/", (req, res) => {
