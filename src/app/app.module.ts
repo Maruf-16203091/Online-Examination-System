@@ -19,7 +19,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuizListComponent } from './quizzes/quiz-list/quiz-list.component';
-import { QuizCreateComponent } from './quizzes/quiz-create/quiz-create.component';
 import { QuestionFormComponent } from './quizzes/question-form/question-form.component';
 import { QuizDetailComponent } from './quizzes/quiz-detail/quiz-detail.component';
 import { QuizTakeComponent } from './quizzes/quiz-take/quiz-take.component';
@@ -47,6 +46,14 @@ import { HomeComponent } from './home/home.component';
 import { AllQuizComponent } from './all-quiz/all-quiz.component';
 import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CategoryListComponent } from './admin/components/category/category-list/category-list.component';
+import { CategoryCreateComponent } from './admin/components/category/category-create/category-create.component';
+import { UserListComponent } from './admin/components/user/user-list/user-list.component';
+import { UserDetailComponent } from './admin/components/user/user-detail/user-detail.component';
+import { AdminHeaderComponent } from './admin/components/admin-header/admin-header.component';
+import { AdminFooterComponent } from './admin/components/admin-footer/admin-footer.component';
+import { AdminLayoutComponent } from './admin/components/admin-layout/admin-layout.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 
 
@@ -60,7 +67,6 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     DashboardComponent,
     QuizListComponent,
-    QuizCreateComponent,
     QuestionFormComponent,
     QuizDetailComponent,
     QuizTakeComponent,
@@ -80,7 +86,15 @@ import { HttpClientModule } from '@angular/common/http';
     UpdateProfileComponent,
     HomeComponent,
     AllQuizComponent,
-    ViewDetailAnswerComponent
+    ViewDetailAnswerComponent,
+    CategoryListComponent,
+    CategoryCreateComponent,
+    UserListComponent,
+    UserDetailComponent,
+    AdminHeaderComponent,
+    AdminFooterComponent,
+    AdminLayoutComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +119,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatSelectModule,
     ReactiveFormsModule,
     BaseChartDirective,
-    HttpClientModule
+    MatTableModule,
+    HttpClientModule,
+
 
 
   ],

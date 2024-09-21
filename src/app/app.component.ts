@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,10 +8,11 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'online-examination-system';
+
   constructor(private router: Router) { }
 
   // List of routes where header and footer should not appear
-  hideHeaderFooterRoutes: string[] = ['/home', '/login', '/register'];
+  hideHeaderFooterRoutes: string[] = ['/home', '/login', '/register', '/admin'];
 
   shouldDisplayHeaderFooter(): boolean {
     // Returns true if the current route is not in the hide list

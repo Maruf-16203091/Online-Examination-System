@@ -16,6 +16,13 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { CategoryListComponent } from './admin/components/category/category-list/category-list.component';
+import { CategoryCreateComponent } from './admin/components/category/category-create/category-create.component';
+import { QuizListComponent } from './admin/components/quiz/quiz-list/quiz-list.component';
+import { QuizCreateComponent } from './admin/components/quiz/quiz-create/quiz-create.component';
+import { UserListComponent } from './admin/components/user/user-list/user-list.component';
+
 
 
 
@@ -37,6 +44,12 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent }, // Home Route
   { path: 'all-quiz', component: AllQuizComponent }, // all-quiz Route
   { path: 'view-detail-answer', component: ViewDetailAnswerComponent }, // view-detail-answer Route
+  { path: 'admin-dashboard', component: AdminDashboardComponent },
+  { path: 'admin/categories', component: CategoryListComponent },
+  { path: 'admin/categories/create', component: CategoryCreateComponent },
+  { path: 'admin/quizzes/list', component: QuizListComponent },
+  { path: 'admin/quizzes/create', component: QuizCreateComponent },
+  { path: 'admin/users', component: UserListComponent },
 
 
 
