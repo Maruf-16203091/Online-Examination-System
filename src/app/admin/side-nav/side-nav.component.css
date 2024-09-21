@@ -1,0 +1,33 @@
+/* Overall sidenav container to take full height */
+.sidenav-container {
+  height: 100vh;
+}
+
+/* Styling for the sidenav */
+.sidenav {
+  width: 250px;
+  background: #f8f9fa; /* Light background */
+}
+
+/* Active link style */
+.active-link {
+  font-weight: bold;
+  color: #ff6f61; /* Active link color */
+}
+
+/* Main content styling */
+.main-content {
+  padding: 20px;
+}
+
+/* Toolbar styling */
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Responsive sidenav button */
+button[mat-icon-button] {
+  margin-right: 16px;
+}

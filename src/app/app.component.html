@@ -1,12 +1,14 @@
 <main class="main">
   <div class="content">
-    <!-- Conditionally render the header -->
+    <!-- Conditionally render the sidenav for admin routes only -->
+    <app-side-nav *ngIf="shouldDisplaySidenav()"></app-side-nav>
+
+    <!-- Conditionally render the header and footer for non-admin routes -->
     <app-header *ngIf="shouldDisplayHeaderFooter()"></app-header>
 
-    <!-- Router Outlet -->
+    <!-- Main content area -->
     <router-outlet></router-outlet>
 
-    <!-- Conditionally render the footer -->
     <app-footer *ngIf="shouldDisplayHeaderFooter()"></app-footer>
   </div>
 </main>

@@ -47,6 +47,7 @@ import { AllQuizComponent } from './all-quiz/all-quiz.component';
 import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { SideNavComponent } from './admin/side-nav/side-nav.component';
 
 
 
@@ -80,7 +81,8 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
     HomeComponent,
     AllQuizComponent,
     ViewDetailAnswerComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,
@@ -107,6 +109,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
     BaseChartDirective,
     MatTableModule,
     HttpClientModule,
+
 
 
 

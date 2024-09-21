@@ -1,0 +1,21 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="true" mode="side" opened>
+    <mat-toolbar color="primary">Admin Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin-dashboard" routerLinkActive="active-link">Dashboard</a>
+      <a mat-list-item routerLink="/admin/categories" routerLinkActive="active-link">Category List</a>
+      <a mat-list-item routerLink="/admin/categories/create" routerLinkActive="active-link">Add Category</a>
+      <a mat-list-item routerLink="/admin/quizzes" routerLinkActive="active-link">Quiz List</a>
+      <a mat-list-item routerLink="/admin/quizzes/create" routerLinkActive="active-link">Add Quiz</a>
+      <a mat-list-item routerLink="/admin/users" routerLinkActive="active-link">User List</a>
+      <a mat-list-item routerLink="/admin/settings" routerLinkActive="active-link">Settings</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    
+
+    <!-- Placeholder for routed components -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
