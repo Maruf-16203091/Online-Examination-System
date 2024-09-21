@@ -29,7 +29,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { StartQuizComponent } from './quizzes/start-quiz/start-quiz.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogComponent } from './quizzes/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './shared/header/header.component';
@@ -46,13 +46,6 @@ import { HomeComponent } from './home/home.component';
 import { AllQuizComponent } from './all-quiz/all-quiz.component';
 import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CategoryListComponent } from './admin/components/category/category-list/category-list.component';
-import { CategoryCreateComponent } from './admin/components/category/category-create/category-create.component';
-import { UserListComponent } from './admin/components/user/user-list/user-list.component';
-import { UserDetailComponent } from './admin/components/user/user-detail/user-detail.component';
-import { AdminHeaderComponent } from './admin/components/admin-header/admin-header.component';
-import { AdminFooterComponent } from './admin/components/admin-footer/admin-footer.component';
-import { AdminLayoutComponent } from './admin/components/admin-layout/admin-layout.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 
@@ -87,13 +80,6 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
     HomeComponent,
     AllQuizComponent,
     ViewDetailAnswerComponent,
-    CategoryListComponent,
-    CategoryCreateComponent,
-    UserListComponent,
-    UserDetailComponent,
-    AdminHeaderComponent,
-    AdminFooterComponent,
-    AdminLayoutComponent,
     AdminDashboardComponent
   ],
   imports: [
