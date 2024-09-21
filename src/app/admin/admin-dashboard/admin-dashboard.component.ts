@@ -19,7 +19,7 @@ export class AdminDashboardComponent implements OnInit {
     { title: 'History Quiz', subject: 'History', status: 'Completed' }
   ];
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     // Fetch or calculate stats and quizzes here if needed
