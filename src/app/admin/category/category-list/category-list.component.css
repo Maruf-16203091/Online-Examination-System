@@ -1,0 +1,85 @@
+.sidenav-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+/* Set the sidenav width to 20% */
+.sidenav {
+  width: 20%; /* Sidenav takes 20% of the width */
+  background: #f8f2f2;
+}
+
+/* The main content should take the remaining 80% */
+.main-content {
+  flex-grow: 1;
+  width: 80%; /* Content takes the remaining 80% */
+
+  margin: 0; /* No margin to eliminate any extra space at the top */
+  overflow-y: auto; /* Allow content to scroll if needed */
+  height: 100vh; /* Ensure content fills the height of the viewport */
+  box-sizing: border-box; /* Ensure padding does not add extra space */
+}
+
+/* Remove the toolbar margin if there's any unwanted spacing */
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff6f61 !important;
+  color: white;
+  margin: 0; /* Ensure no extra space */
+}
+.container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  color: #FF6F61;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  background-color: white;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background-color: #FF6F61 !important;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+button {
+
+  color: #FF6F61;
+}
+
+button:hover {
+  background-color: #FF6F61;
+  color: white;
+}

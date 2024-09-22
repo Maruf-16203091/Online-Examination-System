@@ -1,1 +1,124 @@
-<p>category-list works!</p>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" mode="side" opened>
+    <mat-toolbar>Admin Menu</mat-toolbar>
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/admin-dashboard"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/category-list"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>category</mat-icon>
+        <span>Category List</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/categories/create"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>add_circle</mat-icon>
+        <span>Add Category</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/quizzes"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>list_alt</mat-icon>
+        <span>Quiz List</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/quizzes/create"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>Add Quiz</span>
+      </a>
+      <a mat-list-item routerLink="/admin/users" routerLinkActive="active-link">
+        <mat-icon>people</mat-icon>
+        <span>User List</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/settings"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Quiz Admin Dashboard</span>
+    </mat-toolbar>
+
+    <!-- Your dashboard content -->
+
+    <div class="container">
+      <h2>Category List</h2>
+      <!-- Table -->
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Question No. Column -->
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef>Category No.</th>
+          <td mat-cell *matCellDef="let category; let i = index">
+            {{ i + 1 }}
+          </td>
+        </ng-container>
+
+        <!-- Question Column -->
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>Category</th>
+          <td mat-cell *matCellDef="let category">{{ category.category }}</td>
+        </ng-container>
+
+        <!-- Active Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Active Status</th>
+          <td mat-cell *matCellDef="let category">{{ category.status }}</td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let category">
+            <button mat-icon-button (click)="openEditModal(category)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteCategory(category)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Header and Row Definitions -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <!-- Buttons -->
+      <div class="buttons-container">
+        <button mat-raised-button color="primary" (click)="downloadTable()">
+          Download
+        </button>
+        <button mat-raised-button color="accent" (click)="printTable()">
+          Print
+        </button>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

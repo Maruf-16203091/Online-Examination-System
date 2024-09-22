@@ -17,6 +17,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { CategoryListComponent } from './admin/category/category-list/category-list.component';
 
 
 
@@ -41,6 +42,7 @@ const routes: Routes = [
 
   // Admin Route
   { path: 'admin-dashboard', component: AdminDashboardComponent },
+  { path: 'admin/category-list', component: CategoryListComponent },
 
 
 

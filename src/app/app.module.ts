@@ -48,9 +48,9 @@ import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answ
 import { HttpClientModule } from '@angular/common/http';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { SideNavComponent } from './admin/side-nav/side-nav.component';
-import { CategoryComponent } from './admin/category/category.component';
 import { CategoryListComponent } from './admin/category/category-list/category-list.component';
 import { CategoryAddComponent } from './admin/category/category-add/category-add.component';
+import { EditCategoryDialogComponent } from './admin/category/edit-category-dialog/edit-category-dialog.component';
 
 
 
@@ -86,9 +86,9 @@ import { CategoryAddComponent } from './admin/category/category-add/category-add
     ViewDetailAnswerComponent,
     AdminDashboardComponent,
     SideNavComponent,
-    CategoryComponent,
+    CategoryAddComponent,
     CategoryListComponent,
-    CategoryAddComponent
+    EditCategoryDialogComponent
   ],
   imports: [
     BrowserModule,
