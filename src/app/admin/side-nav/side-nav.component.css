@@ -1,33 +1,32 @@
-/* Overall sidenav container to take full height */
 .sidenav-container {
+  display: flex;
+  flex-direction: row;
   height: 100vh;
 }
 
-/* Styling for the sidenav */
+/* Set the sidenav width to 20% */
 .sidenav {
-  width: 250px;
-  background: #f8f9fa; /* Light background */
+  width: 20%; /* Sidenav takes 20% of the width */
+  background: #f8f2f2;
 }
 
-/* Active link style */
-.active-link {
-  font-weight: bold;
-  color: #ff6f61; /* Active link color */
-}
-
-/* Main content styling */
+/* The main content should take the remaining 80% */
 .main-content {
-  padding: 20px;
+  flex-grow: 1;
+  width: 80%; /* Content takes the remaining 80% */
+
+  margin: 0; /* No margin to eliminate any extra space at the top */
+  overflow-y: auto; /* Allow content to scroll if needed */
+  height: 100vh; /* Ensure content fills the height of the viewport */
+  box-sizing: border-box; /* Ensure padding does not add extra space */
 }
 
-/* Toolbar styling */
+/* Remove the toolbar margin if there's any unwanted spacing */
 mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-/* Responsive sidenav button */
-button[mat-icon-button] {
-  margin-right: 16px;
+  background-color: #ff6f61 !important;
+  color: white;
+  margin: 0; /* Ensure no extra space */
 }
