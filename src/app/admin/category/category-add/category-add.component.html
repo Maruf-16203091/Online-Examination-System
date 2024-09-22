@@ -1,1 +1,112 @@
-<p>category-add works!</p>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" mode="side" opened>
+    <mat-toolbar>Admin Menu</mat-toolbar>
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/admin-dashboard"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+
+      <span class="nav-group-title">Categories</span>
+      <a
+        mat-list-item
+        routerLink="/admin/category-list"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>category</mat-icon>
+        <span>Category List</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/category-add"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>add_circle</mat-icon>
+        <span>Add Category</span>
+      </a>
+
+      <span class="nav-group-title">Quizzes</span>
+      <a
+        mat-list-item
+        routerLink="/admin/quizzes"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>list_alt</mat-icon>
+        <span>Quiz List</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/quizzes/create"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>Add Quiz</span>
+      </a>
+
+      <span class="nav-group-title">Users</span>
+      <a mat-list-item routerLink="/admin/users" routerLinkActive="active-link">
+        <mat-icon>people</mat-icon>
+        <span>User List</span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/admin/settings"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </a>
+
+      <a mat-list-item routerLink="/logout">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Quiz Admin Dashboard</span>
+    </mat-toolbar>
+
+    <mat-card class="add-category-card">
+      <mat-card-title>Add Category</mat-card-title>
+      <mat-card-content>
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>Category</mat-label>
+          <input matInput [(ngModel)]="category" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>Status</mat-label>
+          <mat-select [(ngModel)]="status" required>
+            <mat-option value="Active">Active</mat-option>
+            <mat-option value="Inactive">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="saveCategory()">
+          Save
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-snack-bar-container
+  *ngIf="snackBarMessage"
+  [style.backgroundColor]="'#ff6f61'"
+  class="snack-bar"
+>
+  {{ snackBarMessage }}
+</mat-snack-bar-container>

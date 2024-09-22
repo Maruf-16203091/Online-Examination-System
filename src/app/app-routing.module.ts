@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answer.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { CategoryListComponent } from './admin/category/category-list/category-list.component';
+import { CategoryAddComponent } from './admin/category/category-add/category-add.component';
 
 
 
@@ -43,6 +44,7 @@ const routes: Routes = [
   // Admin Route
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'admin/category-list', component: CategoryListComponent },
+  { path: 'admin/category-add', component: CategoryAddComponent },
 
 
 

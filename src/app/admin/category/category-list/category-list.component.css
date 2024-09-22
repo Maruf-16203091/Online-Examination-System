@@ -14,8 +14,7 @@
 .active-link {
   color: #ff6f61;
   /* Highlight active link */
-  border-left: 4px solid #ff6f61;
-  /* Add left border to the active link */
+  border-right: 8px solid #ff6f61;
   background-color: #fce4ec;
   /* Background color for active state */
 }

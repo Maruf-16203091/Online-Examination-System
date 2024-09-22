@@ -51,6 +51,7 @@ import { SideNavComponent } from './admin/side-nav/side-nav.component';
 import { CategoryListComponent } from './admin/category/category-list/category-list.component';
 import { CategoryAddComponent } from './admin/category/category-add/category-add.component';
 import { EditCategoryDialogComponent } from './admin/category/edit-category-dialog/edit-category-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -115,6 +116,7 @@ import { EditCategoryDialogComponent } from './admin/category/edit-category-dial
     BaseChartDirective,
     MatTableModule,
     HttpClientModule,
+    MatSnackBarModule
 
 
 
