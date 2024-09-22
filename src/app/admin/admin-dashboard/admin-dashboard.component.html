@@ -2,27 +2,47 @@
   <mat-sidenav #drawer class="sidenav" mode="side" opened>
     <mat-toolbar>Admin Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/admin-dashboard" routerLinkActive="active-link">
+      <a
+        mat-list-item
+        routerLink="/admin-dashboard"
+        routerLinkActive="active-link"
+      >
         <mat-icon>dashboard</mat-icon>
         <span>Dashboard</span>
       </a>
 
       <span class="nav-group-title">Categories</span>
-      <a mat-list-item routerLink="/admin/category-list" routerLinkActive="active-link">
+      <a
+        mat-list-item
+        routerLink="/admin/category-list"
+        routerLinkActive="active-link"
+      >
         <mat-icon>category</mat-icon>
         <span>Category List</span>
       </a>
-      <a mat-list-item routerLink="/admin/category-add" routerLinkActive="active-link">
+      <a
+        mat-list-item
+        routerLink="/admin/category-add"
+        routerLinkActive="active-link"
+      >
         <mat-icon>add_circle</mat-icon>
         <span>Add Category</span>
       </a>
 
       <span class="nav-group-title">Quizzes</span>
-      <a mat-list-item routerLink="/admin/quizzes" routerLinkActive="active-link">
+      <a
+        mat-list-item
+        routerLink="/admin/quiz-list"
+        routerLinkActive="active-link"
+      >
         <mat-icon>list_alt</mat-icon>
         <span>Quiz List</span>
       </a>
-      <a mat-list-item routerLink="/admin/quizzes/create" routerLinkActive="active-link">
+      <a
+        mat-list-item
+        routerLink="/admin/quizzes/create"
+        routerLinkActive="active-link"
+      >
         <mat-icon>add_circle_outline</mat-icon>
         <span>Add Quiz</span>
       </a>
@@ -33,7 +53,11 @@
         <span>User List</span>
       </a>
 
-      <a mat-list-item routerLink="/admin/settings" routerLinkActive="active-link">
+      <a
+        mat-list-item
+        routerLink="/admin/settings"
+        routerLinkActive="active-link"
+      >
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
       </a>

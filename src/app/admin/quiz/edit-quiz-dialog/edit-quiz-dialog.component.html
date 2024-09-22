@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Edit Quiz</h2>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <input matInput [(ngModel)]="data.category">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Question</mat-label>
+    <input matInput [(ngModel)]="data.question">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Status</mat-label>
+    <mat-select [(value)]="data.status">
+      <mat-option value="Active">Active</mat-option>
+      <mat-option value="Inactive">Inactive</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Correct Answer</mat-label>
+    <input matInput [(ngModel)]="data.correctAnswer">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onSave()">Save</button>
+</div>

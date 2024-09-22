@@ -52,6 +52,8 @@ import { CategoryListComponent } from './admin/category/category-list/category-l
 import { CategoryAddComponent } from './admin/category/category-add/category-add.component';
 import { EditCategoryDialogComponent } from './admin/category/edit-category-dialog/edit-category-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminQuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
+import { EditQuizDialogComponent } from './admin/quiz/edit-quiz-dialog/edit-quiz-dialog.component';
 
 
 
@@ -89,7 +91,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SideNavComponent,
     CategoryAddComponent,
     CategoryListComponent,
-    EditCategoryDialogComponent
+    EditCategoryDialogComponent,
+    AdminQuizListComponent,
+    EditQuizDialogComponent
   ],
   imports: [
     BrowserModule,

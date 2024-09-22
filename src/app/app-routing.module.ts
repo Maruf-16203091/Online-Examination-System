@@ -19,6 +19,7 @@ import { ViewDetailAnswerComponent } from './view-detail-answer/view-detail-answ
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { CategoryListComponent } from './admin/category/category-list/category-list.component';
 import { CategoryAddComponent } from './admin/category/category-add/category-add.component';
+import { AdminQuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
 
 
 
@@ -45,6 +46,8 @@ const routes: Routes = [
   { path: 'admin-dashboard', component: AdminDashboardComponent },
   { path: 'admin/category-list', component: CategoryListComponent },
   { path: 'admin/category-add', component: CategoryAddComponent },
+  { path: 'admin/quiz-list', component: AdminQuizListComponent },
+  // { path: 'admin/quiz-add', component: AdminQuizAddComponent },
 
 
 
