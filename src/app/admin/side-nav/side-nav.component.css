@@ -30,3 +30,9 @@ mat-toolbar {
   color: white;
   margin: 0; /* Ensure no extra space */
 }
+
+.active-link {
+  color: #ff6f61; /* Highlight active link */
+  border-left: 4px solid #ff6f61; /* Add left border to the active link */
+  background-color: #fce4ec; /* Background color for active state */
+}
