@@ -54,6 +54,8 @@ import { EditCategoryDialogComponent } from './admin/category/edit-category-dial
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminQuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
 import { EditQuizDialogComponent } from './admin/quiz/edit-quiz-dialog/edit-quiz-dialog.component';
+import { AdminQuizAddComponent } from './admin/quiz/quiz-add/quiz-add.component';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 
 
@@ -93,7 +95,8 @@ import { EditQuizDialogComponent } from './admin/quiz/edit-quiz-dialog/edit-quiz
     CategoryListComponent,
     EditCategoryDialogComponent,
     AdminQuizListComponent,
-    EditQuizDialogComponent
+    EditQuizDialogComponent,
+    AdminQuizAddComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +123,8 @@ import { EditQuizDialogComponent } from './admin/quiz/edit-quiz-dialog/edit-quiz
     BaseChartDirective,
     MatTableModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxMatTimepickerModule
 
 
 

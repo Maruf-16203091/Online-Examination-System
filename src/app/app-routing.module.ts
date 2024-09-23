@@ -20,6 +20,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { CategoryListComponent } from './admin/category/category-list/category-list.component';
 import { CategoryAddComponent } from './admin/category/category-add/category-add.component';
 import { AdminQuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
+import { AdminQuizAddComponent } from './admin/quiz/quiz-add/quiz-add.component';
 
 
 
@@ -47,7 +48,7 @@ const routes: Routes = [
   { path: 'admin/category-list', component: CategoryListComponent },
   { path: 'admin/category-add', component: CategoryAddComponent },
   { path: 'admin/quiz-list', component: AdminQuizListComponent },
-  // { path: 'admin/quiz-add', component: AdminQuizAddComponent },
+  { path: 'admin/quiz-add', component: AdminQuizAddComponent },
 
 
 

@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(private router: Router) { }
 
   // List of routes where header and footer should not appear
-  hideHeaderFooterRoutes: string[] = ['/home', '/login', '/register', '/admin-dashboard', '/admin/category-list', '/admin/category-add', '/admin/quiz-list'];
+  hideHeaderFooterRoutes: string[] = ['/home', '/login', '/register', '/admin-dashboard', '/admin/category-list', '/admin/category-add', '/admin/quiz-list', '/admin/quiz-add'];
 
   // List of routes where sidenav should appear (e.g., for admin dashboard)
   adminSidenavRoutes: string[] = ['/admin-dashboard', '/admin/categories', '/admin/quizzes', '/admin/users'];
