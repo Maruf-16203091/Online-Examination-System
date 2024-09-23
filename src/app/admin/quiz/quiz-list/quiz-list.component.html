@@ -81,81 +81,89 @@
       <h2>Quiz List</h2>
 
       <!-- Quiz Table -->
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <!-- Question No. Column -->
-        <ng-container matColumnDef="no">
-          <th mat-header-cell *matHeaderCellDef>Question No.</th>
-          <td mat-cell *matCellDef="let quiz; let i = index">
-            {{ i + 1 }}
-          </td>
-        </ng-container>
+      <div class="responsive-table-container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <!-- Category Column -->
-        <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef>Category</th>
-          <td mat-cell *matCellDef="let quiz">{{ quiz.category }}</td>
-        </ng-container>
+          <!-- Question No. Column -->
+          <ng-container matColumnDef="no">
+            <th mat-header-cell *matHeaderCellDef>Question No.</th>
+            <td mat-cell *matCellDef="let quiz; let i = index">{{ i + 1 }}</td>
+          </ng-container>
 
-        <!-- Question Column -->
-        <ng-container matColumnDef="question">
-          <th mat-header-cell *matHeaderCellDef>Question</th>
-          <td mat-cell *matCellDef="let quiz">{{ quiz.question }}</td>
-        </ng-container>
+          <!-- Category Column -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let quiz">{{ quiz.category }}</td>
+          </ng-container>
 
-        <!-- Active Status Column -->
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef>Status</th>
-          <td mat-cell *matCellDef="let quiz">{{ quiz.status }}</td>
-        </ng-container>
+          <!-- Question Column -->
+          <ng-container matColumnDef="question">
+            <th mat-header-cell *matHeaderCellDef>Question</th>
+            <td mat-cell *matCellDef="let quiz">{{ quiz.question }}</td>
+          </ng-container>
 
-        <!-- Options Column -->
-        <ng-container matColumnDef="options">
-          <th mat-header-cell *matHeaderCellDef>Options</th>
-          <td mat-cell *matCellDef="let quiz">{{ quiz.options.join(", ") }}</td>
-        </ng-container>
+          <!-- Options Column -->
+          <ng-container matColumnDef="options">
+            <th mat-header-cell *matHeaderCellDef>Options</th>
+            <td mat-cell *matCellDef="let quiz">{{ quiz.options.join(", ") }}</td>
+          </ng-container>
 
-        <!-- Correct Answer Column -->
-        <ng-container matColumnDef="correctAnswer">
-          <th mat-header-cell *matHeaderCellDef>Correct Answer</th>
-          <td mat-cell *matCellDef="let quiz">{{ quiz.correctAnswer }}</td>
-        </ng-container>
+          <!-- Correct Answer Column -->
+          <ng-container matColumnDef="correctAnswer">
+            <th mat-header-cell *matHeaderCellDef>Correct Answer</th>
+            <td mat-cell *matCellDef="let quiz">{{ quiz.correctAnswer }}</td>
+          </ng-container>
 
-        <!-- Set Time Column -->
-        <ng-container matColumnDef="setTime">
-          <th mat-header-cell *matHeaderCellDef>Set Time</th>
-          <td mat-cell *matCellDef="let quiz">{{ quiz.setTime }} mins</td>
-        </ng-container>
+          <!-- Set Time Column -->
+          <ng-container matColumnDef="setTime">
+            <th mat-header-cell *matHeaderCellDef>Set Time</th>
+            <td mat-cell *matCellDef="let quiz">{{ quiz.setTime }} mins</td>
+          </ng-container>
 
-        <!-- Question Type Column -->
-        <ng-container matColumnDef="questionType">
-          <th mat-header-cell *matHeaderCellDef>Question Type</th>
-          <td mat-cell *matCellDef="let quiz">{{ quiz.questionType }}</td>
-        </ng-container>
+          <!-- Question Type Column -->
+          <ng-container matColumnDef="questionType">
+            <th mat-header-cell *matHeaderCellDef>Question Type</th>
+            <td mat-cell *matCellDef="let quiz">{{ quiz.questionType }}</td>
+          </ng-container>
 
-        <!-- Difficulty Column -->
-        <ng-container matColumnDef="difficulty">
-          <th mat-header-cell *matHeaderCellDef>Difficulty</th>
-          <td mat-cell *matCellDef="let quiz">{{ quiz.difficulty }}</td>
-        </ng-container>
+          <!-- Difficulty Column -->
+          <ng-container matColumnDef="difficulty">
+            <th mat-header-cell *matHeaderCellDef>Difficulty</th>
+            <td mat-cell *matCellDef="let quiz">{{ quiz.difficulty }}</td>
+          </ng-container>
 
-        <!-- Action Column -->
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>Action</th>
-          <td mat-cell *matCellDef="let quiz">
-            <button mat-button (click)="openEditModal(quiz)">Edit</button>
-            <button mat-button color="warn" (click)="deleteQuiz(quiz)">Delete</button>
-          </td>
-        </ng-container>
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let quiz">{{ quiz.status }}</td>
+          </ng-container>
 
-        <!-- Header and Row Definitions -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let quiz">
+              <div class="action-buttons">
+                <button mat-icon-button color="primary" (click)="openEditModal(quiz)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button class="edit-delete" (click)="deleteQuiz(quiz)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Header and Row Definitions -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+
       <!-- Buttons -->
-      <div class="buttons-container">
-        <button mat-raised-button color="primary" (click)="downloadTable()">Download PDF</button>
-        <button mat-raised-button color="accent" (click)="printTable()">Print</button>
-        <button mat-raised-button color="warn" (click)="downloadCSV()">Download CSV</button>
+      <div class="buttons-container btn-all">
+        <button mat-raised-button color="primary" style="margin-left: 5px;" (click)="downloadTable()">Download PDF</button>
+        <button mat-raised-button color="accent" style="margin-left: 5px;" (click)="printTable()">Print</button>
+        <button mat-raised-button color="warn" style="margin-left: 5px;" (click)="downloadCSV()">Download CSV</button>
       </div>
     </div>
   </mat-sidenav-content>

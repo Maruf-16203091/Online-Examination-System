@@ -5,6 +5,7 @@ button {
   color: white !important;
   transition: background-color 0.3s;
   margin-left: 15px;
+  margin-top: -35px !important;
 }
 
 
@@ -15,7 +16,7 @@ button:hover {
 
 .saveButton {
 
-  background-color:#3F51B5;
+  background-color: #3F51B5;
   color: white;
 }
 

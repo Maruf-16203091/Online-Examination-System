@@ -1,13 +1,13 @@
-<h2 mat-dialog-title>Edit Quiz</h2>
-<div mat-dialog-content>
+<h2 mat-dialog-title style="color: #ff6f61">Edit Quiz</h2>
+<div mat-dialog-content class="form-grid">
   <mat-form-field>
     <mat-label>Category</mat-label>
-    <input matInput [(ngModel)]="data.category">
+    <input matInput [(ngModel)]="data.category" />
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Question</mat-label>
-    <input matInput [(ngModel)]="data.question">
+    <input matInput [(ngModel)]="data.question" />
   </mat-form-field>
 
   <mat-form-field>
@@ -20,10 +20,26 @@
 
   <mat-form-field>
     <mat-label>Correct Answer</mat-label>
-    <input matInput [(ngModel)]="data.correctAnswer">
+    <input matInput [(ngModel)]="data.correctAnswer" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Set Time</mat-label>
+    <input matInput [(ngModel)]="data.setTime" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Question Type</mat-label>
+    <input matInput [(ngModel)]="data.questionType" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Difficulty</mat-label>
+    <input matInput [(ngModel)]="data.difficulty" />
   </mat-form-field>
 </div>
+
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary" (click)="onSave()">Save</button>
+  <button class="saveButton" mat-button (click)="onSave()">Save</button>
 </div>

@@ -60,7 +60,8 @@ export class AdminQuizListComponent implements OnInit {
   // EDIT Quiz
   openEditModal(quiz: Quiz): void {
     const dialogRef = this.dialog.open(EditQuizDialogComponent, {
-      width: '300px',
+      width: '700px',
+      height:'400px',
       data: { ...quiz } // Pass the selected quiz data to the modal
     });
 
