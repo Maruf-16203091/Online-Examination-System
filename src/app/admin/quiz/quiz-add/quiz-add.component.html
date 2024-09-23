@@ -134,7 +134,14 @@
         </mat-form-field>
       </div>
       <mat-card-actions>
-        <button class="button" mat-raised-button color="primary" (click)="saveQuiz()">Save</button>
+        <button
+          class="button"
+          mat-raised-button
+          color="primary"
+          (click)="saveQuiz()"
+        >
+          Save
+        </button>
       </mat-card-actions>
     </mat-card>
   </mat-sidenav-content>
@@ -147,4 +154,3 @@
 >
   {{ snackBarMessage }}
 </mat-snack-bar-container>
-
