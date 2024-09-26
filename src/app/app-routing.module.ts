@@ -23,6 +23,7 @@ import { AdminQuizListComponent } from './admin/quiz/quiz-list/quiz-list.compone
 import { AdminQuizAddComponent } from './admin/quiz/quiz-add/quiz-add.component';
 import { UserListComponent } from './admin/user/user-list/user-list.component';
 import { ResultListComponent } from './admin/result/result-list/result-list.component';
+import { SettingsComponent } from './admin/settings/settings.component';
 
 
 
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'admin/quiz-add', component: AdminQuizAddComponent },
   { path: 'admin/users', component: UserListComponent },
   { path: 'admin/result', component: ResultListComponent },
+  { path: 'admin/settings', component: SettingsComponent },
 
 
 

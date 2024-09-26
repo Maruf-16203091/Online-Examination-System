@@ -58,6 +58,8 @@ import { AdminQuizAddComponent } from './admin/quiz/quiz-add/quiz-add.component'
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { UserListComponent } from './admin/user/user-list/user-list.component';
 import { ResultListComponent } from './admin/result/result-list/result-list.component';
+import { SettingsComponent } from './admin/settings/settings.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 
@@ -100,7 +102,8 @@ import { ResultListComponent } from './admin/result/result-list/result-list.comp
     EditQuizDialogComponent,
     AdminQuizAddComponent,
     UserListComponent,
-    ResultListComponent
+    ResultListComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -128,7 +131,8 @@ import { ResultListComponent } from './admin/result/result-list/result-list.comp
     MatTableModule,
     HttpClientModule,
     MatSnackBarModule,
-    NgxMatTimepickerModule
+    NgxMatTimepickerModule,
+    MatSlideToggleModule
 
 
 

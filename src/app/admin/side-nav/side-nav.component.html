@@ -7,10 +7,8 @@
         routerLink="/admin-dashboard"
         routerLinkActive="active-link"
       >
-        <mat-icon>dashboard</mat-icon>
-        <span>Dashboard</span>
+        <mat-icon>dashboard</mat-icon><span>Dashboard</span>
       </a>
-
       <span class="nav-group-title">Categories</span>
       <a
         mat-list-item
@@ -52,6 +50,14 @@
         <mat-icon>people</mat-icon>
         <span>User List</span>
       </a>
+      <span class="nav-group-title">Results</span>
+      <a
+        mat-list-item
+        routerLink="/admin/result"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>assessment</mat-icon><span>View Results</span>
+      </a>
 
       <a
         mat-list-item
@@ -61,11 +67,9 @@
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
       </a>
-
-      <a mat-list-item routerLink="/logout">
-        <mat-icon>logout</mat-icon>
-        <span>Logout</span>
-      </a>
+      <a mat-list-item routerLink="/logout"
+        ><mat-icon>logout</mat-icon><span>Logout</span></a
+      >
     </mat-nav-list>
   </mat-sidenav>
 
@@ -77,8 +81,6 @@
       <span>Quiz Admin Dashboard</span>
     </mat-toolbar>
 
- page start here
+   page start here
   </mat-sidenav-content>
-</mat-sidenav-container>
-
- -->
+</mat-sidenav-container> -->

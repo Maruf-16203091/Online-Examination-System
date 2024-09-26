@@ -1,0 +1,150 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" mode="side" opened>
+    <mat-toolbar>Admin Menu</mat-toolbar>
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/admin-dashboard"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>dashboard</mat-icon><span>Dashboard</span>
+      </a>
+      <span class="nav-group-title">Categories</span>
+      <a
+        mat-list-item
+        routerLink="/admin/category-list"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>category</mat-icon>
+        <span>Category List</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/category-add"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>add_circle</mat-icon>
+        <span>Add Category</span>
+      </a>
+
+      <span class="nav-group-title">Quizzes</span>
+      <a
+        mat-list-item
+        routerLink="/admin/quiz-list"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>list_alt</mat-icon>
+        <span>Quiz List</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/quiz-add"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>Add Quiz</span>
+      </a>
+
+      <span class="nav-group-title">Users</span>
+      <a mat-list-item routerLink="/admin/users" routerLinkActive="active-link">
+        <mat-icon>people</mat-icon>
+        <span>User List</span>
+      </a>
+      <span class="nav-group-title">Results</span>
+      <a
+        mat-list-item
+        routerLink="/admin/result"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>assessment</mat-icon><span>View Results</span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/admin/settings"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </a>
+      <a mat-list-item routerLink="/logout"
+        ><mat-icon>logout</mat-icon><span>Logout</span></a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Quiz Admin Dashboard</span>
+    </mat-toolbar>
+
+    <mat-card class="settings-card">
+      <mat-card-title>Settings</mat-card-title>
+      <mat-card-content>
+
+        <div class="settings-container">
+          <!-- Password Change Card -->
+          <mat-card class="setting-feature">
+            <mat-card-title>Password Change</mat-card-title>
+            <mat-card-content>
+              <mat-form-field appearance="fill">
+                <mat-label>Current Password</mat-label>
+                <input matInput type="password" [(ngModel)]="currentPassword" required>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>New Password</mat-label>
+                <input matInput type="password" [(ngModel)]="newPassword" required>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill">
+                <mat-label>Confirm New Password</mat-label>
+                <input matInput type="password" [(ngModel)]="confirmPassword" required>
+              </mat-form-field>
+
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="changePassword()"
+                class="change-password-button">
+                Change Password
+              </button>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Language Change Card -->
+          <mat-card class="setting-feature">
+            <mat-card-title>Language Change</mat-card-title>
+            <mat-card-content>
+              <mat-form-field appearance="fill">
+                <mat-label>Select Language</mat-label>
+                <mat-select [(ngModel)]="selectedLanguage" (selectionChange)="changeLanguage()">
+                  <mat-option *ngFor="let lang of languages" [value]="lang">{{ lang }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <!-- Dark Mode / Light Mode Toggle -->
+
+          <mat-slide-toggle
+            [(ngModel)]="isDarkMode"
+            (change)="toggleDarkMode()"
+            name="darkModeToggle"
+            color="primary">
+            Dark Mode
+          </mat-slide-toggle>
+       
+
+      </mat-card-content>
+    </mat-card>
+
+
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
