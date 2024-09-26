@@ -203,15 +203,6 @@ tr:nth-child(even) {
 
 
 
-.edit-delete {
-  color: #FF6F61;
-}
 
-button:hover {
-  background-color: #FF6F61 !important;
-  color: white !important;
-}
 
-.edit-delete {
-  color: #FF6F61;
-}
+

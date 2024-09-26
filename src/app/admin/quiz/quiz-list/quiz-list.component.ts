@@ -40,6 +40,16 @@ export class AdminQuizListComponent implements OnInit {
       difficulty: 'Easy'
     },
     {
+      category: 'Mathematics',
+      question: 'What is 2+2?',
+      status: 'Active',
+      options: ['2', '3', '4', '5'],
+      correctAnswer: '4',
+      setTime: 5,
+      questionType: 'Multiple Choice',
+      difficulty: 'Easy'
+    },
+    {
       category: 'Science',
       question: 'What is the chemical formula for water?',
       status: 'Active',

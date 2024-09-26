@@ -1,147 +1,102 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-
-export interface Quiz {
-  category: string;
-  question: string;
+export interface User {
+  name: string;
+  email: string;
   status: string;
-  options: string[];
-  correctAnswer: string;
-  setTime: number;
-  questionType: string;
-  difficulty: string;
+  role: string;
+  blocked: boolean;  // Track if the user is blocked
 }
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.css'
+  styleUrls: ['./user-list.component.css']
 })
-
 export class UserListComponent implements OnInit {
 
-  displayedColumns: string[] = [
-    'no', 'category', 'question', 'status', 'options', 'correctAnswer',
-    'setTime', 'questionType', 'difficulty', 'action'
+  displayedColumns: string[] = ['no', 'name', 'email', 'status', 'role', 'action'];
+
+  // User data with blocked field
+  users: User[] = [
+    { name: 'John Doe', email: 'john@example.com', status: 'Active', role: 'Admin', blocked: false },
+    { name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive', role: 'User', blocked: true },
+    { name: 'Robert Johnson', email: 'robert@example.com', status: 'Active', role: 'User', blocked: false }
   ];
 
-  quizzes: Quiz[] = [
-    {
-      category: 'Mathematics',
-      question: 'What is 2+2?',
-      status: 'Active',
-      options: ['2', '3', '4', '5'],
-      correctAnswer: '4',
-      setTime: 5,
-      questionType: 'Multiple Choice',
-      difficulty: 'Easy'
-    },
-    {
-      category: 'Science',
-      question: 'What is the chemical formula for water?',
-      status: 'Active',
-      options: ['H2O', 'O2', 'CO2', 'H2'],
-      correctAnswer: 'H2O',
-      setTime: 10,
-      questionType: 'Multiple Choice',
-      difficulty: 'Medium'
-    }
-  ];
+  dataSource = new MatTableDataSource<User>(this.users);
 
-  dataSource = new MatTableDataSource<Quiz>(this.quizzes);
+  constructor() { }
 
-  constructor(private dialog: MatDialog) {}
+  ngOnInit(): void { }
 
-  ngOnInit(): void {}
-
-
-
-  // DELETE Quiz
-  deleteQuiz(quiz: Quiz): void {
-    const index = this.quizzes.indexOf(quiz);
-    if (index !== -1) {
-      this.quizzes.splice(index, 1);
-      this.dataSource = new MatTableDataSource(this.quizzes); // Refresh the table data
-    }
+  // Toggle block/unblock user
+  toggleBlockUser(user: User): void {
+    user.blocked = !user.blocked;
+    user.status = user.blocked ? 'Blocked' : 'Active';
+    const action = user.blocked ? 'blocked' : 'unblocked';
+    alert(`${user.name} has been ${action}.`);
+    this.dataSource = new MatTableDataSource(this.users);  // Refresh table
   }
 
-  // Existing download, print, and CSV methods here...
+  // Send Email
+  sendEmail(user: User): void {
+    alert(`Sending email to: ${user.email}`);
+  }
 
   // Download Table as PDF
   downloadTable() {
     const doc = new jsPDF();
+    doc.text('User List', 14, 16);
 
-    // Add title to the PDF
-    doc.text('Quiz List', 14, 16);
-
-    // Define table columns
-    const columns = [
-      'No.', 'Category', 'Question', 'Status', 'Options',
-      'Correct Answer', 'Set Time (mins)', 'Type', 'Difficulty'
-    ];
-
-    // Define table rows based on the quizzes array
-    const rows = this.quizzes.map((quiz, index) => [
+    const columns = ['No.', 'Name', 'Email', 'Status', 'Role'];
+    const rows = this.users.map((user, index) => [
       (index + 1).toString(),
-      quiz.category,
-      quiz.question,
-      quiz.status,
-      quiz.options.join(', '),
-      quiz.correctAnswer,
-      quiz.setTime.toString(),
-      quiz.questionType,
-      quiz.difficulty
+      user.name,
+      user.email,
+      user.status,
+      user.role
     ]);
 
-    // Generate the table using autoTable plugin
     (doc as any).autoTable({
       head: [columns],
       body: rows,
       startY: 20,
       theme: 'grid',
-      headStyles: { fillColor: '#FF6F61' }, // Header background color
+      headStyles: { fillColor: '#FF6F61' },
     });
 
-    // Save the PDF
-    doc.save('quiz_list.pdf');
+    doc.save('user_list.pdf');
   }
 
   // Print Table
   printTable() {
     const printContent = document.querySelector('table')?.outerHTML || '';
     const printWindow = window.open('', '', 'height=600,width=800');
-    printWindow?.document.write('<html><head><title>Print Quiz List</title>');
-    printWindow?.document.write('</head><body>');
-    printWindow?.document.write('<h2>Quiz List</h2>');
+    printWindow?.document.write('<html><head><title>Print User List</title></head><body>');
+    printWindow?.document.write('<h2>User List</h2>');
     printWindow?.document.write(printContent);
     printWindow?.document.write('</body></html>');
-    printWindow?.document.close();
+    printWindow?.close();
     printWindow?.print();
   }
 
   // Convert to CSV format
-  convertToCSV(data: Quiz[]): string {
+  convertToCSV(data: User[]): string {
     const csvRows: string[] = [];
-    const headers = [
-      'No.', 'Category', 'Question', 'Status', 'Options',
-      'Correct Answer', 'Set Time (mins)', 'Type', 'Difficulty'
-    ];
+    const headers = ['No.', 'Name', 'Email', 'Status', 'Role'];
     csvRows.push(headers.join(',')); // Add headers
 
-    data.forEach((quiz, index) => {
+    data.forEach((user, index) => {
       const csvRow = [
         (index + 1).toString(),
-        quiz.category,
-        quiz.question,
-        quiz.status,
-        quiz.options.join(' | '), // Use ' | ' as a separator for options
-        quiz.correctAnswer,
-        quiz.setTime.toString(),
-        quiz.questionType,
-        quiz.difficulty
+        user.name,
+        user.email,
+        user.status,
+        user.role
       ];
       csvRows.push(csvRow.join(','));
     });
@@ -151,14 +106,13 @@ export class UserListComponent implements OnInit {
 
   // Download CSV
   downloadCSV() {
-    const csvContent = this.convertToCSV(this.quizzes);
+    const csvContent = this.convertToCSV(this.users);
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
-    // Create a download link and trigger the download
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'quiz_list.csv';
+    link.download = 'user_list.csv';
     link.click();
     window.URL.revokeObjectURL(url);
   }
