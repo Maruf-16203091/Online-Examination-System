@@ -57,6 +57,7 @@ import { EditQuizDialogComponent } from './admin/quiz/edit-quiz-dialog/edit-quiz
 import { AdminQuizAddComponent } from './admin/quiz/quiz-add/quiz-add.component';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 import { UserListComponent } from './admin/user/user-list/user-list.component';
+import { ResultListComponent } from './admin/result/result-list/result-list.component';
 
 
 
@@ -98,7 +99,8 @@ import { UserListComponent } from './admin/user/user-list/user-list.component';
     AdminQuizListComponent,
     EditQuizDialogComponent,
     AdminQuizAddComponent,
-    UserListComponent
+    UserListComponent,
+    ResultListComponent
   ],
   imports: [
     BrowserModule,

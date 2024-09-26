@@ -1,0 +1,138 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" mode="side" opened>
+    <mat-toolbar>Admin Menu</mat-toolbar>
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/admin-dashboard"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>dashboard</mat-icon><span>Dashboard</span>
+      </a>
+      <span class="nav-group-title">Results</span>
+      <a
+        mat-list-item
+        routerLink="/admin/results"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>assessment</mat-icon><span>View Results</span>
+      </a>
+      <a mat-list-item routerLink="/logout"
+        ><mat-icon>logout</mat-icon><span>Logout</span></a
+      >
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Quiz Results</span>
+    </mat-toolbar>
+
+    <div class="container">
+      <h2>All Quiz Results</h2>
+
+      <!-- Result Table -->
+      <div class="responsive-table-container">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- No. Column -->
+          <ng-container matColumnDef="no">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let result; let i = index">
+              {{ i + 1 }}
+            </td>
+          </ng-container>
+
+          <!-- User Name Column -->
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef>User Name</th>
+            <td mat-cell *matCellDef="let result">{{ result.userName }}</td>
+          </ng-container>
+
+          <!-- Quiz Title Column -->
+          <ng-container matColumnDef="quizTitle">
+            <th mat-header-cell *matHeaderCellDef>Quiz Title</th>
+            <td mat-cell *matCellDef="let result">{{ result.quizTitle }}</td>
+          </ng-container>
+
+          <!-- Category Column -->
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef>Category</th>
+            <td mat-cell *matCellDef="let result">{{ result.category }}</td>
+          </ng-container>
+
+          <!-- Score Column -->
+          <ng-container matColumnDef="score">
+            <th mat-header-cell *matHeaderCellDef>Score</th>
+            <td mat-cell *matCellDef="let result">
+              {{ result.score }}/{{ result.totalQuestions }}
+            </td>
+          </ng-container>
+
+          <!-- Correct Answers Column -->
+          <ng-container matColumnDef="correctAnswers">
+            <th mat-header-cell *matHeaderCellDef>Correct Answers</th>
+            <td mat-cell *matCellDef="let result">
+              {{ result.correctAnswers }}
+            </td>
+          </ng-container>
+
+          <!-- Total Questions Column -->
+          <ng-container matColumnDef="totalQuestions">
+            <th mat-header-cell *matHeaderCellDef>Total Questions</th>
+            <td mat-cell *matCellDef="let result">
+              {{ result.totalQuestions }}
+            </td>
+          </ng-container>
+
+          <!-- Time Taken Column -->
+          <ng-container matColumnDef="timeTaken">
+            <th mat-header-cell *matHeaderCellDef>Time Taken</th>
+            <td mat-cell *matCellDef="let result">{{ result.timeTaken }}</td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let result">{{ result.date }}</td>
+          </ng-container>
+
+          <!-- Action Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Action</th>
+            <td mat-cell *matCellDef="let result">
+              <div class="action-buttons">
+                <!-- Send PDF via Email Button -->
+                <button mat-icon-button (click)="sendResultEmail(result)">
+                  <mat-icon color="primary">email</mat-icon>
+                </button>
+
+                <!-- Download PDF Button -->
+                <button mat-icon-button (click)="generatePDF(result)">
+                  <mat-icon color="accent">picture_as_pdf</mat-icon>
+                </button>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Table Header and Row Definitions -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons-container btn-all">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="downloadResultsTable()"
+        >
+          Download All Results as PDF
+        </button>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

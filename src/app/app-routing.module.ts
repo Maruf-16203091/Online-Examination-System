@@ -21,7 +21,8 @@ import { CategoryListComponent } from './admin/category/category-list/category-l
 import { CategoryAddComponent } from './admin/category/category-add/category-add.component';
 import { AdminQuizListComponent } from './admin/quiz/quiz-list/quiz-list.component';
 import { AdminQuizAddComponent } from './admin/quiz/quiz-add/quiz-add.component';
-import { UserListComponent } from './admin//user/user-list/user-list.component';
+import { UserListComponent } from './admin/user/user-list/user-list.component';
+import { ResultListComponent } from './admin/result/result-list/result-list.component';
 
 
 
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path: 'admin/quiz-list', component: AdminQuizListComponent },
   { path: 'admin/quiz-add', component: AdminQuizAddComponent },
   { path: 'admin/users', component: UserListComponent },
+  { path: 'admin/result', component: ResultListComponent },
 
 
 
