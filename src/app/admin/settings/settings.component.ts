@@ -17,7 +17,6 @@ export class SettingsComponent {
   // Method to toggle dark mode
   toggleDarkMode() {
     const body = document.body;
-    this.isDarkMode = !this.isDarkMode; // Toggle the value
     if (this.isDarkMode) {
       body.classList.add('dark-mode'); // Add dark mode class
     } else {

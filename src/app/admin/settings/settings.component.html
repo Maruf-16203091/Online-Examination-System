@@ -82,34 +82,51 @@
     </mat-toolbar>
 
     <mat-card class="settings-card">
-      <mat-card-title>Settings</mat-card-title>
-      <mat-card-content>
 
+        <mat-card-title style="margin-left: 23px;">Settings</mat-card-title>
+      <mat-card-content>
         <div class="settings-container">
+
           <!-- Password Change Card -->
           <mat-card class="setting-feature">
             <mat-card-title>Password Change</mat-card-title>
             <mat-card-content>
               <mat-form-field appearance="fill">
                 <mat-label>Current Password</mat-label>
-                <input matInput type="password" [(ngModel)]="currentPassword" required>
+                <input
+                  matInput
+                  type="password"
+                  [(ngModel)]="currentPassword"
+                  required
+                />
               </mat-form-field>
 
               <mat-form-field appearance="fill">
                 <mat-label>New Password</mat-label>
-                <input matInput type="password" [(ngModel)]="newPassword" required>
+                <input
+                  matInput
+                  type="password"
+                  [(ngModel)]="newPassword"
+                  required
+                />
               </mat-form-field>
 
               <mat-form-field appearance="fill">
                 <mat-label>Confirm New Password</mat-label>
-                <input matInput type="password" [(ngModel)]="confirmPassword" required>
+                <input
+                  matInput
+                  type="password"
+                  [(ngModel)]="confirmPassword"
+                  required
+                />
               </mat-form-field>
 
               <button
                 mat-raised-button
                 color="primary"
                 (click)="changePassword()"
-                class="change-password-button">
+                class="change-password-button"
+              >
                 Change Password
               </button>
             </mat-card-content>
@@ -121,30 +138,32 @@
             <mat-card-content>
               <mat-form-field appearance="fill">
                 <mat-label>Select Language</mat-label>
-                <mat-select [(ngModel)]="selectedLanguage" (selectionChange)="changeLanguage()">
-                  <mat-option *ngFor="let lang of languages" [value]="lang">{{ lang }}</mat-option>
+                <mat-select
+                  [(ngModel)]="selectedLanguage"
+                  (selectionChange)="changeLanguage()"
+                >
+                  <mat-option *ngFor="let lang of languages" [value]="lang">{{
+                    lang
+                  }}</mat-option>
                 </mat-select>
               </mat-form-field>
             </mat-card-content>
+
+            <div class="dark-mode">
+              <mat-slide-toggle
+                [(ngModel)]="isDarkMode"
+                (change)="toggleDarkMode()"
+                name="darkModeToggle"
+                color="primary"
+              >
+                <span style="color: #ff6f61; font-weight: 500;">Dark Mode</span>
+              </mat-slide-toggle>
+            </div>
           </mat-card>
         </div>
 
         <!-- Dark Mode / Light Mode Toggle -->
-
-          <mat-slide-toggle
-            [(ngModel)]="isDarkMode"
-            (change)="toggleDarkMode()"
-            name="darkModeToggle"
-            color="primary">
-            Dark Mode
-          </mat-slide-toggle>
-       
-
       </mat-card-content>
     </mat-card>
-
-
-
-
   </mat-sidenav-content>
 </mat-sidenav-container>
