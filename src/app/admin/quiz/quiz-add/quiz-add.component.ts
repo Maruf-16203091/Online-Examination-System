@@ -13,7 +13,7 @@ export class AdminQuizAddComponent {
   status: string = 'Active';
   options: string[] = [];
   correctAnswer: string = '';
-  setTime: number = 0;
+  setTime: string = '';
   questionType: string = '';
   difficulty: string = '';
   snackBarMessage: string | null = null;
@@ -32,7 +32,7 @@ export class AdminQuizAddComponent {
       this.status = 'Active';
       this.options = [];
       this.correctAnswer = '';
-      this.setTime = 0;
+      this.setTime = '';
       this.questionType = '';
       this.difficulty = '';
     } else {
