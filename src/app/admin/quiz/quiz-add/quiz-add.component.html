@@ -112,24 +112,15 @@
           <input matInput />
         </mat-form-field>
 
-        <mat-card class="setting-feature">
-          <mat-card-title>Set Time</mat-card-title>
-          <mat-card-content>
-            <mat-form-field appearance="outline">
-              <mat-label>Set Time (Minutes)</mat-label>
-              <input
-                matInput
-                [ngxMatTimepicker]="timePicker"
-                [(ngModel)]="setTime"
-                placeholder="Select time"
-              />
-              <ngx-mat-timepicker #timePicker></ngx-mat-timepicker>
-              <mat-icon matSuffix (click)="timePicker.open()"
-                >access_time</mat-icon
-              >
-            </mat-form-field>
-          </mat-card-content>
-        </mat-card>
+        <mat-form-field>
+          <mat-label>Set Time </mat-label>
+          <mat-select>
+            <mat-option value="5 Minutes">5 Minutes</mat-option>
+            <mat-option value="10 Minutes">10 Minutes</mat-option>
+            <mat-option value="30 Minutes">30 Minutes</mat-option>
+            <mat-option value="60 Minutes">60 Minutes</mat-option>
+          </mat-select>
+        </mat-form-field>
 
         <mat-form-field>
           <mat-label>Question Type</mat-label>
