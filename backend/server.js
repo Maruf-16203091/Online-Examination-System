@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const quizRoutes = require("./routes/quizRoutes");
@@ -11,6 +12,9 @@ dotenv.config();
 
 // Initialize Express app
 const app = express();
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
