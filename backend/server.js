@@ -5,10 +5,9 @@ const quizRoutes = require("./routes/quizRoutes");
 const trainingRoutes = require("./routes/trainingRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
-
+const categoryRoutes = require("./routes/categoryRoutes");
 
 dotenv.config();
-
 
 // Initialize Express app
 const app = express();
@@ -32,7 +31,7 @@ const connectDB = async () => {
 
 connectDB();
 
-app.use("/api/auth", authRoutes);  // Auth routes
+app.use("/api/auth", authRoutes); // Auth routes
 
 // Define a simple route
 app.get("/", (req, res) => {
@@ -47,6 +46,9 @@ app.use("/api", quizRoutes);
 
 // Use the quiz routes
 app.use("/api", trainingRoutes);
+
+// Use the category routes
+app.use("/api", categoryRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
