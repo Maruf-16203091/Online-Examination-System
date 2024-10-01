@@ -1,28 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const quizSchema = new mongoose.Schema({
-  category: {
-    type: String,
-  },
-  description: {
-    type: String,
-  },
-  difficulty: {
-    type: String,
-  },
-  type: {
-    type: String,
-  },
-  rating: {
-    type: String,
-  },
-  questions: [
-    {
-      question: String,
-      options: [String],
-      answer: String,
+const quizSchema = new mongoose.Schema(
+  {
+    category: {
+      type: String,
     },
-  ],
-}, { timestamps: true });
+    question: {
+      type: String,
+    },
+    difficulty: {
+      type: String,
+    },
+    questionType: {
+      type: String,
+    },
+    setTime: {
+      type: String,
+    },
+    correctAnswer: {
+      type: String,
+    },
+    status: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('Quiz', quizSchema);
+module.exports = mongoose.model("Quiz", quizSchema);
