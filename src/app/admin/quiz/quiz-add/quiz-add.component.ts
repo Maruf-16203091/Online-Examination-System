@@ -1,51 +1,108 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { QuizService } from '../../../services/quiz.service';
+import { CategoryService } from '../../../services/category.service'; 
+import { Quiz } from '../../../models/quiz.model';
+import { Category } from '../../../models/category.model';
 
 @Component({
   selector: 'app-quiz-add',
   templateUrl: './quiz-add.component.html',
-  styleUrls: ['./quiz-add.component.css']
+  styleUrls: ['./quiz-add.component.css'],
 })
-export class AdminQuizAddComponent {
-
+export class AdminQuizAddComponent implements OnInit {
   category: string = '';
-  question: string = '';
   status: string = 'Active';
-  options: string[] = [];
-  correctAnswer: string = '';
   setTime: string = '';
-  questionType: string = '';
   difficulty: string = '';
+
+  categories: Category[] = []; // List of categories fetched from the backend
+
+  quizQuestions: { question: string; correctAnswer: string; questionType: string }[] = [
+    { question: '', correctAnswer: '', questionType: 'Multiple Choice' },
+  ];
+
   snackBarMessage: string | null = null;
 
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(
+    private snackBar: MatSnackBar,
+    private quizService: QuizService,
+    private categoryService: CategoryService // Inject CategoryService
+  ) {}
 
+  // Lifecycle hook to initialize component and load categories
+  ngOnInit(): void {
+    this.loadCategories(); // Load categories when component is initialized
+  }
+
+  // Fetch categories from the backend
+  loadCategories(): void {
+    this.categoryService.getCategories().subscribe(
+      (response: Category[]) => {
+        this.categories = response; // Store categories for the dropdown
+      },
+      (error) => {
+        this.snackBarMessage = 'Error loading categories. Please try again.';
+        this.showSnackBar();
+      }
+    );
+  }
+
+  // Add a new question
+  addNewQuestion(): void {
+    this.quizQuestions.push({ question: '', correctAnswer: '', questionType: 'Multiple Choice' });
+  }
+
+  // Remove a question from the list
+  removeQuestion(index: number): void {
+    this.quizQuestions.splice(index, 1);
+  }
+
+  // Save the entire quiz
   saveQuiz(): void {
-    if (this.status.trim()) {
-      // Simulate saving the Quiz
-      this.snackBarMessage = 'Quiz added successfully!';
-      this.showSnackBar();
+    if (this.category && this.quizQuestions.length > 0 && this.quizQuestions.every(q => q.question && q.correctAnswer)) {
+      const quizData: Quiz = {
+        category: this.category,
+        status: this.status,
+        setTime: this.setTime,
+        difficulty: this.difficulty,
+        questions: this.quizQuestions, // Include the questions in the quiz data
+      };
 
-      // Reset form fields after saving
+      this.quizService.createQuiz(quizData).subscribe(
+        (response) => {
+          this.snackBarMessage = 'Quiz added successfully!';
+          this.showSnackBar();
 
-      this.category = '';
-      this.status = 'Active';
-      this.options = [];
-      this.correctAnswer = '';
-      this.setTime = '';
-      this.questionType = '';
-      this.difficulty = '';
+          // Reset form fields after saving
+          this.resetForm();
+        },
+        (error) => {
+          this.snackBarMessage = 'Error adding quiz. Please try again.';
+          this.showSnackBar();
+        }
+      );
     } else {
-      // Show an error message if quiz is empty
-      this.snackBarMessage = 'Please fill in the required fields!';
+      // Show an error message if required fields are not filled
+      this.snackBarMessage = 'Please fill in all the required fields!';
       this.showSnackBar();
     }
   }
 
+  // Reset the form fields
+  resetForm(): void {
+    this.category = '';
+    this.status = 'Active';
+    this.setTime = '';
+    this.difficulty = '';
+    this.quizQuestions = [{ question: '', correctAnswer: '', questionType: 'Multiple Choice' }];
+  }
+
+  // Show the snackbar for notifications
   showSnackBar(): void {
     if (this.snackBarMessage) {
       this.snackBar.open(this.snackBarMessage, 'Close', {
-        duration: 9000, // 3 seconds duration
+        duration: 3000,
         panelClass: ['custom-snack-bar'],
         horizontalPosition: 'center',
         verticalPosition: 'top',

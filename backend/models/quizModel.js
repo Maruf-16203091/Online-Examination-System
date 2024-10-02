@@ -1,27 +1,45 @@
 const mongoose = require("mongoose");
 
+const questionSchema = new mongoose.Schema(
+  {
+    question: {
+      type: String,
+      required: true,
+    },
+    questionType: {
+      type: String,
+      required: true,
+    },
+    correctAnswer: {
+      type: String,
+      required: true,
+    },
+  },
+  { _id: false } // No need for a separate _id for each question
+);
+
 const quizSchema = new mongoose.Schema(
   {
     category: {
       type: String,
-    },
-    question: {
-      type: String,
+      required: true,
     },
     difficulty: {
       type: String,
-    },
-    questionType: {
-      type: String,
+      required: true,
     },
     setTime: {
       type: String,
-    },
-    correctAnswer: {
-      type: String,
+      required: true,
     },
     status: {
       type: String,
+      enum: ["Active", "Inactive"],
+      default: "Active",
+    },
+    questions: {
+      type: [questionSchema], // Array of question objects
+      required: true,
     },
   },
   { timestamps: true }

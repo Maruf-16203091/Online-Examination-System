@@ -16,15 +16,18 @@ router.get('/quizzes', async (req, res) => {
 // @route POST /api/quizzes
 // @desc Create a new quiz
 router.post('/quizzes', async (req, res) => {
-  const { category, question, difficulty, questionType,status, setTime, correctAnswer } = req.body;
+  const { category, difficulty, setTime, status, questions } = req.body;
+
+  if (!Array.isArray(questions) || questions.length === 0) {
+    return res.status(400).json({ message: 'At least one question is required.' });
+  }
+
   const newQuiz = new Quiz({
     category,
-    question,
     difficulty,
-    questionType,
-    status,
     setTime,
-    correctAnswer,
+    status,
+    questions, // Array of questions passed directly
   });
 
   try {
@@ -52,11 +55,29 @@ router.get('/quizzes/:id', async (req, res) => {
 // @route PUT /api/quizzes/:id
 // @desc Update a quiz by ID
 router.put('/quizzes/:id', async (req, res) => {
+  const { category, difficulty, setTime, status, questions } = req.body;
+
+  if (!Array.isArray(questions) || questions.length === 0) {
+    return res.status(400).json({ message: 'At least one question is required.' });
+  }
+
   try {
-    const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedQuiz = await Quiz.findByIdAndUpdate(
+      req.params.id,
+      {
+        category,
+        difficulty,
+        setTime,
+        status,
+        questions, // Update the questions array
+      },
+      { new: true }
+    );
+
     if (!updatedQuiz) {
       return res.status(404).json({ message: 'Quiz not found' });
     }
+
     res.json(updatedQuiz);
   } catch (err) {
     res.status(400).json({ message: err.message });

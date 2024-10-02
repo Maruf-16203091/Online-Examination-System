@@ -83,38 +83,27 @@
 
     <mat-card class="add-quiz-card">
       <h2 mat-dialog-title style="color: #ff6f61">Add Quiz</h2>
-      <div mat-dialog-content class="form-grid">
+
+      <!-- General Quiz Info (appears only once) -->
+      <div class="form-grid">
         <mat-form-field>
           <mat-label>Category</mat-label>
-          <mat-select>
-            <mat-option value="Mathematics">Mathematics</mat-option>
-            <mat-option value="Science">Science</mat-option>
-            <mat-option value="History">History</mat-option>
-            <mat-option value="Chemistry">Chemistry</mat-option>
+          <mat-select [(ngModel)]="category" required>
+            <mat-option *ngFor="let cat of categories" [value]="cat._id">{{ cat.category }}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Question</mat-label>
-          <input matInput />
-        </mat-form-field>
-
-        <mat-form-field>
           <mat-label>Status</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="status">
             <mat-option value="Active">Active</mat-option>
             <mat-option value="Inactive">Inactive</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Correct Answer</mat-label>
-          <input matInput />
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Set Time </mat-label>
-          <mat-select>
+          <mat-label>Set Time</mat-label>
+          <mat-select [(ngModel)]="setTime">
             <mat-option value="5 Minutes">5 Minutes</mat-option>
             <mat-option value="10 Minutes">10 Minutes</mat-option>
             <mat-option value="30 Minutes">30 Minutes</mat-option>
@@ -123,37 +112,58 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Question Type</mat-label>
-          <mat-select>
-            <mat-option value="Multiple Choice">Multiple Choice</mat-option>
-            <mat-option value="True False">True False</mat-option>
-            <mat-option value="Short Question">Short Question</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field>
           <mat-label>Difficulty</mat-label>
-          <mat-select>
+          <mat-select [(ngModel)]="difficulty">
             <mat-option value="Easy">Easy</mat-option>
             <mat-option value="Medium">Medium</mat-option>
             <mat-option value="Hard">Hard</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
+
+      <!-- Dynamic Questions Section -->
+      <h3>Questions</h3>
+      <div *ngFor="let question of quizQuestions; let i = index" class="form-grid">
+        <mat-form-field>
+          <mat-label>Question {{ i + 1 }}</mat-label>
+          <input matInput [(ngModel)]="question.question" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Correct Answer</mat-label>
+          <input matInput [(ngModel)]="question.correctAnswer" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Question Type</mat-label>
+          <mat-select [(ngModel)]="question.questionType">
+            <mat-option value="Multiple Choice">Multiple Choice</mat-option>
+            <mat-option value="True False">True False</mat-option>
+            <mat-option value="Short Question">Short Question</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Remove Question Button -->
+        <button mat-button color="warn" (click)="removeQuestion(i)">
+          <mat-icon>delete</mat-icon> Remove Question
+        </button>
+      </div>
+
+      <!-- Add New Question Button -->
+      <button mat-button color="primary" (click)="addNewQuestion()">
+        <mat-icon>add</mat-icon> Add Another Question
+      </button>
+
       <mat-card-actions>
-        <button
-          class="button"
-          mat-raised-button
-          color="primary"
-          (click)="saveQuiz()"
-        >
-          Save
+        <button class="button" mat-raised-button color="primary" (click)="saveQuiz()">
+          Save Quiz
         </button>
       </mat-card-actions>
     </mat-card>
   </mat-sidenav-content>
 </mat-sidenav-container>
 
+<!-- Snackbar for notifications -->
 <mat-snack-bar-container
   *ngIf="snackBarMessage"
   [style.backgroundColor]="'#ff6f61'"
