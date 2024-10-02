@@ -4,42 +4,40 @@ import jsPDF from 'jspdf'; // Import jsPDF
 import 'jspdf-autotable';  // Import the autoTable plugin
 import { MatDialog } from '@angular/material/dialog';
 import { EditCategoryDialogComponent } from '../edit-category-dialog/edit-category-dialog.component';
+import { CategoryService } from '../../../services/category.service';  // Import your CategoryService
+import { Category } from '../../../models/category.model';
+import { ConfirmDialogComponent } from '../../../confirmation/confirm-dialog/confirm-dialog.component';
 
-
-export interface Category {
-  category: string;
-  status: string;
-  action: string;
-}
-
-export interface EditDialogData {
-  category: string;
-  status: string;
-}
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.css']
 })
-
 export class CategoryListComponent implements OnInit {
 
   displayedColumns: string[] = ['no', 'category', 'status', 'action'];
-  categories: Category[] = [
-    { category: 'Mathematics', status: 'Active', action: 'edit' },
-    { category: 'English', status: 'Active', action: 'edit' },
-    { category: 'Science', status: 'Active', action: 'edit' }
+  dataSource = new MatTableDataSource<Category>();  // Initialize empty data source
 
-  ];
+  constructor(private dialog: MatDialog, private categoryService: CategoryService) { }
 
-  dataSource = new MatTableDataSource<Category>(this.categories);
-
-
-  constructor(private dialog: MatDialog) {}
   ngOnInit() {
-    // Data source initialization
+    // Fetch categories when the component is initialized
+    this.loadCategories();
   }
 
+  // Load categories from the backend
+  loadCategories() {
+    this.categoryService.getCategories().subscribe(
+      (categories: Category[]) => {
+        this.dataSource = new MatTableDataSource(categories);  // Set the fetched categories as dataSource
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }
+
+  // Open modal for editing category
   openEditModal(category: Category): void {
     const dialogRef = this.dialog.open(EditCategoryDialogComponent, {
       width: '300px',
@@ -48,55 +46,62 @@ export class CategoryListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Update the category in the table after editing
-        const index = this.categories.findIndex(c => c.category === category.category);
-        if (index !== -1) {
-          this.categories[index] = result;
-          this.dataSource = new MatTableDataSource(this.categories); // Refresh the data
-        }
+        // Update the category in the backend
+        this.categoryService.updateCategory(result._id, result).subscribe(
+          (updatedCategory) => {
+            this.loadCategories();  // Refresh categories after update
+          },
+          (error) => {
+            console.error('Error updating category:', error);
+          }
+        );
       }
     });
   }
 
+  // Delete category using the backend API
   deleteCategory(category: Category) {
-    // Implement your delete logic here
-    const index = this.categories.indexOf(category);
-    if (index !== -1) {
-      this.categories.splice(index, 1);
-      this.dataSource = new MatTableDataSource(this.categories); // Refresh the data
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { message: `Are you sure you want to delete "${category.category}"?` }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && category._id) {  // If the user confirmed deletion and category has _id
+        this.categoryService.deleteCategory(category._id).subscribe(
+          () => {
+            this.loadCategories();  // Refresh categories after delete
+          },
+          (error) => {
+            console.error('Error deleting category:', error);
+          }
+        );
+      }
+    });
   }
 
 
+  // Download table as PDF
   downloadTable() {
     const doc = new jsPDF();
-
-    // Add title to the document
-    doc.text('Quiz Answers', 14, 16);
-
-    // Define table columns
+    doc.text('Category List', 14, 16);
     const columns = ['Category No.', 'Category', 'Status'];
-
-    // Define table rows based on the questions array
-    const rows = this.categories.map((category, index) => [
+    const rows = this.dataSource.data.map((category, index) => [
       (index + 1).toString(),
       category.category,
-      category.status
+      category.status,
     ]);
-
-    // Generate the table using autoTable plugin
     (doc as any).autoTable({
       head: [columns],
       body: rows,
-      startY: 20,  // Position the table below the title
-      theme: 'grid',  // You can customize this to fit your style
-      headStyles: { fillColor: '#FF6F61' }, // Header background color
+      startY: 20,
+      theme: 'grid',
+      headStyles: { fillColor: '#FF6F61' },
     });
-
-    // Save the PDF
     doc.save('category_list.pdf');
   }
 
+  // Print table
   printTable() {
     const printContent = document.querySelector('table')?.outerHTML || '';
     const printWindow = window.open('', '', 'height=600,width=800');
@@ -108,15 +113,14 @@ export class CategoryListComponent implements OnInit {
     printWindow?.print();
   }
 
+  // Convert data to CSV
   convertToCSV(data: Category[]): string {
     const csvRows: string[] = [];
     const headers = ['Category No.', 'Status'];
     csvRows.push(headers.join(','));
-
     data.forEach((category, index) => {
       csvRows.push(`${index + 1},${category.category},${category.status}`);
     });
-
     return csvRows.join('\n');
   }
 }

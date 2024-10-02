@@ -60,6 +60,7 @@ import { UserListComponent } from './admin/user/user-list/user-list.component';
 import { ResultListComponent } from './admin/result/result-list/result-list.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ConfirmDialogComponent } from './confirmation/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -103,7 +104,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     AdminQuizAddComponent,
     UserListComponent,
     ResultListComponent,
-    SettingsComponent
+    SettingsComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
