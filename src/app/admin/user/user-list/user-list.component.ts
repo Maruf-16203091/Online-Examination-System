@@ -2,14 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-
-export interface User {
-  name: string;
-  email: string;
-  status: string;
-  role: string;
-  blocked: boolean;  // Track if the user is blocked
-}
+import { UserService } from '../../../services/user.service';  // Import the UserService
+import { User } from '../../../models/user.model';  // Import the User model
 
 @Component({
   selector: 'app-user-list',
@@ -17,21 +11,28 @@ export interface User {
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-
   displayedColumns: string[] = ['no', 'name', 'email', 'status', 'role', 'action'];
-
-  // User data with blocked field
-  users: User[] = [
-    { name: 'John Doe', email: 'john@example.com', status: 'Active', role: 'Admin', blocked: false },
-    { name: 'Jane Smith', email: 'jane@example.com', status: 'Inactive', role: 'User', blocked: true },
-    { name: 'Robert Johnson', email: 'robert@example.com', status: 'Active', role: 'User', blocked: false }
-  ];
-
+  users: User[] = [];
   dataSource = new MatTableDataSource<User>(this.users);
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  // Load users from the API
+  loadUsers(): void {
+    this.userService.getUsers().subscribe(
+      (data: User[]) => {
+        this.users = data;
+        this.dataSource = new MatTableDataSource(this.users);
+      },
+      (error) => {
+        console.error('Error fetching users:', error);
+      }
+    );
+  }
 
   // Toggle block/unblock user
   toggleBlockUser(user: User): void {
