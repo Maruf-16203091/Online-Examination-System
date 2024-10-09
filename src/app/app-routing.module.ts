@@ -59,7 +59,7 @@ const routes: Routes = [
 
 
   { path: '', redirectTo: '/home', pathMatch: 'full' },  // Default route to home
-  { path: '**', redirectTo: '/home' }  // Fallback route for any invalid paths
+  { path: '**', redirectTo: '/home' }  
 ];
 
 @NgModule({
