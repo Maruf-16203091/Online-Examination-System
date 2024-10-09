@@ -4,6 +4,10 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { UserService } from '../../../services/user.service';  // Import the UserService
 import { User } from '../../../models/user.model';  // Import the User model
+import { MatDialog } from '@angular/material/dialog';  // For confirmation dialog
+import { ConfirmDialogComponent } from '../../../confirmation/confirm-dialog/confirm-dialog.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-user-list',
@@ -15,7 +19,10 @@ export class UserListComponent implements OnInit {
   users: User[] = [];
   dataSource = new MatTableDataSource<User>(this.users);
 
-  constructor(private userService: UserService) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+
+  constructor(private userService: UserService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -27,11 +34,34 @@ export class UserListComponent implements OnInit {
       (data: User[]) => {
         this.users = data;
         this.dataSource = new MatTableDataSource(this.users);
+        this.dataSource.paginator = this.paginator;
       },
       (error) => {
         console.error('Error fetching users:', error);
       }
     );
+  }
+
+  // Delete user function
+  deleteUser(user: User): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { message: `Are you sure you want to delete user "${user.name}"?` }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && user._id) {  // If the user confirmed deletion and user has _id
+        this.userService.deleteUser(user._id).subscribe(
+          () => {
+            this.loadUsers();  // Refresh the list after deletion
+            alert(`User "${user.name}" has been deleted.`);
+          },
+          (error) => {
+            console.error('Error deleting user:', error);
+          }
+        );
+      }
+    });
   }
 
   // Toggle block/unblock user

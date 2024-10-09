@@ -84,10 +84,14 @@
     <div class="container">
       <h2>User List</h2>
 
+      <mat-paginator
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        showFirstLastButtons
+      ></mat-paginator>
+
       <!-- User list Table -->
       <div class="responsive-table-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
           <!-- User No. Column -->
           <ng-container matColumnDef="no">
             <th mat-header-cell *matHeaderCellDef>No.</th>
@@ -125,11 +129,21 @@
               <div class="action-buttons">
                 <!-- Block or Unblock Button -->
                 <button mat-icon-button (click)="toggleBlockUser(user)">
-                  <mat-icon [color]="user.blocked ? 'accent' : 'warn'">{{ user.blocked ? 'lock_open' : 'block' }}</mat-icon>
+                  <mat-icon [color]="user.blocked ? 'accent' : 'warn'">{{
+                    user.blocked ? "lock_open" : "block"
+                  }}</mat-icon>
                 </button>
                 <!-- Send Email Button -->
                 <button mat-icon-button (click)="sendEmail(user)">
                   <mat-icon color="primary">email</mat-icon>
+                </button>
+
+                <button
+                  class="edit-delete"
+                  mat-icon-button
+                  (click)="deleteUser(user)"
+                >
+                  <mat-icon>delete</mat-icon>
                 </button>
               </div>
             </td>
@@ -143,9 +157,30 @@
 
       <!-- Buttons -->
       <div class="buttons-container btn-all">
-        <button mat-raised-button color="primary" style="margin-left: 5px;" (click)="downloadTable()">Download PDF</button>
-        <button mat-raised-button color="accent" style="margin-left: 5px;" (click)="printTable()">Print</button>
-        <button mat-raised-button color="warn" style="margin-left: 5px;" (click)="downloadCSV()">Download CSV</button>
+        <button
+          mat-raised-button
+          color="primary"
+          style="margin-left: 5px"
+          (click)="downloadTable()"
+        >
+          Download PDF
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          style="margin-left: 5px"
+          (click)="printTable()"
+        >
+          Print
+        </button>
+        <button
+          mat-raised-button
+          color="warn"
+          style="margin-left: 5px"
+          (click)="downloadCSV()"
+        >
+          Download CSV
+        </button>
       </div>
     </div>
   </mat-sidenav-content>

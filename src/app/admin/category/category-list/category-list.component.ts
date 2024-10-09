@@ -7,6 +7,8 @@ import { EditCategoryDialogComponent } from '../edit-category-dialog/edit-catego
 import { CategoryService } from '../../../services/category.service';  // Import your CategoryService
 import { Category } from '../../../models/category.model';
 import { ConfirmDialogComponent } from '../../../confirmation/confirm-dialog/confirm-dialog.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-category-list',
@@ -16,7 +18,8 @@ import { ConfirmDialogComponent } from '../../../confirmation/confirm-dialog/con
 export class CategoryListComponent implements OnInit {
 
   displayedColumns: string[] = ['no', 'category', 'status', 'action'];
-  dataSource = new MatTableDataSource<Category>();  // Initialize empty data source
+  dataSource = new MatTableDataSource<Category>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private dialog: MatDialog, private categoryService: CategoryService) { }
 
@@ -29,7 +32,8 @@ export class CategoryListComponent implements OnInit {
   loadCategories() {
     this.categoryService.getCategories().subscribe(
       (categories: Category[]) => {
-        this.dataSource = new MatTableDataSource(categories);  // Set the fetched categories as dataSource
+        this.dataSource = new MatTableDataSource(categories);
+        this.dataSource.paginator = this.paginator;
       },
       (error) => {
         console.error('Error fetching categories:', error);

@@ -28,6 +28,7 @@ import { SettingsComponent } from './admin/settings/settings.component';
 
 
 
+
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },  // Dashboard Route
   { path: 'start-quiz', component: StartQuizComponent }, // Start Quiz Route
@@ -59,7 +60,7 @@ const routes: Routes = [
 
 
   { path: '', redirectTo: '/home', pathMatch: 'full' },  // Default route to home
-  { path: '**', redirectTo: '/home' }  
+  { path: '**', redirectTo: '/home' }
 ];
 
 @NgModule({

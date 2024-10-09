@@ -84,6 +84,11 @@
     <div class="container">
       <h2>Quiz List</h2>
 
+      <mat-paginator
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        showFirstLastButtons
+      ></mat-paginator>
+
       <!-- Quiz Table -->
       <div class="responsive-table-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

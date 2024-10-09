@@ -3,7 +3,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { EditQuizDialogComponent } from '../edit-quiz-dialog/edit-quiz-dialog.component'; // Import Edit Dialog
+import { EditQuizDialogComponent } from '../edit-quiz-dialog/edit-quiz-dialog.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { ViewChild } from '@angular/core';
 
 export interface Quiz {
   category: string;
@@ -27,6 +29,7 @@ export class AdminQuizListComponent implements OnInit {
     'no', 'category', 'question', 'status', 'options', 'correctAnswer',
     'setTime', 'questionType', 'difficulty', 'action'
   ];
+
 
   quizzes: Quiz[] = [
     {
@@ -62,16 +65,17 @@ export class AdminQuizListComponent implements OnInit {
   ];
 
   dataSource = new MatTableDataSource<Quiz>(this.quizzes);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   // EDIT Quiz
   openEditModal(quiz: Quiz): void {
     const dialogRef = this.dialog.open(EditQuizDialogComponent, {
       width: '700px',
-      height:'400px',
+      height: '400px',
       data: { ...quiz } // Pass the selected quiz data to the modal
     });
 
@@ -81,7 +85,8 @@ export class AdminQuizListComponent implements OnInit {
         const index = this.quizzes.findIndex(q => q.question === quiz.question);
         if (index !== -1) {
           this.quizzes[index] = result;
-          this.dataSource = new MatTableDataSource(this.quizzes); // Refresh the table data
+
+          this.dataSource = new MatTableDataSource(this.quizzes);
         }
       }
     });
