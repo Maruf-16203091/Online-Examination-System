@@ -1,79 +1,47 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { QuizService } from '../../../services/quiz.service';
+import { EditQuizDialogComponent } from '../edit-quiz-dialog/edit-quiz-dialog.component';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { EditQuizDialogComponent } from '../edit-quiz-dialog/edit-quiz-dialog.component';
-import { MatPaginator } from '@angular/material/paginator';
-
-export interface Quiz {
-  category: string;          // Category of the quiz
-  status: string;           // Status of the quiz (e.g., Active, Inactive)
-  questions: Question[];    // Array of questions for this quiz
-  setTime: number;          // Total time allocated for the quiz
-  questionType: string;     // Type of questions (e.g., Multiple Choice)
-  difficulty: string;       // Difficulty level of the quiz
-}
-
-export interface Question {
-  questionText: string;     // Text of the question
-  options: string[];        // Possible answer options
-  correctAnswers: string[]; // Array of correct answers
-
-}
-
-
-
+import { Quiz, Question } from '../../../models/quiz.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../../../confirmation/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-quiz-list',
   templateUrl: './quiz-list.component.html',
   styleUrls: ['./quiz-list.component.css']
 })
-
 export class AdminQuizListComponent implements OnInit {
-
-
   displayedColumns: string[] = [
-    'no', 'category', 'setTime', 'questionType','question', 'options', 'correctAnswer', 'difficulty', 'status', 'action'
+    'no', 'category', 'setTime','difficulty', 'questionType',   'status', 'action'
   ];
 
-
-
-  quizzes: Quiz[] = [
-    {
-      category: 'Mathematics',
-      status: 'Active',
-      setTime: 10,
-      questionType: 'Multiple Choice',
-      difficulty: 'Easy',
-      questions: [
-        {
-          questionText: 'What is 2+2?',
-          options: ['2', '3', '4', '5'],
-          correctAnswers: ['4']
-
-        },
-        {
-          questionText: 'What is 3+5?',
-          options: ['7', '8', '9', '10'],
-          correctAnswers: ['8'],
-
-        }
-      ]
-    },
-
-
-
-  ];
-
-
+  quizzes: Quiz[] = []; // Initialize quizzes as an empty array
   dataSource = new MatTableDataSource<Quiz>(this.quizzes);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,  private snackBar: MatSnackBar, private quizService: QuizService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.loadQuizzes(); // Load quizzes on initialization
+  }
+
+  loadQuizzes() {
+    this.quizService.getQuizzes().subscribe({
+      next: (quizzes: Quiz[]) => { // Specify the expected type for quizzes
+        this.quizzes = quizzes;
+        this.dataSource = new MatTableDataSource(this.quizzes);
+        this.dataSource.paginator = this.paginator;
+      },
+      error: (error) => {
+        console.error('Error fetching quizzes:', error); // Handle errors here
+      }
+    });
+  }
 
   // EDIT Quiz
   openEditModal(quiz: Quiz): void {
@@ -85,41 +53,63 @@ export class AdminQuizListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.quizzes.findIndex(q => q.category === quiz.category);
+        const index = this.quizzes.findIndex(q => q. _id === quiz. _id); // Use id for finding the quiz
         if (index !== -1) {
-          this.quizzes[index] = result;
+          this.quizzes[index] = result; // Update the quiz
           this.dataSource = new MatTableDataSource(this.quizzes);
         }
       }
     });
   }
 
+
+  loadQuiz() {
+    this.quizService.getQuizzes().subscribe(
+      (categories: Quiz[]) => {
+        this.dataSource = new MatTableDataSource(categories);
+        this.dataSource.paginator = this.paginator;
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }
   // DELETE Quiz
-  deleteQuiz(quiz: Quiz): void {
-    const index = this.quizzes.indexOf(quiz);
-    if (index !== -1) {
-      this.quizzes.splice(index, 1);
-      this.dataSource = new MatTableDataSource(this.quizzes); // Refresh the table data
-    }
+   deleteQuiz(quiz: Quiz) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { message: `Are you sure you want to delete "${quiz. _id}"?` }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && quiz._id) {
+        this.quizService.deleteQuiz(quiz._id).subscribe(
+          () => {
+            this.loadQuiz();
+          },
+          (error) => {
+            console.error('Error deleting quiz:', error);
+          }
+        );
+      }
+    });
   }
 
-  // PDF, Print, and CSV export functionalities are updated to handle multiple questions.
 
-  // Download Table as PDF
+  // PDF, Print, and CSV export functionalities...
   downloadTable() {
     const doc = new jsPDF();
-
     doc.text('Quiz List', 14, 16);
-    const columns = ['No.', 'Category', 'Question', 'Options', 'Correct Answer', 'Set Time', 'Type', 'Difficulty', 'Status'];
+    const columns = ['No.', 'Category', 'Question', 'Correct Answer', 'Set Time', 'Type', 'Difficulty', 'Status'];
 
     const rows = this.quizzes.flatMap((quiz, quizIndex) =>
-      quiz.questions.map((question, questionIndex) => [
+      quiz.questions.map((question) => [
         (quizIndex + 1).toString(),
         quiz.category,
-        question.questionText,
-        question.options.join(', '),
-        question.correctAnswers.join(', '),
-
+        question.question,
+        question.correctAnswer,
+        quiz.setTime,
+        quiz.difficulty,
         quiz.status
       ])
     );
@@ -135,7 +125,6 @@ export class AdminQuizListComponent implements OnInit {
     doc.save('quiz_list.pdf');
   }
 
-  // Print Table
   printTable() {
     const printContent = document.querySelector('table')?.outerHTML || '';
     const printWindow = window.open('', '', 'height=600,width=800');
@@ -150,7 +139,7 @@ export class AdminQuizListComponent implements OnInit {
   // Convert to CSV format
   convertToCSV(data: Quiz[]): string {
     const csvRows: string[] = [];
-    const headers = ['No.', 'Category', 'Question', 'Options', 'Correct Answer', 'Set Time', 'Type', 'Difficulty', 'Status'];
+    const headers = ['No.', 'Category', 'Set Time', 'Type', 'Difficulty', 'Status'];
     csvRows.push(headers.join(','));
 
     data.forEach((quiz, quizIndex) => {
@@ -158,9 +147,6 @@ export class AdminQuizListComponent implements OnInit {
         const csvRow = [
           (quizIndex + 1).toString(),
           quiz.category,
-          question.questionText,
-          question.options.join(' | '),
-          question.correctAnswers.join(' | '),
 
           quiz.status
         ];
@@ -184,3 +170,4 @@ export class AdminQuizListComponent implements OnInit {
     window.URL.revokeObjectURL(url);
   }
 }
+

@@ -89,7 +89,9 @@
         <mat-form-field>
           <mat-label>Category</mat-label>
           <mat-select [(ngModel)]="category" required>
-            <mat-option *ngFor="let cat of categories" [value]="cat._id">{{ cat.category }}</mat-option>
+            <mat-option *ngFor="let cat of categories" [value]="cat.category">{{
+              cat.category
+            }}</mat-option>
           </mat-select>
         </mat-form-field>
 
@@ -119,28 +121,36 @@
             <mat-option value="Hard">Hard</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Question Type</mat-label>
+          <mat-select [(ngModel)]="questionType">
+            <mat-option value="Multiple Choice">Multiple Choice</mat-option>
+            <mat-option value="True False">True False</mat-option>
+            <mat-option value="Short Question">Short Question</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <!-- Dynamic Questions Section -->
       <h3>Questions</h3>
-      <div *ngFor="let question of quizQuestions; let i = index" class="form-grid">
+      <div
+        *ngFor="let question of quizQuestions; let i = index"
+        class="form-grid"
+      >
         <mat-form-field>
           <mat-label>Question {{ i + 1 }}</mat-label>
           <input matInput [(ngModel)]="question.question" />
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Correct Answer</mat-label>
-          <input matInput [(ngModel)]="question.correctAnswer" />
+          <mat-label>Options</mat-label>
+          <input matInput [(ngModel)]="question.options" />
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Question Type</mat-label>
-          <mat-select [(ngModel)]="question.questionType">
-            <mat-option value="Multiple Choice">Multiple Choice</mat-option>
-            <mat-option value="True False">True False</mat-option>
-            <mat-option value="Short Question">Short Question</mat-option>
-          </mat-select>
+          <mat-label>Correct Answer</mat-label>
+          <input matInput [(ngModel)]="question.correctAnswer" />
         </mat-form-field>
 
         <!-- Remove Question Button -->
@@ -155,7 +165,12 @@
       </button>
 
       <mat-card-actions>
-        <button class="button" mat-raised-button color="primary" (click)="saveQuiz()">
+        <button
+          class="button"
+          mat-raised-button
+          color="primary"
+          (click)="saveQuiz()"
+        >
           Save Quiz
         </button>
       </mat-card-actions>

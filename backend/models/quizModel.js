@@ -6,8 +6,8 @@ const questionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    questionType: {
-      type: String,
+    options: {
+      type: [String],
       required: true,
     },
     correctAnswer: {
@@ -15,7 +15,7 @@ const questionSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { _id: false } // No need for a separate _id for each question
+  { _id: false }
 );
 
 const quizSchema = new mongoose.Schema(
@@ -25,6 +25,10 @@ const quizSchema = new mongoose.Schema(
       required: true,
     },
     difficulty: {
+      type: String,
+      required: true,
+    },
+    questionType: {
       type: String,
       required: true,
     },

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuizService } from '../../../services/quiz.service';
-import { CategoryService } from '../../../services/category.service'; 
+import { CategoryService } from '../../../services/category.service';
 import { Quiz } from '../../../models/quiz.model';
 import { Category } from '../../../models/category.model';
 
@@ -15,11 +15,11 @@ export class AdminQuizAddComponent implements OnInit {
   status: string = 'Active';
   setTime: string = '';
   difficulty: string = '';
+  questionType: string = 'Multiple Choice';
+  categories: Category[] = []; 
 
-  categories: Category[] = []; // List of categories fetched from the backend
-
-  quizQuestions: { question: string; correctAnswer: string; questionType: string }[] = [
-    { question: '', correctAnswer: '', questionType: 'Multiple Choice' },
+  quizQuestions: { question: string; correctAnswer: string; options :string  }[] = [
+    { question: '', correctAnswer: '', options: '' },
   ];
 
   snackBarMessage: string | null = null;
@@ -50,7 +50,7 @@ export class AdminQuizAddComponent implements OnInit {
 
   // Add a new question
   addNewQuestion(): void {
-    this.quizQuestions.push({ question: '', correctAnswer: '', questionType: 'Multiple Choice' });
+    this.quizQuestions.push({ question: '', correctAnswer: '', options: '' });
   }
 
   // Remove a question from the list
@@ -64,9 +64,10 @@ export class AdminQuizAddComponent implements OnInit {
       const quizData: Quiz = {
         category: this.category,
         status: this.status,
+        questionType:this.questionType,
         setTime: this.setTime,
         difficulty: this.difficulty,
-        questions: this.quizQuestions, // Include the questions in the quiz data
+        questions: this.quizQuestions,
       };
 
       this.quizService.createQuiz(quizData).subscribe(
@@ -95,7 +96,8 @@ export class AdminQuizAddComponent implements OnInit {
     this.status = 'Active';
     this.setTime = '';
     this.difficulty = '';
-    this.quizQuestions = [{ question: '', correctAnswer: '', questionType: 'Multiple Choice' }];
+    this.questionType ='Multiple Choice';
+    this.quizQuestions = [{ question: '', correctAnswer: '', options: '' }];
   }
 
   // Show the snackbar for notifications

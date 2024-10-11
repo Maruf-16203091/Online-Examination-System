@@ -2,13 +2,14 @@
 
 export interface Question {
   question: string;
-  questionType: string;
+  options: string;
   correctAnswer: string;
 }
 
 export interface Quiz {
-  id?: string; // Optional for new quizzes
+  _id?: string; // Optional for new quizzes
   category: string;
+  questionType: string;
   difficulty: string;
   setTime: string;
   status: string;
