@@ -1,22 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { EditQuizDialogComponent } from '../edit-quiz-dialog/edit-quiz-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { ViewChild } from '@angular/core';
 
 export interface Quiz {
-  category: string;
-  question: string;
-  status: string;
-  options: string[];
-  correctAnswer: string;
-  setTime: number;
-  questionType: string;
-  difficulty: string;
+  category: string;          // Category of the quiz
+  status: string;           // Status of the quiz (e.g., Active, Inactive)
+  questions: Question[];    // Array of questions for this quiz
+  setTime: number;          // Total time allocated for the quiz
+  questionType: string;     // Type of questions (e.g., Multiple Choice)
+  difficulty: string;       // Difficulty level of the quiz
 }
+
+export interface Question {
+  questionText: string;     // Text of the question
+  options: string[];        // Possible answer options
+  correctAnswers: string[]; // Array of correct answers
+
+}
+
+
+
 
 @Component({
   selector: 'app-quiz-list',
@@ -25,44 +32,41 @@ export interface Quiz {
 })
 
 export class AdminQuizListComponent implements OnInit {
+
+
   displayedColumns: string[] = [
-    'no', 'category', 'question', 'status', 'options', 'correctAnswer',
-    'setTime', 'questionType', 'difficulty', 'action'
+    'no', 'category', 'setTime', 'questionType','question', 'options', 'correctAnswer', 'difficulty', 'status', 'action'
   ];
+
 
 
   quizzes: Quiz[] = [
     {
       category: 'Mathematics',
-      question: 'What is 2+2?',
       status: 'Active',
-      options: ['2', '3', '4', '5'],
-      correctAnswer: '4',
-      setTime: 5,
-      questionType: 'Multiple Choice',
-      difficulty: 'Easy'
-    },
-    {
-      category: 'Mathematics',
-      question: 'What is 2+2?',
-      status: 'Active',
-      options: ['2', '3', '4', '5'],
-      correctAnswer: '4',
-      setTime: 5,
-      questionType: 'Multiple Choice',
-      difficulty: 'Easy'
-    },
-    {
-      category: 'Science',
-      question: 'What is the chemical formula for water?',
-      status: 'Active',
-      options: ['H2O', 'O2', 'CO2', 'H2'],
-      correctAnswer: 'H2O',
       setTime: 10,
       questionType: 'Multiple Choice',
-      difficulty: 'Medium'
-    }
+      difficulty: 'Easy',
+      questions: [
+        {
+          questionText: 'What is 2+2?',
+          options: ['2', '3', '4', '5'],
+          correctAnswers: ['4']
+
+        },
+        {
+          questionText: 'What is 3+5?',
+          options: ['7', '8', '9', '10'],
+          correctAnswers: ['8'],
+
+        }
+      ]
+    },
+
+
+
   ];
+
 
   dataSource = new MatTableDataSource<Quiz>(this.quizzes);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -81,11 +85,9 @@ export class AdminQuizListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Update the quiz in the table after editing
-        const index = this.quizzes.findIndex(q => q.question === quiz.question);
+        const index = this.quizzes.findIndex(q => q.category === quiz.category);
         if (index !== -1) {
           this.quizzes[index] = result;
-
           this.dataSource = new MatTableDataSource(this.quizzes);
         }
       }
@@ -101,44 +103,35 @@ export class AdminQuizListComponent implements OnInit {
     }
   }
 
-  // Existing download, print, and CSV methods here...
+  // PDF, Print, and CSV export functionalities are updated to handle multiple questions.
 
   // Download Table as PDF
   downloadTable() {
     const doc = new jsPDF();
 
-    // Add title to the PDF
     doc.text('Quiz List', 14, 16);
+    const columns = ['No.', 'Category', 'Question', 'Options', 'Correct Answer', 'Set Time', 'Type', 'Difficulty', 'Status'];
 
-    // Define table columns
-    const columns = [
-      'No.', 'Category', 'Question', 'Status', 'Options',
-      'Correct Answer', 'Set Time (mins)', 'Type', 'Difficulty'
-    ];
+    const rows = this.quizzes.flatMap((quiz, quizIndex) =>
+      quiz.questions.map((question, questionIndex) => [
+        (quizIndex + 1).toString(),
+        quiz.category,
+        question.questionText,
+        question.options.join(', '),
+        question.correctAnswers.join(', '),
 
-    // Define table rows based on the quizzes array
-    const rows = this.quizzes.map((quiz, index) => [
-      (index + 1).toString(),
-      quiz.category,
-      quiz.question,
-      quiz.status,
-      quiz.options.join(', '),
-      quiz.correctAnswer,
-      quiz.setTime.toString(),
-      quiz.questionType,
-      quiz.difficulty
-    ]);
+        quiz.status
+      ])
+    );
 
-    // Generate the table using autoTable plugin
     (doc as any).autoTable({
       head: [columns],
       body: rows,
       startY: 20,
       theme: 'grid',
-      headStyles: { fillColor: '#FF6F61' }, // Header background color
+      headStyles: { fillColor: '#FF6F61' }
     });
 
-    // Save the PDF
     doc.save('quiz_list.pdf');
   }
 
@@ -146,8 +139,7 @@ export class AdminQuizListComponent implements OnInit {
   printTable() {
     const printContent = document.querySelector('table')?.outerHTML || '';
     const printWindow = window.open('', '', 'height=600,width=800');
-    printWindow?.document.write('<html><head><title>Print Quiz List</title>');
-    printWindow?.document.write('</head><body>');
+    printWindow?.document.write('<html><head><title>Print Quiz List</title></head><body>');
     printWindow?.document.write('<h2>Quiz List</h2>');
     printWindow?.document.write(printContent);
     printWindow?.document.write('</body></html>');
@@ -158,25 +150,22 @@ export class AdminQuizListComponent implements OnInit {
   // Convert to CSV format
   convertToCSV(data: Quiz[]): string {
     const csvRows: string[] = [];
-    const headers = [
-      'No.', 'Category', 'Question', 'Status', 'Options',
-      'Correct Answer', 'Set Time (mins)', 'Type', 'Difficulty'
-    ];
-    csvRows.push(headers.join(',')); // Add headers
+    const headers = ['No.', 'Category', 'Question', 'Options', 'Correct Answer', 'Set Time', 'Type', 'Difficulty', 'Status'];
+    csvRows.push(headers.join(','));
 
-    data.forEach((quiz, index) => {
-      const csvRow = [
-        (index + 1).toString(),
-        quiz.category,
-        quiz.question,
-        quiz.status,
-        quiz.options.join(' | '), // Use ' | ' as a separator for options
-        quiz.correctAnswer,
-        quiz.setTime.toString(),
-        quiz.questionType,
-        quiz.difficulty
-      ];
-      csvRows.push(csvRow.join(','));
+    data.forEach((quiz, quizIndex) => {
+      quiz.questions.forEach((question, questionIndex) => {
+        const csvRow = [
+          (quizIndex + 1).toString(),
+          quiz.category,
+          question.questionText,
+          question.options.join(' | '),
+          question.correctAnswers.join(' | '),
+
+          quiz.status
+        ];
+        csvRows.push(csvRow.join(','));
+      });
     });
 
     return csvRows.join('\n');
@@ -188,7 +177,6 @@ export class AdminQuizListComponent implements OnInit {
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
-    // Create a download link and trigger the download
     const link = document.createElement('a');
     link.href = url;
     link.download = 'quiz_list.csv';

@@ -92,66 +92,117 @@
       <!-- Quiz Table -->
       <div class="responsive-table-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <!-- Question No. Column -->
+          <!-- No. Column (Quiz Number) -->
           <ng-container matColumnDef="no">
-            <th mat-header-cell *matHeaderCellDef>Question No.</th>
-            <td mat-cell *matCellDef="let quiz; let i = index">{{ i + 1 }}</td>
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td
+              mat-cell
+              *matCellDef="let quiz; let i = index"
+              [attr.rowspan]="quiz.questions.length"
+            >
+              {{ i + 1 }}
+            </td>
           </ng-container>
 
           <!-- Category Column -->
           <ng-container matColumnDef="category">
             <th mat-header-cell *matHeaderCellDef>Category</th>
-            <td mat-cell *matCellDef="let quiz">{{ quiz.category }}</td>
+            <td
+              mat-cell
+              *matCellDef="let quiz"
+              [attr.rowspan]="quiz.questions.length"
+            >
+              {{ quiz.category }}
+            </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td
+              mat-cell
+              *matCellDef="let quiz"
+              [attr.rowspan]="quiz.questions.length"
+            >
+              {{ quiz.status }}
+            </td>
+          </ng-container>
+
+          <!-- Set Time Column -->
+          <ng-container matColumnDef="setTime">
+            <th mat-header-cell *matHeaderCellDef>Set Time</th>
+            <td
+              mat-cell
+              *matCellDef="let quiz"
+              [attr.rowspan]="quiz.questions.length"
+            >
+              {{ quiz.setTime }} mins
+            </td>
+          </ng-container>
+
+          <!-- Question Type Column -->
+          <ng-container matColumnDef="questionType">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td
+              mat-cell
+              *matCellDef="let quiz"
+              [attr.rowspan]="quiz.questions.length"
+            >
+              {{ quiz.questionType }}
+            </td>
+          </ng-container>
+
+          <!-- Difficulty Column -->
+          <ng-container matColumnDef="difficulty">
+            <th mat-header-cell *matHeaderCellDef>Difficulty</th>
+            <td
+              mat-cell
+              *matCellDef="let quiz"
+              [attr.rowspan]="quiz.questions.length"
+            >
+              {{ quiz.difficulty }}
+            </td>
           </ng-container>
 
           <!-- Question Column -->
           <ng-container matColumnDef="question">
             <th mat-header-cell *matHeaderCellDef>Question</th>
-            <td mat-cell *matCellDef="let quiz">{{ quiz.question }}</td>
+            <td mat-cell *matCellDef="let quiz">
+              <div *ngFor="let question of quiz.questions">
+                {{ question.questionText }}
+              </div>
+            </td>
           </ng-container>
 
           <!-- Options Column -->
           <ng-container matColumnDef="options">
             <th mat-header-cell *matHeaderCellDef>Options</th>
             <td mat-cell *matCellDef="let quiz">
-              {{ quiz.options.join(", ") }}
+              <div *ngFor="let question of quiz.questions">
+                {{ question.options.join(", ") }}
+              </div>
             </td>
           </ng-container>
 
           <!-- Correct Answer Column -->
           <ng-container matColumnDef="correctAnswer">
             <th mat-header-cell *matHeaderCellDef>Correct Answer</th>
-            <td mat-cell *matCellDef="let quiz">{{ quiz.correctAnswer }}</td>
-          </ng-container>
-
-          <!-- Set Time Column -->
-          <ng-container matColumnDef="setTime">
-            <th mat-header-cell *matHeaderCellDef>Set Time</th>
-            <td mat-cell *matCellDef="let quiz">{{ quiz.setTime }} mins</td>
-          </ng-container>
-
-          <!-- Question Type Column -->
-          <ng-container matColumnDef="questionType">
-            <th mat-header-cell *matHeaderCellDef>Question Type</th>
-            <td mat-cell *matCellDef="let quiz">{{ quiz.questionType }}</td>
-          </ng-container>
-
-          <!-- Difficulty Column -->
-          <ng-container matColumnDef="difficulty">
-            <th mat-header-cell *matHeaderCellDef>Difficulty</th>
-            <td mat-cell *matCellDef="let quiz">{{ quiz.difficulty }}</td>
-          </ng-container>
-
-          <!-- Status Column -->
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef>Status</th>
-            <td mat-cell *matCellDef="let quiz">{{ quiz.status }}</td>
+            <td mat-cell *matCellDef="let quiz">
+              <div *ngFor="let question of quiz.questions">
+                {{ question.correctAnswers.join(", ") }}
+                <!-- Correct answers for each question -->
+              </div>
+            </td>
           </ng-container>
 
           <!-- Action Column -->
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action</th>
-            <td mat-cell *matCellDef="let quiz">
+            <td
+              mat-cell
+              *matCellDef="let quiz"
+              [attr.rowspan]="quiz.questions.length"
+            >
               <div class="action-buttons">
                 <button
                   mat-icon-button
@@ -160,7 +211,6 @@
                 >
                   <mat-icon>edit</mat-icon>
                 </button>
-
                 <button
                   mat-icon-button
                   class="edit-delete"
@@ -174,7 +224,7 @@
 
           <!-- Header and Row Definitions -->
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-row *matRowDef="let quiz; columns: displayedColumns"></tr>
         </table>
       </div>
 
