@@ -28,6 +28,15 @@
   </mat-form-field>
 
   <mat-form-field>
+    <mat-label>Question Type</mat-label>
+    <mat-select [(ngModel)]="data.questionType">
+      <mat-option value="Multiple Choice">Multiple Choice</mat-option>
+      <mat-option value="True False">True False</mat-option>
+      <mat-option value="Short Question">Short Question</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
     <mat-label>Difficulty</mat-label>
     <mat-select [(ngModel)]="data.difficulty">
       <mat-option value="Easy">Easy</mat-option>
@@ -38,7 +47,7 @@
 
   <!-- Dynamic Questions Section -->
   <h3>Questions</h3>
-  <div *ngFor="let question of data.quizQuestions; let i = index" class="form-grid">
+  <div *ngFor="let question of data.questions; let i = index" class="form-grid">
     <mat-form-field>
       <mat-label>Question {{ i + 1 }}</mat-label>
       <input matInput [(ngModel)]="question.question" />
@@ -49,18 +58,15 @@
       <input matInput [(ngModel)]="question.correctAnswer" />
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Question Type</mat-label>
-      <mat-select [(ngModel)]="question.questionType">
-        <mat-option value="Multiple Choice">Multiple Choice</mat-option>
-        <mat-option value="True False">True False</mat-option>
-        <mat-option value="Short Question">Short Question</mat-option>
-      </mat-select>
-    </mat-form-field>
+
 
     <mat-form-field>
       <mat-label>Options</mat-label>
-      <input matInput [(ngModel)]="question.options" placeholder="Comma-separated options (e.g. option1, option2)" />
+      <input
+        matInput
+        [(ngModel)]="question.options"
+        placeholder="Comma-separated options"
+      />
     </mat-form-field>
 
     <!-- Remove Question Button -->
@@ -77,5 +83,5 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button class="saveButton" mat-button (click)="onSave()">Save</button>
+  <button mat-button (click)="onSave()">Save</button>
 </div>

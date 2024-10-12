@@ -1,44 +1,45 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Quiz, Question } from '../../../models/quiz.model';
 
 @Component({
   selector: 'app-edit-quiz-dialog',
   templateUrl: './edit-quiz-dialog.component.html',
+  styleUrls: ['./edit-quiz-dialog.component.css'],
 })
 export class EditQuizDialogComponent {
-  category: any[]; // Define categories property to hold category data
-
   constructor(
     public dialogRef: MatDialogRef<EditQuizDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any // Ensure to type this according to your model
-  ) {
-    // Initialize categories if you have them in the data object
-    this.category = data.categories || []; // Assign categories from data if available
-  }
+    @Inject(MAT_DIALOG_DATA) public data: Quiz // Expecting a Quiz model here
+  ) {}
 
-  // Add a new question
-  addNewQuestion() {
-    this.data.quizQuestions.push({
+  // Method to add a new question dynamically
+  addNewQuestion(): void {
+    const newQuestion: Question = {
       question: '',
-      correctAnswer: '',
-      questionType: 'Multiple Choice',
-      options: ''
-    });
+      correctAnswer: '', // Default to Multiple Choice
+      options: '' // Comma-separated options (default empty)
+    };
+    this.data.questions.push(newQuestion); // Add a new blank question to the array
   }
 
-  // Remove a specific question
-  removeQuestion(index: number) {
-    this.data.quizQuestions.splice(index, 1);
+  // Method to remove a question by its index
+  removeQuestion(index: number): void {
+    if (this.data.questions.length > 1) {
+      this.data.questions.splice(index, 1); // Remove the question at the specified index
+    } else {
+      alert("A quiz must have at least one question."); // Ensure there's always at least one question
+    }
   }
 
-  // Handle the Save action
-  onSave() {
-    // Implement your save logic here
-    this.dialogRef.close(this.data); // Return the updated data
+  // Save the quiz and close the dialog
+  onSave(): void {
+    // Validate data if necessary (e.g., checking empty fields or incomplete questions)
+    this.dialogRef.close(this.data); // Return the updated quiz data to the parent component
   }
 
-  // Handle the Cancel action
+  // Cancel and close the dialog without saving changes
   onCancel(): void {
-    this.dialogRef.close(); // Close the dialog without saving
+    this.dialogRef.close(); // Close the dialog without passing back any data
   }
 }

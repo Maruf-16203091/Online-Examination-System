@@ -38,7 +38,7 @@ export class AdminQuizListComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       },
       error: (error) => {
-        console.error('Error fetching quizzes:', error); // Handle errors here
+        console.error('Error fetching quizzes:', error);
       }
     });
   }
@@ -47,17 +47,20 @@ export class AdminQuizListComponent implements OnInit {
   openEditModal(quiz: Quiz): void {
     const dialogRef = this.dialog.open(EditQuizDialogComponent, {
       width: '700px',
-      height: '400px',
-      data: { ...quiz } // Pass the selected quiz data to the modal
+      data: { ...quiz }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const index = this.quizzes.findIndex(q => q. _id === quiz. _id); // Use id for finding the quiz
-        if (index !== -1) {
-          this.quizzes[index] = result; // Update the quiz
-          this.dataSource = new MatTableDataSource(this.quizzes);
-        }
+        this.quizService.updateQuiz(result._id, result).subscribe(
+          (updatedQuiz) => {
+            this.loadQuizzes(); // Reload the list of quizzes after successful update
+            this.snackBar.open('Quiz updated successfully!', 'Close', { duration: 3000 });
+          },
+          (error) => {
+            console.error('Error updating quiz:', error);
+          }
+        );
       }
     });
   }

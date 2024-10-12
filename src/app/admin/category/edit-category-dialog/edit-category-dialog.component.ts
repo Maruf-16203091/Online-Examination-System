@@ -11,7 +11,7 @@ export class EditCategoryDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<EditCategoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Category
-  ) {}
+  ) { }
 
   onCancel(): void {
     this.dialogRef.close();
