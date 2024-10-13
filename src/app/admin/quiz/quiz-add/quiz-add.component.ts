@@ -16,7 +16,7 @@ export class AdminQuizAddComponent implements OnInit {
   setTime: string = '';
   difficulty: string = '';
   questionType: string = 'Multiple Choice';
-  categories: Category[] = []; 
+  categories: Category[] = [];
 
   quizQuestions: { question: string; correctAnswer: string; options :string  }[] = [
     { question: '', correctAnswer: '', options: '' },
@@ -68,7 +68,7 @@ export class AdminQuizAddComponent implements OnInit {
         setTime: this.setTime,
         difficulty: this.difficulty,
         questions: this.quizQuestions,
-      };
+      };+
 
       this.quizService.createQuiz(quizData).subscribe(
         (response) => {

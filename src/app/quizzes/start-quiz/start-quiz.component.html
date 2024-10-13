@@ -1,52 +1,47 @@
-
-
-
-  <div class="quiz-container">
-    <div class="quiz-header">
-      <h2>{{ quizTitle }}</h2>
-      <div class="timer">
-        <span>Time Left: {{ formattedTime }}</span>
-      </div>
-    </div>
-
-    <!-- Progress Bar -->
-    <mat-progress-bar
-      mode="determinate"
-      [value]="(currentQuestionIndex / questions.length) * 100"
-    ></mat-progress-bar>
-
-    <!-- Question Display -->
-    <div class="question-section">
-      <h3>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</h3>
-      <p>{{ questions[currentQuestionIndex].question }}</p>
-
-      <!-- Options as radio buttons -->
-      <mat-radio-group
-        [(ngModel)]="selectedOption"
-        aria-label="Select an answer"
-      >
-        <mat-radio-button
-          *ngFor="let option of questions[currentQuestionIndex].options"
-          [value]="option"
-        >
-          {{ option }}
-        </mat-radio-button>
-      </mat-radio-group>
-    </div>
-
-    <!-- Navigation Buttons -->
-    <div class="button-section">
-      <button
-        mat-raised-button
-        class="previous-button"
-        (click)="previousQuestion()"
-        *ngIf="!isFirstQuestion"
-      >
-        Previous
-      </button>
-      <button mat-raised-button class="next-button" (click)="nextQuestion()">
-        {{ isLastQuestion ? "Submit Quiz" : "Next" }}
-      </button>
+<div class="quiz-container">
+  <!-- Quiz Header with Title and Timer -->
+  <div class="quiz-header">
+    <h2>{{ quizTitle }} - {{ difficulty }} Quiz</h2>
+    <div class="timer">
+      <span>Time Left: {{ formattedTime }}</span>
     </div>
   </div>
 
+  <!-- Progress Bar -->
+  <mat-progress-bar
+    mode="determinate"
+    [value]="(currentQuestionIndex / questions.length) * 100"
+  ></mat-progress-bar>
+
+  <!-- Question Display Section -->
+  <div class="question-section" *ngIf="quiz">
+    <h3>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</h3>
+    <p>{{ questions[currentQuestionIndex].question }}</p>
+
+  
+    <!-- Options as radio buttons -->
+    <mat-radio-group [(ngModel)]="selectedOption" aria-label="Select an answer">
+      <mat-radio-button
+        *ngFor="let option of questions[currentQuestionIndex].options"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="button-section">
+    <button
+      mat-raised-button
+      class="previous-button"
+      (click)="previousQuestion()"
+      *ngIf="!isFirstQuestion"
+    >
+      Previous
+    </button>
+    <button mat-raised-button class="next-button" (click)="nextQuestion()">
+      {{ isLastQuestion ? "Submit Quiz" : "Next" }}
+    </button>
+  </div>
+</div>

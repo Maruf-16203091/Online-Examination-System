@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { QuizService } from '../services/quiz.service';
+import { Quiz } from '../models/quiz.model';
 
 @Component({
   selector: 'app-all-quiz',
@@ -6,16 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all-quiz.component.css']
 })
 export class AllQuizComponent implements OnInit {
-  quizzes = [
-    { id: 1, title: 'Math Quiz', subject: 'Mathematics', status: 'Active' },
-    { id: 2, title: 'Science Quiz', subject: 'Science', status: 'Completed' },
-    { id: 3, title: 'History Quiz', subject: 'History', status: 'Upcoming' },
-    { id: 4, title: 'Geography Quiz', subject: 'Geography', status: 'Active' },
-    { id: 5, title: 'Technology Quiz', subject: 'Technology', status: 'Completed' }
-    // Add more quizzes as needed
-  ];
+  quizzes: Quiz[] = [];  // Store the fetched quizzes here
 
-  constructor() {}
+  constructor(private quizService: QuizService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.fetchQuizzes();
+  }
+
+  fetchQuizzes(): void {
+    this.quizService.getQuizzes().subscribe(
+      (data: Quiz[]) => {
+        this.quizzes = data;
+      },
+      (error) => {
+        console.error('Error fetching quizzes', error);
+      }
+    );
+  }
 }

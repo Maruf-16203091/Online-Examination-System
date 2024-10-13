@@ -1,34 +1,31 @@
-
- 
-
-  <div class="start-quiz-container">
-    <div class="quiz-header">
-      <h1>{{ quizTitle }}</h1>
-      <p>
-        Subject: <span class="subject">{{ quizSubject }}</span>
-      </p>
-    </div>
-
-    <div class="quiz-instructions">
-      <h2>Instructions</h2>
-      <p>{{ quizInstructions }}</p>
-      <ul>
-        <li>Each question carries 1 point.</li>
-        <li>There is no negative marking for incorrect answers.</li>
-        <li>You will have 10 minutes to complete the quiz.</li>
-        <li>Make sure you are connected to the internet.</li>
-      </ul>
-    </div>
-
-    <div class="start-quiz-button">
-      <button
-        mat-raised-button
-        color="primary"
-        routerLink="/start-quiz"
-        (click)="startQuiz()"
-      >
-        Start
-      </button>
-    </div>
+<div class="start-quiz-container">
+  <div class="quiz-header">
+    <h1>{{ quiz?.category }}</h1> <!-- Accessing the quiz object dynamically -->
+    <p>
+      Quiz Type: <span class="subject">{{ quiz?.questionType }}</span>
+    </p>
   </div>
 
+  <div class="quiz-instructions">
+    <h2>Instructions</h2>
+    <p>{{ quizInstructions }}</p>
+    <ul>
+      <li>Each question carries 1 point.</li>
+      <li>There is no negative marking for incorrect answers.</li>
+      <li>You will have {{ quiz?.setTime }} to complete the quiz.</li> <!-- Dynamic Time -->
+      <li>Make sure you are connected to the internet.</li>
+    </ul>
+  </div>
+
+  <div class="start-quiz-button">
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/start-quiz', quiz._id]"
+      (click)="startQuiz()"
+      *ngIf="quiz"
+    >
+      Start
+    </button>
+  </div>
+</div>

@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { QuizService } from '../../services/quiz.service'; // Adjust path as needed
 import { DialogComponent } from '../dialog/dialog.component';
+import { Quiz } from '../../models/quiz.model';
 
 @Component({
   selector: 'app-start-quiz',
@@ -9,79 +11,56 @@ import { DialogComponent } from '../dialog/dialog.component';
   styleUrls: ['./start-quiz.component.css']
 })
 export class StartQuizComponent implements OnInit, OnDestroy {
-  quizTitle: string = 'General Knowledge Quiz';
-  questions: any[] = [
-    {
-      question: 'What is the capital of France?',
-      options: ['Paris', 'London', 'Berlin', 'Madrid'],
-      correctAnswer: 'Paris'
-    },
-    {
-      question: 'Who wrote "Romeo and Juliet"?',
-      options: ['William Shakespeare', 'J.K. Rowling', 'Mark Twain', 'Charles Dickens'],
-      correctAnswer: 'William Shakespeare'
-    },
-    {
-      question: 'What is the largest planet in our solar system?',
-      options: ['Earth', 'Jupiter', 'Mars', 'Saturn'],
-      correctAnswer: 'Jupiter'
-    },
-    {
-      question: 'Which element has the chemical symbol O?',
-      options: ['Oxygen', 'Gold', 'Osmium', 'Oganesson'],
-      correctAnswer: 'Oxygen'
-    },
-    {
-      question: 'In which year did the Titanic sink?',
-      options: ['1912', '1910', '1905', '1920'],
-      correctAnswer: '1912'
-    },
-    {
-      question: 'Who painted the Mona Lisa?',
-      options: ['Leonardo da Vinci', 'Vincent van Gogh', 'Pablo Picasso', 'Claude Monet'],
-      correctAnswer: 'Leonardo da Vinci'
-    },
-    {
-      question: 'What is the hardest natural substance on Earth?',
-      options: ['Diamond', 'Gold', 'Iron', 'Platinum'],
-      correctAnswer: 'Diamond'
-    },
-    {
-      question: 'Which planet is known as the Red Planet?',
-      options: ['Mars', 'Venus', 'Mercury', 'Neptune'],
-      correctAnswer: 'Mars'
-    },
-    {
-      question: 'Who was the first President of the United States?',
-      options: ['George Washington', 'Thomas Jefferson', 'John Adams', 'Abraham Lincoln'],
-      correctAnswer: 'George Washington'
-    },
-    {
-      question: 'What is the smallest country in the world?',
-      options: ['Vatican City', 'Monaco', 'San Marino', 'Liechtenstein'],
-      correctAnswer: 'Vatican City'
-    }
-  ];
-
-
+  quiz: Quiz | undefined;
+  quizTitle: string = '';
+  questionType: string = '';
+  difficulty: string = '';
+  questions: any[] = [];
   currentQuestionIndex: number = 0;
   selectedOption: string | undefined;
-  timer: number = 30000; // 10 minutes for demo purposes
-  interval: any;  // Store the interval reference here
+  timer: number = 0;
+  interval: any;
 
-  constructor(private router: Router, private dialog: MatDialog) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
+    private quizService: QuizService
+  ) {}
 
   ngOnInit() {
-    this.startTimer();
+    const quizId = this.route.snapshot.paramMap.get('id');
+    if (quizId) {
+      this.loadQuizDetails(quizId);
+    }
   }
 
   ngOnDestroy() {
     this.clearTimer();
   }
+
+  // Fetch quiz details from the service
+  loadQuizDetails(id: string): void {
+    this.quizService.getQuizById(id).subscribe(
+      (quiz: Quiz) => {
+        this.quiz = quiz;
+        this.quizTitle = quiz.category;
+        this.questionType = quiz.questionType;
+        this.difficulty = quiz.difficulty;
+        this.questions = quiz.questions;
+        this.timer = this.convertMinutesToMilliseconds(quiz.setTime);
+        this.startTimer();
+      },
+      (error) => {
+        console.error('Error loading quiz:', error);
+      }
+    );
+  }
+
   nextQuestion() {
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
-      this.selectedOption = undefined; // Reset selection for the next question
+      this.selectedOption = undefined; // Clear selected option for the next question
     } else {
       this.submitQuiz();
     }
@@ -90,12 +69,12 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
-      this.selectedOption = undefined; // Reset selection for the previous question
+      this.selectedOption = undefined; // Clear selected option for the previous question
     }
   }
 
   submitQuiz() {
-    this.clearTimer();  // Stop the timer when the quiz is submitted
+    this.clearTimer(); // Stop the timer
     this.openDialog('Quiz Submitted!', 'Success', 'success');
   }
 
@@ -103,7 +82,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
     this.interval = setInterval(() => {
       this.timer -= 1000;
       if (this.timer <= 0) {
-        this.clearTimer();  // Stop the timer if time runs out
+        this.clearTimer(); // Stop the timer if time runs out
         this.openDialog('Time is up! Try next time.', 'Time Over', 'end');
       }
     }, 1000);
@@ -111,7 +90,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
 
   clearTimer() {
     if (this.interval) {
-      clearInterval(this.interval);  // Clear the interval to stop the timer
+      clearInterval(this.interval); // Clear the interval to stop the timer
     }
   }
 
@@ -138,5 +117,11 @@ export class StartQuizComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(['/dashboard']);
     });
+  }
+
+  // Convert setTime in the format "10 Minutes" to milliseconds for the timer
+  convertMinutesToMilliseconds(minutes: string): number {
+    const timeInMinutes = parseInt(minutes.split(' ')[0], 10); // Extract numeric value from "10 Minutes"
+    return timeInMinutes * 60000; // Convert minutes to milliseconds
   }
 }

@@ -31,8 +31,8 @@ import { SettingsComponent } from './admin/settings/settings.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },  // Dashboard Route
-  { path: 'start-quiz', component: StartQuizComponent }, // Start Quiz Route
-  { path: 'quiz-detail', component: QuizDetailComponent },  // quiz-detail Route
+  { path: 'start-quiz/:id', component: StartQuizComponent }, // Start Quiz Route
+  { path: 'quiz-detail/:id', component: QuizDetailComponent },  // quiz-detail Route
   { path: 'training', component: TrainingComponent },  // quiz-detail Route
   { path: 'result', component: ResultComponent },  // result Route
   { path: 'about-us', component: AboutUsComponent }, // about-us Route
