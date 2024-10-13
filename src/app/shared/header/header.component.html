@@ -1,4 +1,4 @@
-<div class="header-wrapper">
+<div class="header-wrapper" [ngClass]="{ scrolled: isScrolled }">
   <header class="dashboard-header">
     <div class="header-left">
       <img
@@ -8,7 +8,8 @@
         class="logo"
       />
       <h1>QuizzyBee</h1>
-      <div class="header-advertisement">
+      <div class="header-advertisement animate">
+        <!-- Add 'animate' class conditionally if needed -->
         <p>🎉 Explore 500+ quizzes now! 🎉</p>
       </div>
     </div>
@@ -16,29 +17,88 @@
     <div class="header-right">
       <!-- Categories Dropdown with Icon -->
       <div class="category-dropdown">
-        <span class="category-trigger ">
-          <mat-icon >arrow_drop_down</mat-icon>
+        <span class="category-trigger">
+          <mat-icon>arrow_drop_down</mat-icon>
           Categories
         </span>
 
         <div class="dropdown-content">
           <button
+            *ngFor="let category of categories"
             routerLink="/all-quiz"
-            (click)="filterByCategory('Mathematics')"
+            (click)="filterByCategory(category.category)"
+            class="dropdown-item"
           >
-            <mat-icon>calculate</mat-icon> Mathematics
-          </button>
-          <button routerLink="/all-quiz" (click)="filterByCategory('Science')">
-            <mat-icon>science</mat-icon> Science
-          </button>
-          <button routerLink="/all-quiz" (click)="filterByCategory('History')">
-            <mat-icon>history_edu</mat-icon> History
-          </button>
-          <button
-            routerLink="/all-quiz"
-            (click)="filterByCategory('General Knowledge')"
-          >
-            <mat-icon>public</mat-icon> General Knowledge
+            <!-- Language-related categories -->
+            <mat-icon *ngIf="category.category === 'Bangla'">language</mat-icon>
+            <mat-icon *ngIf="category.category === 'English'"
+              >translate</mat-icon
+            >
+
+            <!-- Science and education-related categories -->
+            <mat-icon *ngIf="category.category === 'Science'">science</mat-icon>
+            <mat-icon *ngIf="category.category === 'Math'">functions</mat-icon>
+            <mat-icon *ngIf="category.category === 'History'"
+              >history_edu</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Physics'">speed</mat-icon>
+            <mat-icon *ngIf="category.category === 'Chemistry'"
+              >bubble_chart</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Biology'">eco</mat-icon>
+
+            <!-- General categories -->
+            <mat-icon *ngIf="category.category === 'GK'"
+              >public</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Sports'"
+              >sports_soccer</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Music'"
+              >music_note</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Technology'"
+              >memory</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Geography'">map</mat-icon>
+            <mat-icon *ngIf="category.category === 'Politics'">gavel</mat-icon>
+
+            <!-- Computer and tech-related categories -->
+            <mat-icon *ngIf="category.category === 'Computer Science'"
+              >computer</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Engineering'"
+              >engineering</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Programming'"
+              >code</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Artificial Intelligence'"
+              >smart_toy</mat-icon
+            >
+
+            <!-- Arts and entertainment categories -->
+            <mat-icon *ngIf="category.category === 'Art'">brush</mat-icon>
+            <mat-icon *ngIf="category.category === 'Movies'">movie</mat-icon>
+            <mat-icon *ngIf="category.category === 'Photography'"
+              >camera_alt</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Literature'"
+              >menu_book</mat-icon
+            >
+
+            <!-- Business and finance-related categories -->
+            <mat-icon *ngIf="category.category === 'Finance'"
+              >account_balance</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Economics'"
+              >trending_up</mat-icon
+            >
+            <mat-icon *ngIf="category.category === 'Business'"
+              >business_center</mat-icon
+            >
+
+            {{ category.category }}
           </button>
         </div>
       </div>

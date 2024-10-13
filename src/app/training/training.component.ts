@@ -48,8 +48,9 @@ export class TrainingComponent implements OnInit {
     this.selectedQuestionType.valueChanges.subscribe(() => this.applyFilter());
   }
 
+
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator; // Connect the paginator to the datasource
   }
 
   // Load categories from the CategoryService

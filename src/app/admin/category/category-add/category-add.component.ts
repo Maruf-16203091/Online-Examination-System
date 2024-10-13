@@ -15,8 +15,8 @@ export class CategoryAddComponent {
 
   constructor(
     private snackBar: MatSnackBar,
-    private categoryService: CategoryService  
-  ) {}
+    private categoryService: CategoryService
+  ) { }
 
   // Save the new category
   saveCategory(): void {

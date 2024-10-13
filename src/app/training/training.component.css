@@ -66,17 +66,4 @@
   color: white;                         /* Header Text Color */
 }
 
-/* List Styles for Questions and Answers */
-.mat-cell ul {
-  list-style: none;             /* Remove bullet points from ul */
-  padding: 0;                  /* Remove padding */
-  margin: 0;                   /* Remove margin */
-  display: flex;               /* Use flexbox */
-  flex-direction: column;      /* Stack items vertically */
-  align-items: center;         /* Center items horizontally */
-}
 
-.mat-cell li {
-  margin: 0;                   /* Remove margin for li */
-  text-align: center;          /* Center text within li */
-}
