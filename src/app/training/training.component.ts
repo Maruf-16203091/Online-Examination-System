@@ -18,7 +18,7 @@ export interface QuizCategory {
   styleUrls: ['./training.component.css']
 })
 export class TrainingComponent implements OnInit {
-  displayedColumns: string[] = [ 'questions', 'Answer'];
+  displayedColumns: string[] = ['questions', 'Answer'];
   dataSource = new MatTableDataSource<QuizCategory>();
 
   selectedCategory = new FormControl('');
@@ -30,7 +30,7 @@ export class TrainingComponent implements OnInit {
   categories: Category[] = []; // Loaded from the DB
   difficultyLevels: string[] = ['Easy', 'Medium', 'Hard'];
   dateRanges: string[] = ['Last 7 Days', 'Last 30 Days', 'Last 6 Months', 'Last Year'];
-  questionTypes: string[] = ['Multiple Choice', 'True/False', 'Short Answer'];
+  questionTypes: string[] = ['Multiple Choice', 'True False', 'Short Question'];
 
   constructor(
     private trainingService: TrainingService,
