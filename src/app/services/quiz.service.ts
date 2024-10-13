@@ -38,4 +38,8 @@ export class QuizService {
   deleteQuiz(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  getQuizzesByCategory(category: string): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(`${this.apiUrl}?category=${category}`);
+  }
 }

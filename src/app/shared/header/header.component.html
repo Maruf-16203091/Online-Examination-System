@@ -25,7 +25,7 @@
         <div class="dropdown-content">
           <button
             *ngFor="let category of categories"
-            routerLink="/all-quiz"
+            [routerLink]="['/all-quiz', category.category]"
             (click)="filterByCategory(category.category)"
             class="dropdown-item"
           >

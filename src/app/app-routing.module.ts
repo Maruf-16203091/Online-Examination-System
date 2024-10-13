@@ -44,7 +44,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // login Route
   { path: 'register', component: RegisterComponent }, // register Route
   { path: 'home', component: HomeComponent }, // Home Route
-  { path: 'all-quiz', component: AllQuizComponent }, // all-quiz Route
+  { path: 'all-quiz/:category', component: AllQuizComponent },
   { path: 'view-detail-answer', component: ViewDetailAnswerComponent },
 
   // Admin Route

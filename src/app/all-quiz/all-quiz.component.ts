@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { QuizService } from '../services/quiz.service';
-import { Quiz } from '../models/quiz.model';
+import { ActivatedRoute } from '@angular/router';
+import { QuizService } from '../services/quiz.service'; // Assuming you have a QuizService
+import { Quiz } from '../models/quiz.model'; // Assuming you have a Quiz model
 
 @Component({
   selector: 'app-all-quiz',
@@ -8,22 +9,29 @@ import { Quiz } from '../models/quiz.model';
   styleUrls: ['./all-quiz.component.css']
 })
 export class AllQuizComponent implements OnInit {
-  quizzes: Quiz[] = [];  // Store the fetched quizzes here
+  category: string = '';
+  quizzes: Quiz[] = [];
 
-  constructor(private quizService: QuizService) {}
+  constructor(private route: ActivatedRoute, private quizService: QuizService) { }
 
-  ngOnInit(): void {
-    this.fetchQuizzes();
+  ngOnInit() {
+    // Get category from the route params
+    this.route.paramMap.subscribe(params => {
+      this.category = params.get('category') || '';
+      this.filterQuizzesByCategory(this.category);
+    });
   }
 
-  fetchQuizzes(): void {
+  filterQuizzesByCategory(category: string) {
     this.quizService.getQuizzes().subscribe(
       (data: Quiz[]) => {
-        this.quizzes = data;
+        // Filter quizzes by category on the frontend
+        this.quizzes = data.filter(quiz => quiz.category === category);
       },
       (error) => {
         console.error('Error fetching quizzes', error);
       }
     );
   }
+
 }
