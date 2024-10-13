@@ -18,8 +18,8 @@ export class AdminQuizAddComponent implements OnInit {
   questionType: string = 'Multiple Choice';
   categories: Category[] = [];
 
-  quizQuestions: { question: string; correctAnswer: string; options :string  }[] = [
-    { question: '', correctAnswer: '', options: '' },
+  quizQuestions: { question: string; correctAnswer: string; options :string[]  }[] = [
+    { question: '', correctAnswer: '',  options: [''] },
   ];
 
   snackBarMessage: string | null = null;
@@ -50,7 +50,7 @@ export class AdminQuizAddComponent implements OnInit {
 
   // Add a new question
   addNewQuestion(): void {
-    this.quizQuestions.push({ question: '', correctAnswer: '', options: '' });
+    this.quizQuestions.push({ question: '', correctAnswer: '',  options: [''] });
   }
 
   // Remove a question from the list
@@ -97,7 +97,7 @@ export class AdminQuizAddComponent implements OnInit {
     this.setTime = '';
     this.difficulty = '';
     this.questionType ='Multiple Choice';
-    this.quizQuestions = [{ question: '', correctAnswer: '', options: '' }];
+    this.quizQuestions = [{ question: '', correctAnswer: '',  options: [''] }];
   }
 
   // Show the snackbar for notifications

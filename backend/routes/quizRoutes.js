@@ -16,7 +16,8 @@ router.get("/quizzes", async (req, res) => {
 // @route POST /api/quizzes
 // @desc Create a new quiz
 router.post("/quizzes", async (req, res) => {
-  const { category, difficulty, questionType, setTime, status, questions } = req.body;
+  const { category, difficulty, questionType, setTime, status, questions } =
+    req.body;
 
   if (!Array.isArray(questions) || questions.length === 0) {
     return res
@@ -30,7 +31,7 @@ router.post("/quizzes", async (req, res) => {
     setTime,
     questionType,
     status,
-    questions, 
+    questions,
   });
 
   try {
@@ -38,6 +39,47 @@ router.post("/quizzes", async (req, res) => {
     res.status(201).json(savedQuiz);
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+});
+
+// @route GET /api/quizzes/filter
+// @desc Get filtered quizzes based on category, difficulty, and question type
+router.get("/quizzes/filter", async (req, res) => {
+  try {
+    const { category, difficulty, questionType, dateRange } = req.query;
+
+    // Build the query object dynamically based on available filters
+    let query = {};
+
+    if (category) query.category = category;
+    if (difficulty) query.difficulty = difficulty;
+    if (questionType) query.questionType = questionType;
+
+    // Date range filter (for example, last X days)
+    if (dateRange) {
+      const currentDate = new Date();
+      let startDate;
+
+      if (dateRange === "Last 7 Days") {
+        startDate = new Date(currentDate.setDate(currentDate.getDate() - 7));
+      } else if (dateRange === "Last 30 Days") {
+        startDate = new Date(currentDate.setDate(currentDate.getDate() - 30));
+      } else if (dateRange === "Last 6 Months") {
+        startDate = new Date(currentDate.setMonth(currentDate.getMonth() - 6));
+      } else if (dateRange === "Last Year") {
+        startDate = new Date(
+          currentDate.setFullYear(currentDate.getFullYear() - 1)
+        );
+      }
+
+      query.createdAt = { $gte: startDate };
+    }
+
+    // Fetch quizzes based on the filter
+    const quizzes = await Quiz.find(query);
+    res.json(quizzes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
@@ -58,7 +100,8 @@ router.get("/quizzes/:id", async (req, res) => {
 // @route PUT /api/quizzes/:id
 // @desc Update a quiz by ID
 router.put("/quizzes/:id", async (req, res) => {
-  const { category, difficulty, questionType, setTime, status, questions } = req.body;
+  const { category, difficulty, questionType, setTime, status, questions } =
+    req.body;
 
   if (!Array.isArray(questions) || questions.length === 0) {
     return res

@@ -9,7 +9,7 @@ import { Quiz } from '../../models/quiz.model'; // Import your Quiz model
   styleUrls: ['./quiz-detail.component.css'] // Fixed typo
 })
 export class QuizDetailComponent implements OnInit {
-  quiz: Quiz | undefined; // Add the `quiz` object to store quiz data
+  quiz: Quiz | undefined; 
   quizInstructions: string = 'Please read the following instructions carefully before starting the quiz.';
 
   constructor(private quizService: QuizService, private route: ActivatedRoute) {}

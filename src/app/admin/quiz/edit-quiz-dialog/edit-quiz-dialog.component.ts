@@ -18,7 +18,7 @@ export class EditQuizDialogComponent {
     const newQuestion: Question = {
       question: '',
       correctAnswer: '', // Default to Multiple Choice
-      options: '' // Comma-separated options (default empty)
+      options: ['']// Comma-separated options (default empty)
     };
     this.data.questions.push(newQuestion); // Add a new blank question to the array
   }

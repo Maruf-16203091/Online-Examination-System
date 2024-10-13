@@ -1,20 +1,17 @@
-
-
 <div class="training-container">
   <mat-card>
     <mat-card-content>
       <!-- Filter Section -->
       <div class="filter-section">
-        <!-- First Row of Filters -->
         <div class="filter-row">
           <mat-form-field appearance="outline" class="filter-item">
             <mat-label>Search by Category</mat-label>
             <mat-select [formControl]="selectedCategory">
               <mat-option
                 *ngFor="let category of categories"
-                [value]="category"
+                [value]="category.category"
               >
-                {{ category }}
+                {{ category.category }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -30,18 +27,8 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <mat-form-field appearance="outline" class="filter-item">
-            <mat-label>Date Range</mat-label>
-            <mat-select [formControl]="selectedDateRange">
-              <mat-option *ngFor="let range of dateRanges" [value]="range">
-                {{ range }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
         </div>
 
-        <!-- Second Row of Filters -->
         <div class="filter-row">
           <mat-form-field appearance="outline" class="filter-item">
             <mat-label>Question Type</mat-label>
@@ -53,90 +40,61 @@
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="filter-item">
-            <mat-label>Sort By</mat-label>
-            <mat-select [formControl]="selectedSortBy">
-              <mat-option *ngFor="let sort of sortOptions" [value]="sort">
-                {{ sort }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" class="filter-item">
-            <mat-label>Rating</mat-label>
-            <mat-select [formControl]="selectedRating">
-              <mat-option *ngFor="let rating of ratings" [value]="rating">
-                {{ rating }}
+            <mat-label>Date Range</mat-label>
+            <mat-select [formControl]="selectedDateRange">
+              <mat-option *ngFor="let range of dateRanges" [value]="range">
+                {{ range }}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </div>
 
-        <!-- Submit Button -->
         <div class="filter-submit">
-          <button
-            mat-raised-button
-            class="btn-search"
-            color="primary"
-            (click)="applyFilter()"
-          >
+          <button mat-raised-button color="primary" (click)="applyFilter()">
             Search
           </button>
         </div>
       </div>
 
-      <!-- Top Pagination -->
       <mat-paginator
         [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButtons
       ></mat-paginator>
 
-      <!-- Data Table -->
-      <div class="table-container">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-          <!-- Columns Definitions -->
-          <ng-container matColumnDef="category">
-            <th mat-header-cell *matHeaderCellDef>Category</th>
-            <td mat-cell *matCellDef="let element">{{ element.category }}</td>
-          </ng-container>
+      <!-- Display Filtered Quizzes -->
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- Questions Column -->
+        <ng-container matColumnDef="questions">
+          <mat-header-cell *matHeaderCellDef> Questions </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <ul>
+              <li *ngFor="let question of element.questions">
+                {{ question.question }}
+              </li>
+            </ul>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef>Description</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.description }}
-            </td>
-          </ng-container>
+        <!-- Answer Column -->
+        <ng-container matColumnDef="Answer">
+          <mat-header-cell *matHeaderCellDef> Answer </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <ul>
+              <li *ngFor="let question of element.questions">
+                {{ question.correctAnswer }}
+              </li>
+            </ul>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="questions">
-            <th mat-header-cell *matHeaderCellDef>Number of Questions</th>
-            <td mat-cell *matCellDef="let element">{{ element.questions }}</td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
-      </div>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
 
       <mat-paginator
         [pageSizeOptions]="[5, 10, 20]"
         showFirstLastButtons
       ></mat-paginator>
-
-      <!-- Sample Questions Section -->
-      <mat-card class="sample-questions-card">
-        <mat-card-header>
-          <mat-card-title>Sample Questions</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="sample-questions">
-            <div *ngFor="let sample of sampleQuestions">
-              <div class="sample-question-item">
-                <h3>{{ sample.question }}</h3>
-                <p><strong>Answer:</strong> {{ sample.answer }}</p>
-              </div>
-            </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
     </mat-card-content>
   </mat-card>
 </div>

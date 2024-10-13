@@ -18,8 +18,8 @@
       <div *ngFor="let quiz of quizzes" class="quiz-card">
         <mat-card>
           <mat-card-content>
-            <h3>{{ quiz.title }}</h3>
-            <p><strong>Subject:</strong> {{ quiz.subject }}</p>
+            <h3>{{ quiz.category }}</h3>
+            <p><strong>Subject:</strong> {{ quiz.questionType }}</p>
             <p><strong>Status:</strong> {{ quiz.status }}</p>
           </mat-card-content>
           <mat-card-actions>
@@ -27,7 +27,7 @@
               class="start-btn"
               mat-raised-button
               color="primary"
-              routerLink="/quiz-detail"
+              [routerLink]="['/quiz-detail', quiz._id]"
               *ngIf="quiz.status === 'Active'"
             >
               Start Quiz
@@ -41,14 +41,14 @@
               Coming Soon
             </button>
             <button
-            class="start-btn"
-            mat-raised-button
-            color="primary"
-            routerLink="/quiz-detail"
-            *ngIf="quiz.status === 'Completed'"
-          >
-            Start Quiz
-          </button>
+              class="start-btn"
+              mat-raised-button
+              color="primary"
+              [routerLink]="['/quiz-detail', quiz._id]"
+              *ngIf="quiz.status === 'Completed'"
+            >
+              Start Quiz
+            </button>
           </mat-card-actions>
         </mat-card>
       </div>
@@ -62,37 +62,35 @@
       <div *ngFor="let quiz of quizzes" class="quiz-card">
         <mat-card>
           <mat-card-content>
-            <h3>{{ quiz.title }}</h3>
-            <p><strong>Subject:</strong> {{ quiz.subject }}</p>
+            <h3>{{ quiz.category }}</h3>
+            <p><strong>Subject:</strong> {{ quiz.questionType }}</p>
           </mat-card-content>
           <mat-card-actions>
-
             <button
               class="result-btn"
               mat-raised-button
-              routerLink="/view-detail-answer"
+              [routerLink]="['/view-detail-answer']"
               *ngIf="quiz.status === 'Completed'"
             >
               View Result
             </button>
             <button
-            class="result-btn"
-            routerLink="/view-detail-answer"
-            mat-raised-button
-            *ngIf="quiz.status === 'Active'"
-          >
-            View Result
-          </button>
+              class="result-btn"
+              [routerLink]="['/view-detail-answer']"
+              mat-raised-button
+              *ngIf="quiz.status === 'Active'"
+            >
+              View Result
+            </button>
 
-          <button
-            class="result-btn"
-            mat-raised-button
-            routerLink="/view-detail-answer"
-            *ngIf="quiz.status === 'Upcoming'"
-          >
-            View Result
-          </button>
-
+            <button
+              class="result-btn"
+              mat-raised-button
+              [routerLink]="['/view-detail-answer']"
+              *ngIf="quiz.status === 'Upcoming'"
+            >
+              View Result
+            </button>
           </mat-card-actions>
         </mat-card>
       </div>

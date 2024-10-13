@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service'; // Adjust the path according to your structure
-import { QuizService } from '../../services/quiz.service'; // Adjust the path according to your structure
+import { UserService } from '../../services/user.service';
+import { QuizService } from '../../services/quiz.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,6 +12,7 @@ export class AdminDashboardComponent implements OnInit {
     { title: 'Total Quizzes', value: 0 },
     { title: 'Active Quizzes', value: 0 },
     { title: 'Inactive Quizzes', value: 0 },
+    { title: 'Upcoming Quizzes', value: 0 },
     { title: 'Total Users', value: 0 },
     { title: 'Active Users', value: 0 },
     { title: 'Blocked Users', value: 0 }
@@ -28,16 +29,17 @@ export class AdminDashboardComponent implements OnInit {
     this.quizService.getQuizzes().subscribe(quizzes => {
       this.dashboardStats[0].value = quizzes.length; // Total Quizzes
       this.dashboardStats[1].value = quizzes.filter(quiz => quiz.status === 'Active').length; // Active Quizzes
-      this.dashboardStats[2].value = quizzes.filter(quiz => quiz.status === 'Inactive').length; // Completed Quizzes
+      this.dashboardStats[2].value = quizzes.filter(quiz => quiz.status === 'Inactive').length;
+      this.dashboardStats[3].value = quizzes.filter(quiz => quiz.status === 'Upcoming').length;
     }, error => {
       console.error('Error fetching quizzes:', error);
     });
 
     // Fetch total users, active users, and blocked users
     this.userService.getUsers().subscribe(users => {
-      this.dashboardStats[3].value = users.length; // Total Users
-      this.dashboardStats[4].value = users.filter(user => user.status).length; // Active Users
-      this.dashboardStats[5].value = users.filter(user => user.blocked).length; // Blocked Users
+      this.dashboardStats[4].value = users.length; // Total Users
+      this.dashboardStats[5].value = users.filter(user => user.status).length; // Active Users
+      this.dashboardStats[6].value = users.filter(user => user.blocked).length; // Blocked Users
     }, error => {
       console.error('Error fetching users:', error);
     });

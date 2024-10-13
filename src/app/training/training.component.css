@@ -1,7 +1,9 @@
+/* Container Styles */
 .training-container {
   padding: 20px;
 }
 
+/* Filter Section Styles */
 .filter-section {
   display: flex;
   flex-direction: column;
@@ -25,6 +27,7 @@
   margin-bottom: 20px;
 }
 
+/* Button Styles */
 .btn-search {
   width: 200px; /* Increased width */
   height: 60px; /* Increased height */
@@ -44,42 +47,36 @@
   transform: scale(1.05);
 }
 
+/* Table Container Styles */
 .table-container {
   margin-top: 20px;
 }
 
-th, td {
-  padding: 12px;
-  text-align: center;
+/* Table Header and Cell Styles */
+.mat-header-cell,
+.mat-cell {
+  padding: 12px;            /* Padding for cells */
+  text-align: center;       /* Horizontal center */
+  vertical-align: middle;   /* Vertical center */
 }
 
-th {
-  background-color: #FF6F61 !important;
-  color: white;
-}
-.sample-questions-card {
-  margin-top: 20px;
+/* Header Styles */
+.mat-header-cell {
+  background-color: #FF6F61 !important; /* Header Background */
+  color: white;                         /* Header Text Color */
 }
 
-.sample-questions {
-  margin-top: 10px;
+/* List Styles for Questions and Answers */
+.mat-cell ul {
+  list-style: none;             /* Remove bullet points from ul */
+  padding: 0;                  /* Remove padding */
+  margin: 0;                   /* Remove margin */
+  display: flex;               /* Use flexbox */
+  flex-direction: column;      /* Stack items vertically */
+  align-items: center;         /* Center items horizontally */
 }
 
-.sample-question-item {
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.sample-question-item h3 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.sample-question-item p {
-  margin: 5px 0;
-  font-size: 16px;
+.mat-cell li {
+  margin: 0;                   /* Remove margin for li */
+  text-align: center;          /* Center text within li */
 }
