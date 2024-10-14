@@ -1,9 +1,13 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth-guard.service';
+import { AdminGuard } from './auth/admin-guard.service';
+
+// Import components
 import { AllQuizComponent } from './all-quiz/all-quiz.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ResultComponent } from './results/result/result.component';
 import { TrainingComponent } from './training/training.component';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { StartQuizComponent } from './quizzes/start-quiz/start-quiz.component';
 import { QuizDetailComponent } from './quizzes/quiz-detail/quiz-detail.component';
@@ -25,46 +29,44 @@ import { UserListComponent } from './admin/user/user-list/user-list.component';
 import { ResultListComponent } from './admin/result/result-list/result-list.component';
 import { SettingsComponent } from './admin/settings/settings.component';
 
-
-
-
-
+// Define routes
 const routes: Routes = [
-  { path: 'dashboard', component: DashboardComponent },  // Dashboard Route
-  { path: 'start-quiz/:id', component: StartQuizComponent }, // Start Quiz Route
-  { path: 'quiz-detail/:id', component: QuizDetailComponent },  // quiz-detail Route
-  { path: 'training', component: TrainingComponent },  // quiz-detail Route
-  { path: 'result', component: ResultComponent },  // result Route
-  { path: 'about-us', component: AboutUsComponent }, // about-us Route
-  { path: 'contact-us', component: ContactUsComponent }, // contact-us Route
-  { path: 'privacy-policy', component: PrivacyPolicyComponent }, // privacy-policy Route
-  { path: 'terms-of-service', component: TermsOfServiceComponent }, // terms-of-service Route
-  { path: 'profile', component: ProfileComponent }, // terms-of-service Route
-  { path: 'update-profile', component: UpdateProfileComponent }, // update-profile Route
-  { path: 'login', component: LoginComponent }, // login Route
-  { path: 'register', component: RegisterComponent }, // register Route
-  { path: 'home', component: HomeComponent }, // Home Route
-  { path: 'all-quiz/:category', component: AllQuizComponent },
-  { path: 'view-detail-answer', component: ViewDetailAnswerComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },  // Protected Dashboard Route
+  { path: 'start-quiz/:id', component: StartQuizComponent, canActivate: [AuthGuard] },  // Protected Start Quiz Route
+  { path: 'quiz-detail/:id', component: QuizDetailComponent, canActivate: [AuthGuard] },  // Protected Quiz Detail Route
+  { path: 'training', component: TrainingComponent, canActivate: [AuthGuard] },  // Protected Training Route
+  { path: 'result', component: ResultComponent, canActivate: [AuthGuard] },  // Protected Result Route
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }, // Protected Profile Route
+  { path: 'update-profile', component: UpdateProfileComponent, canActivate: [AuthGuard] }, // Protected Update Profile Route
+  { path: 'all-quiz/:category', component: AllQuizComponent, canActivate: [AuthGuard] },  // Protected All Quiz Route
+  { path: 'view-detail-answer', component: ViewDetailAnswerComponent, canActivate: [AuthGuard] },  // Protected View Detail Answer Route
 
-  // Admin Route
-  { path: 'admin-dashboard', component: AdminDashboardComponent },
-  { path: 'admin/category-list', component: CategoryListComponent },
-  { path: 'admin/category-add', component: CategoryAddComponent },
-  { path: 'admin/quiz-list', component: AdminQuizListComponent },
-  { path: 'admin/quiz-add', component: AdminQuizAddComponent },
-  { path: 'admin/users', component: UserListComponent },
-  { path: 'admin/result', component: ResultListComponent },
-  { path: 'admin/settings', component: SettingsComponent },
+  // Public Routes
+  { path: 'about-us', component: AboutUsComponent }, // Public About Us Route
+  { path: 'contact-us', component: ContactUsComponent }, // Public Contact Us Route
+  { path: 'privacy-policy', component: PrivacyPolicyComponent }, // Public Privacy Policy Route
+  { path: 'terms-of-service', component: TermsOfServiceComponent }, // Public Terms of Service Route
+  { path: 'login', component: LoginComponent }, // Public Login Route
+  { path: 'register', component: RegisterComponent }, // Public Register Route
+  { path: 'home', component: HomeComponent }, // Public Home Route
 
+  // Admin Routes (Protected with AdminGuard)
+  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+  { path: 'admin/category-list', component: CategoryListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/category-add', component: CategoryAddComponent, canActivate: [AdminGuard] },
+  { path: 'admin/quiz-list', component: AdminQuizListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/quiz-add', component: AdminQuizAddComponent, canActivate: [AdminGuard] },
+  { path: 'admin/users', component: UserListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/result', component: ResultListComponent, canActivate: [AdminGuard] },
+  { path: 'admin/settings', component: SettingsComponent, canActivate: [AdminGuard] },
 
-
-  { path: '', redirectTo: '/home', pathMatch: 'full' },  // Default route to home
-  { path: '**', redirectTo: '/home' }
+  // Default and wildcard routes
+  { path: '', redirectTo: '/home', pathMatch: 'full' },  // Redirect to Home
+  { path: '**', redirectTo: '/home' },  // Wildcard route for invalid paths
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

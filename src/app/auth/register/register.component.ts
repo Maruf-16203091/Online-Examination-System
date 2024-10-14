@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -11,21 +12,18 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   onRegister() {
     // Simple validation
     if (this.name && this.email && this.password) {
-      // Placeholder for actual registration logic
-      console.log('Registration attempt with', this.name, this.email, this.password);
-
-      // Simulate successful registration
-      setTimeout(() => {
-        // Navigate to login or desired route
-        this.router.navigate(['/login']);
-      }, 1000); // Simulate network delay
+      this.userService
+        .register(this.name, this.email, this.password)
+        .subscribe(
+          () => console.log('Registered successfully!'),
+          (error) => console.error('Registration failed:', error)
+        );
     } else {
-      // Handle empty fields
       console.error('Name, email, and password are required.');
     }
   }

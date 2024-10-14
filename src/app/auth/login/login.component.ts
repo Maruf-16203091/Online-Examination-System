@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,21 +11,17 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
-
+  constructor(private userService: UserService, private router: Router) { }
   onLogin() {
     // Simple validation
     if (this.email && this.password) {
-      // Placeholder for actual login logic
-      console.log('Login attempt with', this.email, this.password);
-
-      // Simulate successful login
-      setTimeout(() => {
-        // Navigate to dashboard or desired route
-        this.router.navigate(['/dashboard']);
-      }, 1000); // Simulate network delay
+      this.userService
+        .login(this.email, this.password)
+        .subscribe(
+          () => console.log('Login successful!'),
+          (error) => console.error('Login failed:', error)
+        );
     } else {
-      // Handle empty fields
       console.error('Email and password are required.');
     }
   }
