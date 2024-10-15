@@ -39,7 +39,9 @@ router.post("/register", async (req, res) => {
     await user.save();
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1hour" });
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, {
+      expiresIn: "1hour",
+    });
 
     // Send token and user details in response
     res.status(201).json({
@@ -61,16 +63,23 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
+  // Debug: Log the incoming request body to check the payload
+  console.log("Login request body:", req.body);
+
   try {
     // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("User not found with email:", email);
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Check if the password matches
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Use the method from user model to check if the password matches
+    const isMatch = await user.matchPassword(password);
+    console.log("Password comparison result:", isMatch);
+
     if (!isMatch) {
+      console.log("Passwords do not match");
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
@@ -88,6 +97,7 @@ router.post("/login", async (req, res) => {
       },
     });
   } catch (err) {
+    console.error("Error during login:", err);
     res.status(500).json({ message: err.message });
   }
 });

@@ -1,7 +1,6 @@
 // models/userModel.js
 const mongoose = require("mongoose");
-const bcrypt = require('bcryptjs');
-
+const bcrypt = require("bcryptjs");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -56,9 +55,12 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-// Method to compare passwords during login
 UserSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  try {
+    return await bcrypt.compare(enteredPassword, this.password); 
+  } catch (err) {
+    console.error("Error comparing passwords:", err);
+    return false;
+  }
 };
-
 module.exports = mongoose.model("User", UserSchema);
