@@ -1,5 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; // Import Router to navigate
 import { CategoryService } from '../../services/category.service'; // Import the CategoryService
+import { AuthService } from '../../services/auth.service'; // Import the AuthService for auth actions
 import { Category } from '../../models/category.model'; // Import the Category model
 
 @Component({
@@ -21,7 +23,11 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  constructor(private categoryService: CategoryService) {} // Inject CategoryService
+  constructor(
+    private categoryService: CategoryService, // Inject CategoryService
+    private authService: AuthService, // Inject AuthService for authentication actions
+    private router: Router // Inject Router for navigation
+  ) { }
 
   ngOnInit() {
     // Fetch categories from the service on component initialization
@@ -53,6 +59,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
+    this.authService.logout(); // Call logout from AuthService
+    this.router.navigate(['/login']); // Navigate to login page after logging out
     console.log('Logging out...');
   }
 

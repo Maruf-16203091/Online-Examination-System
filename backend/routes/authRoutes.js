@@ -102,4 +102,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// @route POST /api/auth/logout
+// @desc Logout user (mainly handled client-side)
+router.post("/logout", (req, res) => {
+  // Just a response because JWTs are stateless
+  res.json({ message: "Logged out successfully" });
+});
+
 module.exports = router;
