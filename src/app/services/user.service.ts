@@ -12,7 +12,7 @@ export class UserService {
   private apiUrl = 'http://localhost:5000/api/users';  // CRUD operations API URL
   private authUrl = 'http://localhost:5000/api/auth';  // Authentication API URL
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   /** ==========================
    *  User Management (CRUD)
@@ -87,8 +87,14 @@ export class UserService {
   }
 
   isAdmin(): boolean {
-    const userRole = localStorage.getItem('role');  // Assuming 'role' is stored in localStorage
-    return userRole === 'admin';
+    const userRole = localStorage.getItem('role');  // Retrieve role from localStorage
+    return userRole === 'admin';  // Return true if role is 'admin'
+  }
+
+
+  getCurrentUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
 
   // Method to log out user
