@@ -87,8 +87,8 @@ export class UserService {
   }
 
   isAdmin(): boolean {
-    const userRole = localStorage.getItem('role');  // Retrieve role from localStorage
-    return userRole === 'admin';  // Return true if role is 'admin'
+    const userRole = localStorage.getItem('role');
+    return userRole === 'admin';  
   }
 
 

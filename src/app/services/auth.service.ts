@@ -19,12 +19,10 @@ export class AuthService {
         // Store token and user details, including the role
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('role', user.role);  
+        localStorage.setItem('role', user.role);
 
         // Check the role and redirect accordingly
-        if (user.role === 'admin') {
-          this.router.navigate(['/admin-dashboard']);
-        } else {
+        if (user.role === 'user') {
           this.router.navigate(['/dashboard']);
         }
       },
