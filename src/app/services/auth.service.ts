@@ -22,7 +22,9 @@ export class AuthService {
         localStorage.setItem('role', user.role);
 
         // Check the role and redirect accordingly
-        if (user.role === 'user') {
+        if (user.role === 'admin') {
+          this.router.navigate(['/admin-dashboard']);
+        } else {
           this.router.navigate(['/dashboard']);
         }
       },
