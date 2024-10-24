@@ -12,7 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
 // @route POST /api/auth/register
 // @desc Register a new user
 router.post("/register", async (req, res) => {
-  const { name, email, password, phone, bio,role, profileImage } = req.body;
+  const { name, email, password, phone, bio, role, profileImage } = req.body;
 
   try {
     // Check if the user already exists
@@ -36,7 +36,6 @@ router.post("/register", async (req, res) => {
       profileImage,
     });
 
-    // Save user
     await user.save();
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1h" });
