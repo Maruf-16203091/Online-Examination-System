@@ -44,8 +44,8 @@ export class QuizService {
   }
 
   // In QuizService
-  submitQuiz(quizId: string, userId: string): Observable<any> {
-    return this.http.post(`http://localhost:5000/api/quizzes/${quizId}/submit`, { userId });
+  submitQuizResult(quizId: string, userId: string, answers: any[]): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/submit`, { quizId, userId, answers });
   }
 
 }

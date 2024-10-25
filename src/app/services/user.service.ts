@@ -80,11 +80,7 @@ export class UserService {
     );
   }
 
-  // Retrieve the current user’s ID
-  getCurrentUserId(): string | null {
-    const user = this.getCurrentUser();
-    return user ? user._id : null; // Replace '_id' with the actual property name if different
-  }
+
 
 
   // Method to check if user is logged in
@@ -98,10 +94,16 @@ export class UserService {
   }
 
 
-  getCurrentUser() {
+  getCurrentUser(): User | null {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
+
+  getCurrentUserId(): string | null {
+    const user = this.getCurrentUser();
+    return user && user._id ? user._id : null; // Ensuring `_id` exists on the user object
+  }
+
 
   // Method to log out user
   logout(): void {

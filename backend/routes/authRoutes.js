@@ -1,4 +1,3 @@
-// routes/authRoutes.js
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -29,7 +28,7 @@ router.post("/register", async (req, res) => {
     const user = new User({
       name,
       email,
-      password,
+      password: hashedPassword, // Save the hashed password
       phone,
       bio,
       role,

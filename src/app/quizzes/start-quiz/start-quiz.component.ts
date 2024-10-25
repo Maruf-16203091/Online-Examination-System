@@ -33,11 +33,15 @@ export class StartQuizComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userId = this.route.snapshot.queryParamMap.get('userId') || this.userService.getCurrentUserId();
+    console.log('User ID in StartQuizComponent:', this.userId); // Should log a valid user ID
     const quizId = this.route.snapshot.paramMap.get('id');
+
     if (quizId) {
       this.loadQuizDetails(quizId);
     }
   }
+
+
 
   ngOnDestroy() {
     this.clearTimer();
@@ -78,8 +82,16 @@ export class StartQuizComponent implements OnInit, OnDestroy {
 
   submitQuiz() {
     this.clearTimer();
-    if (this.userId && this.quiz && this.quiz._id) { // Ensure userId and quiz._id are defined
-      this.quizService.submitQuiz(this.quiz._id, this.userId).subscribe(
+    console.log("User ID:", this.userId);  // Debugging userId
+    console.log("Quiz ID:", this.quiz?._id);  // Debugging quiz._id
+
+    if (this.userId && this.quiz && this.quiz._id) {
+      const userAnswers = this.questions.map((q) => ({
+        question: q.question,
+        selectedOption: this.selectedOption,
+      }));
+
+      this.quizService.submitQuizResult(this.quiz._id, this.userId, userAnswers).subscribe(
         () => {
           this.openDialog('Quiz Submitted!', 'Success', 'success');
         },
@@ -89,10 +101,13 @@ export class StartQuizComponent implements OnInit, OnDestroy {
         }
       );
     } else {
-      console.error('User ID or Quiz ID is missing');
+      console.error('User ID or Quiz ID is missing'); // Error handling
       this.openDialog('Unable to submit the quiz. User or Quiz information is missing.', 'Error', 'error');
     }
   }
+
+
+
 
   startTimer() {
     this.interval = setInterval(() => {

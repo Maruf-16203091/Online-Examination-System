@@ -1,17 +1,46 @@
+// routes/resultRoutes.js
 const express = require("express");
 const router = express.Router();
-const { evaluateQuiz } = require("../controllers/resultController");
+const Result = require("../models/resultModel");
+const Quiz = require("../models/quizModel");
 
-// Route to evaluate and store quiz results
-router.post("/quizzes/:quizId/submit", async (req, res) => {
-  const { quizId } = req.params;
-  const { userId, answers } = req.body; // Assuming answers is an array of user answers
+router.post("/submit", async (req, res) => {
+  const { quizId, userId, answers } = req.body;
 
   try {
-    const result = await evaluateQuiz(quizId, userId, answers);
-    res.status(201).json(result);
+    const quiz = await Quiz.findById(quizId);
+    if (!quiz) return res.status(404).json({ message: "Quiz not found" });
+
+    let correctAnswers = 0;
+    let wrongAnswers = 0;
+
+    // Evaluate answers
+    answers.forEach((answer, index) => {
+      if (answer.selectedOption === quiz.questions[index].correctAnswer) {
+        correctAnswers++;
+      } else {
+        wrongAnswers++;
+      }
+    });
+
+    const totalQuestions = quiz.questions.length;
+    const percentage = (correctAnswers / totalQuestions) * 100;
+
+    // Create result record
+    const result = new Result({
+      userId,
+      quizId,
+      correctAnswers,
+      wrongAnswers,
+      totalQuestions,
+      percentage,
+    });
+
+    await result.save();
+    res.status(201).json({ message: "Quiz evaluated successfully", result });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error evaluating quiz:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
