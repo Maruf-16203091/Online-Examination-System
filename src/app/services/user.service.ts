@@ -73,13 +73,19 @@ export class UserService {
 
     return this.http.post(`${this.authUrl}/login`, body, { headers }).pipe(
       tap((response: any) => {
-        // Store token in local storage
         localStorage.setItem('token', response.token);
-        // Navigate to dashboard or desired route
+        localStorage.setItem('user', JSON.stringify(response.user)); // Storing user object
         this.router.navigate(['/dashboard']);
       })
     );
   }
+
+  // Retrieve the current user’s ID
+  getCurrentUserId(): string | null {
+    const user = this.getCurrentUser();
+    return user ? user._id : null; // Replace '_id' with the actual property name if different
+  }
+
 
   // Method to check if user is logged in
   isLoggedIn(): boolean {
@@ -88,7 +94,7 @@ export class UserService {
 
   isAdmin(): boolean {
     const userRole = localStorage.getItem('role');
-    return userRole === 'admin';  
+    return userRole === 'admin';
   }
 
 

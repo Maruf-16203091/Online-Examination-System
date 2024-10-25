@@ -42,4 +42,10 @@ export class QuizService {
   getQuizzesByCategory(category: string): Observable<Quiz[]> {
     return this.http.get<Quiz[]>(`${this.apiUrl}?category=${category}`);
   }
+
+  // In QuizService
+  submitQuiz(quizId: string, userId: string): Observable<any> {
+    return this.http.post(`http://localhost:5000/api/quizzes/${quizId}/submit`, { userId });
+  }
+
 }

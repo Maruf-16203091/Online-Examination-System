@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { QuizService } from '../../services/quiz.service'; // Adjust path as needed
+import { QuizService } from '../../services/quiz.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Quiz } from '../../models/quiz.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-start-quiz',
@@ -20,15 +21,18 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   selectedOption: string | undefined;
   timer: number = 0;
   interval: any;
+  userId: string | null = null; // To store the user ID
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private quizService: QuizService
-  ) {}
+    private quizService: QuizService,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
+    this.userId = this.route.snapshot.queryParamMap.get('userId') || this.userService.getCurrentUserId();
     const quizId = this.route.snapshot.paramMap.get('id');
     if (quizId) {
       this.loadQuizDetails(quizId);
@@ -39,7 +43,6 @@ export class StartQuizComponent implements OnInit, OnDestroy {
     this.clearTimer();
   }
 
-  // Fetch quiz details from the service
   loadQuizDetails(id: string): void {
     this.quizService.getQuizById(id).subscribe(
       (quiz: Quiz) => {
@@ -60,7 +63,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   nextQuestion() {
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
-      this.selectedOption = undefined; // Clear selected option for the next question
+      this.selectedOption = undefined;
     } else {
       this.submitQuiz();
     }
@@ -69,20 +72,33 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
-      this.selectedOption = undefined; // Clear selected option for the previous question
+      this.selectedOption = undefined;
     }
   }
 
   submitQuiz() {
-    this.clearTimer(); // Stop the timer
-    this.openDialog('Quiz Submitted!', 'Success', 'success');
+    this.clearTimer();
+    if (this.userId && this.quiz && this.quiz._id) { // Ensure userId and quiz._id are defined
+      this.quizService.submitQuiz(this.quiz._id, this.userId).subscribe(
+        () => {
+          this.openDialog('Quiz Submitted!', 'Success', 'success');
+        },
+        (error) => {
+          console.error('Error submitting quiz:', error);
+          this.openDialog('An error occurred while submitting the quiz.', 'Error', 'error');
+        }
+      );
+    } else {
+      console.error('User ID or Quiz ID is missing');
+      this.openDialog('Unable to submit the quiz. User or Quiz information is missing.', 'Error', 'error');
+    }
   }
 
   startTimer() {
     this.interval = setInterval(() => {
       this.timer -= 1000;
       if (this.timer <= 0) {
-        this.clearTimer(); // Stop the timer if time runs out
+        this.clearTimer();
         this.openDialog('Time is up! Try next time.', 'Time Over', 'end');
       }
     }, 1000);
@@ -90,7 +106,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
 
   clearTimer() {
     if (this.interval) {
-      clearInterval(this.interval); // Clear the interval to stop the timer
+      clearInterval(this.interval);
     }
   }
 
@@ -119,9 +135,8 @@ export class StartQuizComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Convert setTime in the format "10 Minutes" to milliseconds for the timer
   convertMinutesToMilliseconds(minutes: string): number {
-    const timeInMinutes = parseInt(minutes.split(' ')[0], 10); // Extract numeric value from "10 Minutes"
-    return timeInMinutes * 60000; // Convert minutes to milliseconds
+    const timeInMinutes = parseInt(minutes.split(' ')[0], 10);
+    return timeInMinutes * 60000;
   }
 }

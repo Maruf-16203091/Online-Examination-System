@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require('cors');
+const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const quizRoutes = require("./routes/quizRoutes");
@@ -7,6 +7,7 @@ const trainingRoutes = require("./routes/trainingRoutes");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const resultRoutes = require("./routes/resultRoutes");
 
 dotenv.config();
 
@@ -53,6 +54,8 @@ app.use("/api", trainingRoutes);
 
 // Use the category routes
 app.use("/api", categoryRoutes);
+
+app.use("/api", resultRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;
