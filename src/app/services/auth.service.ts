@@ -26,6 +26,7 @@ export class AuthService {
     );
   }
 
+
   // Logout method - clear token and redirect to home
   logout() {
     localStorage.removeItem('token'); // Remove token from localStorage

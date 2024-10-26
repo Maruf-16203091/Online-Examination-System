@@ -23,14 +23,8 @@ export class QuizDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.userService.getCurrentUserId(); // Retrieve the user ID
-    if (!this.userId) {
-      console.error('User ID is missing. Please log in.');
-      this.router.navigate(['/login']); // Redirect to login page if userId is not found
-    } else {
-      this.loadQuizDetails();
-    }
+    this.loadQuizDetails();
   }
-
 
   loadQuizDetails(): void {
     const quizId = this.route.snapshot.paramMap.get('id');

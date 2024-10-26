@@ -16,30 +16,28 @@ export class LoginComponent {
   onLogin() {
     // Simple validation
     if (this.email && this.password) {
-      this.authService
-        .login(this.email, this.password)
-        .subscribe(
-          (response: any) => {
-            console.log('Login successful!');
+      this.authService.login(this.email, this.password).subscribe(
+        (response: any) => {
+          console.log('Login successful!');
+          const user = response.user; // Assuming your response has a user object
 
-            const user = response.user; // Assuming your response has a user object
-
-            // Check the role and redirect accordingly
-            if (user.role === 'admin') {
-              this.router.navigate(['/admin-dashboard']);
-            } else {
-              this.router.navigate(['/dashboard']);
-            }
-          },
-          (error) => {
-            console.error('Login failed:', error);
-            // Optionally, show a user-friendly error message to the user
+          // Check the role and redirect accordingly
+          if (user.role === 'user') {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.router.navigate(['/admin-dashboard']);
           }
-        );
+        },
+        (error) => {
+          console.error('Login failed:', error.error.message || error.message);
+          // Optionally, show a user-friendly error message to the user
+        }
+      );
     } else {
       console.error('Email and password are required.');
     }
   }
+
 
   loginWithFacebook() {
     console.log('Login with Facebook');

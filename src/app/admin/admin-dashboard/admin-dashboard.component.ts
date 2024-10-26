@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { QuizService } from '../../services/quiz.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -18,7 +20,8 @@ export class AdminDashboardComponent implements OnInit {
     { title: 'Blocked Users', value: 0 }
   ];
 
-  constructor(private userService: UserService, private quizService: QuizService) { }
+  constructor(private userService: UserService, private quizService: QuizService, private authService: AuthService, // Inject AuthService for authentication actions
+    private router: Router) { }
 
   ngOnInit(): void {
     this.loadDashboardData(); // Fetch the data when component initializes
@@ -43,5 +46,11 @@ export class AdminDashboardComponent implements OnInit {
     }, error => {
       console.error('Error fetching users:', error);
     });
+  }
+
+  logout() {
+    this.authService.logout(); // Call logout from AuthService
+    this.router.navigate(['/login']); // Navigate to login page after logging out
+    console.log('Logging out...');
   }
 }
