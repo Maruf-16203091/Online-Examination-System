@@ -48,4 +48,5 @@ export class QuizService {
     return this.http.post<any>(`${this.apiUrl}/submit`, { quizId, userId, answers });
   }
 
+
 }

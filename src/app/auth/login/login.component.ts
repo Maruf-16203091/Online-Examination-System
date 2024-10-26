@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service'; // Update the import to AuthService
 
 @Component({
   selector: 'app-login',
@@ -11,15 +11,30 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
+
   onLogin() {
     // Simple validation
     if (this.email && this.password) {
-      this.userService
+      this.authService
         .login(this.email, this.password)
         .subscribe(
-          () => console.log('Login successful!'),
-          (error) => console.error('Login failed:', error)
+          (response: any) => {
+            console.log('Login successful!');
+
+            const user = response.user; // Assuming your response has a user object
+
+            // Check the role and redirect accordingly
+            if (user.role === 'admin') {
+              this.router.navigate(['/admin-dashboard']);
+            } else {
+              this.router.navigate(['/dashboard']);
+            }
+          },
+          (error) => {
+            console.error('Login failed:', error);
+            // Optionally, show a user-friendly error message to the user
+          }
         );
     } else {
       console.error('Email and password are required.');

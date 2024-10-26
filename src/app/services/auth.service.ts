@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators'; // Import the tap operator
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,34 +13,24 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) { }
 
   // Function to log in user
-  login(email: string, password: string) {
-    return this.http.post(`${this.apiUrl}/login`, { email, password }).subscribe(
-      (response: any) => {
+  login(email: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
+      tap((response: any) => {
         const { token, user } = response;
 
-        // Store token and user details, including the role
+        // Store token and user details, including the _id and role
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('role', user.role);
-
-        // Check the role and redirect accordingly
-        if (user.role === 'admin') {
-          this.router.navigate(['/admin-dashboard']);
-        } else {
-          this.router.navigate(['/dashboard']);
-        }
-      },
-      (error) => {
-        console.error('Login failed', error);
-      }
+      })
     );
   }
-
 
   // Logout method - clear token and redirect to home
   logout() {
     localStorage.removeItem('token'); // Remove token from localStorage
     localStorage.removeItem('user'); // Optionally remove user data as well
+    localStorage.removeItem('role'); // Optionally remove user role
     this.router.navigate(['/home']); // Redirect to home page
   }
 
@@ -52,5 +44,11 @@ export class AuthService {
   getUserRole(): string | null {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user).role : null;
+  }
+
+  // Get current user ID
+  getCurrentUserId(): string | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user)._id : null; // Return _id of the user
   }
 }

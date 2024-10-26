@@ -94,15 +94,16 @@ export class UserService {
   }
 
 
-  getCurrentUser(): User | null {
-    const user = localStorage.getItem('user');
-    return user ? JSON.parse(user) : null;
+  getCurrentUserId(): string | null {
+    const user = this.getCurrentUser(); // Get the current user object from local storage
+    return user && user._id ? user._id : null; // Ensure `_id` exists before returning it
   }
 
-  getCurrentUserId(): string | null {
-    const user = this.getCurrentUser();
-    return user && user._id ? user._id : null; // Ensuring `_id` exists on the user object
+  getCurrentUser(): User | null {
+    const user = localStorage.getItem('user'); // Fetch user from local storage
+    return user ? JSON.parse(user) : null; // Return parsed user object or null
   }
+
 
 
   // Method to log out user

@@ -32,10 +32,11 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    // Retrieve userId from query params or fallback to UserService
     this.userId = this.route.snapshot.queryParamMap.get('userId') || this.userService.getCurrentUserId();
     console.log('User ID in StartQuizComponent:', this.userId); // Should log a valid user ID
-    const quizId = this.route.snapshot.paramMap.get('id');
 
+    const quizId = this.route.snapshot.paramMap.get('id');
     if (quizId) {
       this.loadQuizDetails(quizId);
     }
@@ -71,6 +72,10 @@ export class StartQuizComponent implements OnInit, OnDestroy {
     } else {
       this.submitQuiz();
     }
+
+    // Update the route with userId in the query params
+    const quizId = this.route.snapshot.paramMap.get('id');
+    this.router.navigate(['/start-quiz', quizId], { queryParams: { userId: this.userId } });
   }
 
   previousQuestion() {
@@ -78,19 +83,24 @@ export class StartQuizComponent implements OnInit, OnDestroy {
       this.currentQuestionIndex--;
       this.selectedOption = undefined;
     }
+
+    // Update the route with userId in the query params
+    const quizId = this.route.snapshot.paramMap.get('id');
+    this.router.navigate(['/start-quiz', quizId], { queryParams: { userId: this.userId } });
   }
+
 
   submitQuiz() {
     this.clearTimer();
-    console.log("User ID:", this.userId);  // Debugging userId
-    console.log("Quiz ID:", this.quiz?._id);  // Debugging quiz._id
 
     if (this.userId && this.quiz && this.quiz._id) {
+      // Map the user's selected answers
       const userAnswers = this.questions.map((q) => ({
         question: q.question,
-        selectedOption: this.selectedOption,
+        selectedOption: this.selectedOption,  // Ensure selectedOption is updated for each question
       }));
 
+      // Submit quiz with quizId, userId, and answers
       this.quizService.submitQuizResult(this.quiz._id, this.userId, userAnswers).subscribe(
         () => {
           this.openDialog('Quiz Submitted!', 'Success', 'success');
@@ -101,12 +111,10 @@ export class StartQuizComponent implements OnInit, OnDestroy {
         }
       );
     } else {
-      console.error('User ID or Quiz ID is missing'); // Error handling
+      console.error('User ID or Quiz ID is missing');
       this.openDialog('Unable to submit the quiz. User or Quiz information is missing.', 'Error', 'error');
     }
   }
-
-
 
 
   startTimer() {

@@ -1,32 +1,44 @@
-// routes/resultRoutes.js
 const express = require("express");
 const router = express.Router();
 const Result = require("../models/resultModel");
 const Quiz = require("../models/quizModel");
 
-router.post("/submit", async (req, res) => {
-  const { quizId, userId, answers } = req.body;
-
+// @route POST /api/quizzes/submit
+// @desc Submit a quiz result
+router.post("/quizzes/submit", async (req, res) => {
   try {
+    const { quizId, userId, answers } = req.body;
+
+    if (!quizId || !userId || !answers || answers.length === 0) {
+      return res.status(400).json({ message: "Invalid data provided." });
+    }
+
     const quiz = await Quiz.findById(quizId);
-    if (!quiz) return res.status(404).json({ message: "Quiz not found" });
+    if (!quiz) {
+      return res.status(404).json({ message: "Quiz not found." });
+    }
 
+    // Calculate the number of correct and wrong answers
     let correctAnswers = 0;
-    let wrongAnswers = 0;
-
-    // Evaluate answers
-    answers.forEach((answer, index) => {
-      if (answer.selectedOption === quiz.questions[index].correctAnswer) {
-        correctAnswers++;
-      } else {
-        wrongAnswers++;
-      }
+    const userAnswers = answers.map((answer) => {
+      const question = quiz.questions.find(
+        (q) => q.question === answer.question
+      );
+      const isCorrect =
+        question && question.correctAnswer === answer.selectedOption;
+      if (isCorrect) correctAnswers++;
+      return {
+        question: answer.question,
+        selectedOption: answer.selectedOption,
+        isCorrect: isCorrect,
+      };
     });
 
     const totalQuestions = quiz.questions.length;
+    const wrongAnswers = totalQuestions - correctAnswers;
     const percentage = (correctAnswers / totalQuestions) * 100;
 
-    // Create result record
+    // Save the result to the database
     const result = new Result({
       userId,
       quizId,
@@ -34,13 +46,14 @@ router.post("/submit", async (req, res) => {
       wrongAnswers,
       totalQuestions,
       percentage,
+      userAnswers,
     });
 
     await result.save();
-    res.status(201).json({ message: "Quiz evaluated successfully", result });
-  } catch (error) {
-    console.error("Error evaluating quiz:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(201).json({ message: "Quiz result submitted successfully." });
+  } catch (err) {
+    console.error("Error submitting quiz result:", err);
+    res.status(500).json({ message: "Error submitting quiz result." });
   }
 });
 
