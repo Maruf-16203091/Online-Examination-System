@@ -7,9 +7,9 @@ const Quiz = require("../models/quizModel");
 // @desc Submit a quiz result
 router.post("/quizzes/submit", async (req, res) => {
   try {
-    const { quizId, userId, answers } = req.body;
+    const { quizId, answers } = req.body;
 
-    if (!quizId || !userId || !answers || answers.length === 0) {
+    if (!quizId || !answers || answers.length === 0) {
       return res.status(400).json({ message: "Invalid data provided." });
     }
 
@@ -40,7 +40,6 @@ router.post("/quizzes/submit", async (req, res) => {
 
     // Save the result to the database
     const result = new Result({
-      userId,
       quizId,
       correctAnswers,
       wrongAnswers,

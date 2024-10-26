@@ -22,6 +22,7 @@ export class AuthService {
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('role', user.role);
+        localStorage.setItem('role', user._id);
       })
     );
   }
@@ -29,10 +30,10 @@ export class AuthService {
 
   // Logout method - clear token and redirect to home
   logout() {
-    localStorage.removeItem('token'); // Remove token from localStorage
-    localStorage.removeItem('user'); // Optionally remove user data as well
-    localStorage.removeItem('role'); // Optionally remove user role
-    this.router.navigate(['/home']); // Redirect to home page
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('role');
+    this.router.navigate(['/home']);
   }
 
   // Check if user is authenticated
@@ -46,6 +47,7 @@ export class AuthService {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user).role : null;
   }
+
 
   // Get current user ID
   getCurrentUserId(): string | null {

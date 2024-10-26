@@ -22,7 +22,7 @@ export class QuizDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userId = this.userService.getCurrentUserId(); // Retrieve the user ID
+
     this.loadQuizDetails();
   }
 
@@ -42,12 +42,13 @@ export class QuizDetailComponent implements OnInit {
 
   startQuiz(): void {
     const quizId = this.quiz?._id;
-    if (quizId && this.userId) {
+    if (quizId) {
       this.router.navigate(['/start-quiz', quizId], {
-        queryParams: { userId: this.userId }
+
       });
     } else {
       console.error('Quiz ID or User ID is missing!');
+
     }
   }
 

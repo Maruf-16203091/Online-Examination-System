@@ -18,8 +18,8 @@ export class LoginComponent {
     if (this.email && this.password) {
       this.authService.login(this.email, this.password).subscribe(
         (response: any) => {
-          console.log('Login successful!');
-          const user = response.user; // Assuming your response has a user object
+
+          const user = response.user;
 
           // Check the role and redirect accordingly
           if (user.role === 'user') {

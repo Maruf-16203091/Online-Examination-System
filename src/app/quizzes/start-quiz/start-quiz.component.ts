@@ -32,9 +32,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    // Retrieve userId from query params or fallback to UserService
-    this.userId = this.route.snapshot.queryParamMap.get('userId') || this.userService.getCurrentUserId();
-    console.log('User ID in StartQuizComponent:', this.userId); // Should log a valid user ID
+
 
     const quizId = this.route.snapshot.paramMap.get('id');
     if (quizId) {
@@ -93,7 +91,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   submitQuiz() {
     this.clearTimer();
 
-    if (this.userId && this.quiz && this.quiz._id) {
+    if (this.quiz && this.quiz._id) {
       // Map the user's selected answers
       const userAnswers = this.questions.map((q) => ({
         question: q.question,
@@ -101,7 +99,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
       }));
 
       // Submit quiz with quizId, userId, and answers
-      this.quizService.submitQuizResult(this.quiz._id, this.userId, userAnswers).subscribe(
+      this.quizService.submitQuizResult(this.quiz._id, userAnswers).subscribe(
         () => {
           this.openDialog('Quiz Submitted!', 'Success', 'success');
         },
