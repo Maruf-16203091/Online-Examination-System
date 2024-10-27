@@ -45,15 +45,23 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.clearTimer();
   }
-
+  
   loadQuizDetails(id: string): void {
     this.quizService.getQuizById(id).subscribe(
       (quiz: Quiz) => {
+        console.log(quiz);  // Debug: Check the quiz structure
         this.quiz = quiz;
         this.quizTitle = quiz.category;
         this.questionType = quiz.questionType;
         this.difficulty = quiz.difficulty;
-        this.questions = quiz.questions;
+
+        // Ensure options are treated correctly
+        this.questions = quiz.questions.map(q => ({
+          ...q,
+          options: typeof q.options === 'string' ? q.options.split(',').map(option => option.trim()) : q.options
+        }));
+
+        console.log(this.questions);  // Debug: Check the questions structure
         this.timer = this.convertMinutesToMilliseconds(quiz.setTime);
         this.startTimer();
       },
@@ -62,6 +70,8 @@ export class StartQuizComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+
 
   nextQuestion() {
     if (this.currentQuestionIndex < this.questions.length - 1) {

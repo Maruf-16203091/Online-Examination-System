@@ -1,8 +1,7 @@
 // models/quiz.model.ts
-
 export interface Question {
   question: string;
-  options: string[];
+  options: string[] | string; // Allow options to be either a string or an array of strings
   correctAnswer: string;
 }
 

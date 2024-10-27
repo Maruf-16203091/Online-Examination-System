@@ -14,34 +14,33 @@
   ></mat-progress-bar>
 
   <!-- Question Display Section -->
-  <div class="question-section" *ngIf="quiz">
+  <div *ngIf="quiz">
+    <h2>{{ quizTitle }}</h2>
     <h3>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</h3>
-    <p>{{ questions[currentQuestionIndex].question }}</p>
 
-  
-    <!-- Options as radio buttons -->
-    <mat-radio-group [(ngModel)]="selectedOption" aria-label="Select an answer">
-      <mat-radio-button
-        *ngFor="let option of questions[currentQuestionIndex].options"
-        [value]="option"
-      >
-        {{ option }}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
+    <div *ngIf="questions.length > 0">
+      <p>{{ questions[currentQuestionIndex]?.question }}</p>
 
-  <!-- Navigation Buttons -->
-  <div class="button-section">
-    <button
-      mat-raised-button
-      class="previous-button"
-      (click)="previousQuestion()"
-      *ngIf="!isFirstQuestion"
-    >
-      Previous
-    </button>
-    <button mat-raised-button class="next-button" (click)="nextQuestion()">
-      {{ isLastQuestion ? "Submit Quiz" : "Next" }}
-    </button>
+      <mat-radio-group [(ngModel)]="selectedOption">
+        <div *ngFor="let option of questions[currentQuestionIndex]?.options">
+          <mat-radio-button [value]="option">{{ option }}</mat-radio-button>
+        </div>
+      </mat-radio-group>
+
+      <!-- Navigation Buttons -->
+      <div class="button-section">
+        <button
+          mat-raised-button
+          class="previous-button"
+          (click)="previousQuestion()"
+          *ngIf="!isFirstQuestion"
+        >
+          Previous
+        </button>
+        <button mat-raised-button class="next-button" (click)="nextQuestion()">
+          {{ isLastQuestion ? "Submit Quiz" : "Next" }}
+        </button>
+      </div>
+    </div>
   </div>
 </div>
