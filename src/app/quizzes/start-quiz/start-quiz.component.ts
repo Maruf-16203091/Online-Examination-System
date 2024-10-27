@@ -18,10 +18,11 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   difficulty: string = '';
   questions: any[] = [];
   currentQuestionIndex: number = 0;
-  selectedOption: string | undefined;
+  selectedAnswers: { [key: number]: string } = {}; // Store selected answers for each question
   timer: number = 0;
   interval: any;
   userId: string | null = null; // To store the user ID
+  score: number = 0; // Keep track of the user's score
 
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +33,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
+    this.userId = this.userService.getCurrentUserId(); // Assuming getUserId() fetches the logged-in user's ID
 
     const quizId = this.route.snapshot.paramMap.get('id');
     if (quizId) {
@@ -40,28 +41,21 @@ export class StartQuizComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   ngOnDestroy() {
     this.clearTimer();
   }
-  
+
   loadQuizDetails(id: string): void {
     this.quizService.getQuizById(id).subscribe(
       (quiz: Quiz) => {
-        console.log(quiz);  // Debug: Check the quiz structure
         this.quiz = quiz;
         this.quizTitle = quiz.category;
         this.questionType = quiz.questionType;
         this.difficulty = quiz.difficulty;
 
-        // Ensure options are treated correctly
-        this.questions = quiz.questions.map(q => ({
-          ...q,
-          options: typeof q.options === 'string' ? q.options.split(',').map(option => option.trim()) : q.options
-        }));
+        // Assuming options are already in array format
+        this.questions = quiz.questions;
 
-        console.log(this.questions);  // Debug: Check the questions structure
         this.timer = this.convertMinutesToMilliseconds(quiz.setTime);
         this.startTimer();
       },
@@ -71,47 +65,47 @@ export class StartQuizComponent implements OnInit, OnDestroy {
     );
   }
 
-
-
   nextQuestion() {
     if (this.currentQuestionIndex < this.questions.length - 1) {
       this.currentQuestionIndex++;
-      this.selectedOption = undefined;
     } else {
       this.submitQuiz();
     }
-
-    // Update the route with userId in the query params
-    const quizId = this.route.snapshot.paramMap.get('id');
-    this.router.navigate(['/start-quiz', quizId], { queryParams: { userId: this.userId } });
   }
 
   previousQuestion() {
     if (this.currentQuestionIndex > 0) {
       this.currentQuestionIndex--;
-      this.selectedOption = undefined;
     }
-
-    // Update the route with userId in the query params
-    const quizId = this.route.snapshot.paramMap.get('id');
-    this.router.navigate(['/start-quiz', quizId], { queryParams: { userId: this.userId } });
   }
 
+  selectOption(option: string) {
+    // Store the selected answer for the current question
+    this.selectedAnswers[this.currentQuestionIndex] = option;
+  }
 
   submitQuiz() {
     this.clearTimer();
 
     if (this.quiz && this.quiz._id) {
-      // Map the user's selected answers
-      const userAnswers = this.questions.map((q) => ({
-        question: q.question,
-        selectedOption: this.selectedOption,  // Ensure selectedOption is updated for each question
-      }));
+      const userAnswers = this.questions.map((q, index) => {
+        const isCorrect = q.correctOption === this.selectedAnswers[index];
+        if (isCorrect) {
+          this.score++;
+        }
 
-      // Submit quiz with quizId, userId, and answers
+        return {
+          question: q.question,
+          selectedOption: this.selectedAnswers[index] || null, // Get selected option or null if not answered
+          correctOption: q.correctOption, // Store the correct option for comparison
+          isCorrect: isCorrect, // Mark whether the answer was correct
+        };
+      });
+
+      // Submit quiz with quizId, userId, and answers (without score)
       this.quizService.submitQuizResult(this.quiz._id, userAnswers).subscribe(
         () => {
-          this.openDialog('Quiz Submitted!', 'Success', 'success');
+          this.openDialog(`Quiz Submitted! Your Score: ${this.score}`, 'Success', 'success');
         },
         (error) => {
           console.error('Error submitting quiz:', error);

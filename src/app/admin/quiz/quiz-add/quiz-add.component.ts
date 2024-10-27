@@ -18,8 +18,8 @@ export class AdminQuizAddComponent implements OnInit {
   questionType: string = 'Multiple Choice';
   categories: Category[] = [];
 
-  quizQuestions: { question: string; correctAnswer: string; options :string[]  }[] = [
-    { question: '', correctAnswer: '',  options: [''] },
+  quizQuestions: { question: string; correctAnswer: string; option_1: string; option_2: string; option_3: string; option_4: string; }[] = [
+    { question: '', correctAnswer: '', option_1: '', option_2: '', option_3: '', option_4: '' },
   ];
 
   snackBarMessage: string | null = null;
@@ -28,7 +28,7 @@ export class AdminQuizAddComponent implements OnInit {
     private snackBar: MatSnackBar,
     private quizService: QuizService,
     private categoryService: CategoryService // Inject CategoryService
-  ) {}
+  ) { }
 
   // Lifecycle hook to initialize component and load categories
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class AdminQuizAddComponent implements OnInit {
 
   // Add a new question
   addNewQuestion(): void {
-    this.quizQuestions.push({ question: '', correctAnswer: '',  options: [''] });
+    this.quizQuestions.push({ question: '', correctAnswer: '', option_1: '', option_2: '', option_3: '', option_4: '' });
   }
 
   // Remove a question from the list
@@ -64,25 +64,25 @@ export class AdminQuizAddComponent implements OnInit {
       const quizData: Quiz = {
         category: this.category,
         status: this.status,
-        questionType:this.questionType,
+        questionType: this.questionType,
         setTime: this.setTime,
         difficulty: this.difficulty,
         questions: this.quizQuestions,
-      };+
+      }; +
 
-      this.quizService.createQuiz(quizData).subscribe(
-        (response) => {
-          this.snackBarMessage = 'Quiz added successfully!';
-          this.showSnackBar();
+        this.quizService.createQuiz(quizData).subscribe(
+          (response) => {
+            this.snackBarMessage = 'Quiz added successfully!';
+            this.showSnackBar();
 
-          // Reset form fields after saving
-          this.resetForm();
-        },
-        (error) => {
-          this.snackBarMessage = 'Error adding quiz. Please try again.';
-          this.showSnackBar();
-        }
-      );
+            // Reset form fields after saving
+            this.resetForm();
+          },
+          (error) => {
+            this.snackBarMessage = 'Error adding quiz. Please try again.';
+            this.showSnackBar();
+          }
+        );
     } else {
       // Show an error message if required fields are not filled
       this.snackBarMessage = 'Please fill in all the required fields!';
@@ -96,8 +96,8 @@ export class AdminQuizAddComponent implements OnInit {
     this.status = 'Active';
     this.setTime = '';
     this.difficulty = '';
-    this.questionType ='Multiple Choice';
-    this.quizQuestions = [{ question: '', correctAnswer: '',  options: [''] }];
+    this.questionType = 'Multiple Choice';
+    this.quizQuestions = [{ question: '', correctAnswer: '', option_1: '', option_2: '', option_3: '', option_4: '' }];
   }
 
   // Show the snackbar for notifications

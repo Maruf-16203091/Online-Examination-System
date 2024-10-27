@@ -6,9 +6,21 @@ const questionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    options: {
-      type: [String],
+    option_1: {
+      type: String,
       required: true,
+    },
+    option_2: {
+      type: String,
+      required: false,
+    },
+    option_3: {
+      type: String,
+      required: false,
+    },
+    option_4: {
+      type: String,
+      required: false,
     },
     correctAnswer: {
       type: String,
@@ -42,7 +54,7 @@ const quizSchema = new mongoose.Schema(
       default: "Active",
     },
     questions: {
-      type: [questionSchema], // Array of question objects
+      type: [questionSchema],
       required: true,
     },
   },

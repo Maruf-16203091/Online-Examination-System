@@ -15,16 +15,29 @@
 
   <!-- Question Display Section -->
   <div *ngIf="quiz">
-    <h2>{{ quizTitle }}</h2>
     <h3>Question {{ currentQuestionIndex + 1 }} of {{ questions.length }}</h3>
 
     <div *ngIf="questions.length > 0">
+      <!-- Display the current question -->
       <p>{{ questions[currentQuestionIndex]?.question }}</p>
 
-      <mat-radio-group [(ngModel)]="selectedOption">
-        <div *ngFor="let option of questions[currentQuestionIndex]?.options">
-          <mat-radio-button [value]="option">{{ option }}</mat-radio-button>
-        </div>
+      <!-- Radio buttons for the four options -->
+      <mat-radio-group [(ngModel)]="selectedAnswers[currentQuestionIndex]">
+        <mat-radio-button [value]="questions[currentQuestionIndex]?.option_1">
+          {{ questions[currentQuestionIndex]?.option_1 }}
+        </mat-radio-button>
+
+        <mat-radio-button [value]="questions[currentQuestionIndex]?.option_2">
+          {{ questions[currentQuestionIndex]?.option_2 }}
+        </mat-radio-button>
+
+        <mat-radio-button [value]="questions[currentQuestionIndex]?.option_3">
+          {{ questions[currentQuestionIndex]?.option_3 }}
+        </mat-radio-button>
+
+        <mat-radio-button [value]="questions[currentQuestionIndex]?.option_4">
+          {{ questions[currentQuestionIndex]?.option_4 }}
+        </mat-radio-button>
       </mat-radio-group>
 
       <!-- Navigation Buttons -->

@@ -16,7 +16,7 @@ export class EditQuizDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<EditQuizDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Quiz,
     private categoryService: CategoryService // Inject CategoryService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Fetch categories on initialization
@@ -34,7 +34,10 @@ export class EditQuizDialogComponent implements OnInit {
     const newQuestion: Question = {
       question: '',
       correctAnswer: '',
-      options: ['']
+      option_1: '',
+      option_2: '',
+      option_3: '',
+      option_4: '',
     };
     this.data.questions.push(newQuestion);
   }
