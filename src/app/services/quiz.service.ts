@@ -43,11 +43,12 @@ export class QuizService {
     return this.http.get<Quiz[]>(`${this.apiUrl}?category=${category}`);
   }
 
+
   // In QuizService
-// In QuizService
-submitQuizResult(quizId: string, answers: any[]): Observable<any> {
-  return this.http.post<any>(`${this.apiUrl}/submit`, { quizId, answers });
-}
+  submitQuizResult(quizId: string, userId: string, answers: any[]): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/submit`, { quizId, userId, answers });
+  }
+
 
 
 

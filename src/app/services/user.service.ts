@@ -94,16 +94,16 @@ export class UserService {
   }
 
 
-  getCurrentUserId(): string | null {
-    const user = this.getCurrentUser();
-    return user && user._id ? user._id : null; 
-  }
 
   getCurrentUser(): User | null {
-    const user = localStorage.getItem('user'); // Fetch user from local storage
+    const user = localStorage.getItem('user');
     const parsedUser = user ? JSON.parse(user) : null;
-    console.log("Current user:", parsedUser); // Add this line to debug
-    return parsedUser; // Return parsed user object or null
+    return parsedUser;
+  }
+
+  getCurrentUserId(): string | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user).id : null;
   }
 
 

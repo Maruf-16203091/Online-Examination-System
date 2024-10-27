@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators'; // Import the tap operator
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,15 +18,21 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response: any) => {
-        const { token, user } = response;
-
-        // Store token and user details, including the _id and role
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('role', user.role);
+        if (response && response.token && response.user) {
+          localStorage.setItem('token', response.token);
+          localStorage.setItem('user', JSON.stringify(response.user));
+          localStorage.setItem('role', response.user.role);
+        } else {
+          console.error('Invalid login response:', response);
+        }
+      }),
+      catchError(error => {
+        console.error('Login error:', error); // Log any error during the login
+        return of(null); // Return null to indicate failure
       })
     );
   }
+
 
 
   // Logout method - clear token and redirect to home
@@ -51,6 +59,10 @@ export class AuthService {
   // Get current user ID
   getCurrentUserId(): string | null {
     const user = localStorage.getItem('user');
-    return user ? JSON.parse(user)._id : null; // Return _id of the user
+    const userId = user ? JSON.parse(user)._id : null;
+    console.log('User object:', user); // Log the user object
+    console.log('Current User ID:', userId); // Log the user ID
+    return userId;
   }
+
 }

@@ -5,6 +5,7 @@ import { QuizService } from '../../services/quiz.service';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Quiz } from '../../models/quiz.model';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-start-quiz',
@@ -18,10 +19,10 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   difficulty: string = '';
   questions: any[] = [];
   currentQuestionIndex: number = 0;
-  selectedAnswers: { [key: number]: string } = {}; // Store selected answers for each question
+  selectedAnswers: { [key: number]: string } = {};
   timer: number = 0;
   interval: any;
-  userId: string | null = null; // To store the user ID
+  userId: string | null = null;
   score: number = 0; // Keep track of the user's score
 
   constructor(
@@ -29,17 +30,19 @@ export class StartQuizComponent implements OnInit, OnDestroy {
     private router: Router,
     private dialog: MatDialog,
     private quizService: QuizService,
+    private authService: AuthService,
     private userService: UserService
   ) { }
 
   ngOnInit() {
-    this.userId = this.userService.getCurrentUserId(); // Assuming getUserId() fetches the logged-in user's ID
-
+    this.userId = this.userService.getCurrentUserId();
     const quizId = this.route.snapshot.paramMap.get('id');
+
     if (quizId) {
       this.loadQuizDetails(quizId);
     }
   }
+
 
   ngOnDestroy() {
     this.clearTimer();
@@ -87,12 +90,9 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   submitQuiz() {
     this.clearTimer();
 
-    if (this.quiz && this.quiz._id) {
+    if (this.quiz && this.quiz._id && this.userId) {  // Ensure userId is passed
       const userAnswers = this.questions.map((q, index) => {
         const isCorrect = q.correctOption === this.selectedAnswers[index];
-        if (isCorrect) {
-          this.score++;
-        }
 
         return {
           question: q.question,
@@ -102,19 +102,20 @@ export class StartQuizComponent implements OnInit, OnDestroy {
         };
       });
 
-      // Submit quiz with quizId, userId, and answers (without score)
-      this.quizService.submitQuizResult(this.quiz._id, userAnswers).subscribe(
+      // Submit quiz with quizId, userId, and answers
+      this.quizService.submitQuizResult(this.quiz._id, this.userId, userAnswers).subscribe(
         () => {
-          this.openDialog(`Quiz Submitted! Your Score: ${this.score}`, 'Success', 'success');
+          this.openDialog(`Quiz Submitted!`, 'Success', 'success');
         },
         (error) => {
           console.error('Error submitting quiz:', error);
           this.openDialog('An error occurred while submitting the quiz.', 'Error', 'error');
         }
       );
+
     } else {
-      console.error('User ID or Quiz ID is missing');
-      this.openDialog('Unable to submit the quiz. User or Quiz information is missing.', 'Error', 'error');
+      console.error('Quiz ID or User ID is missing');
+      this.openDialog('Unable to submit the quiz. Quiz or User information is missing.', 'Error', 'error');
     }
   }
 

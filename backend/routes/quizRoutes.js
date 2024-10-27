@@ -44,6 +44,7 @@ router.post("/quizzes", async (req, res) => {
 
 // @route GET /api/quizzes/filter
 // @desc Get filtered quizzes based on category, difficulty, and question type
+
 router.get("/quizzes/filter", async (req, res) => {
   try {
     const { category, difficulty, questionType, dateRange } = req.query;

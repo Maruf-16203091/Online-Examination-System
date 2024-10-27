@@ -7,12 +7,14 @@ const Quiz = require("../models/quizModel");
 // @desc Submit a quiz result
 router.post("/quizzes/submit", async (req, res) => {
   try {
-    const { quizId, answers } = req.body;
+    const { quizId, answers, userId } = req.body; // Added userId in destructuring
 
-    if (!quizId || !answers || answers.length === 0) {
+    // Validate required fields
+    if (!quizId || !answers || answers.length === 0 || !userId) {
       return res.status(400).json({ message: "Invalid data provided." });
     }
 
+    // Find the quiz by ID
     const quiz = await Quiz.findById(quizId);
     if (!quiz) {
       return res.status(404).json({ message: "Quiz not found." });
@@ -25,7 +27,7 @@ router.post("/quizzes/submit", async (req, res) => {
         (q) => q.question === answer.question
       );
       const isCorrect =
-        question && question.correctAnswer === answer.selectedOption;
+        question && question.correctOption === answer.selectedOption;
       if (isCorrect) correctAnswers++;
       return {
         question: answer.question,
@@ -41,6 +43,7 @@ router.post("/quizzes/submit", async (req, res) => {
     // Save the result to the database
     const result = new Result({
       quizId,
+      userId,
       correctAnswers,
       wrongAnswers,
       totalQuestions,
