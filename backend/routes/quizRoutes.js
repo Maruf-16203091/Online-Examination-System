@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Quiz = require("../models/quizModel");
 
+
 // @route GET /api/quizzes
 // @desc Get all quizzes
 router.get("/quizzes", async (req, res) => {

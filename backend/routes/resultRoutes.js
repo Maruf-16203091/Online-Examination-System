@@ -7,7 +7,7 @@ const Quiz = require("../models/quizModel");
 // @desc Submit a quiz result
 router.post("/quizzes/submit", async (req, res) => {
   try {
-    const { quizId, answers, userId } = req.body; // Added userId in destructuring
+    const { quizId, answers, userId } = req.body; // Destructured userId
 
     // Validate required fields
     if (!quizId || !answers || answers.length === 0 || !userId) {
@@ -20,32 +20,33 @@ router.post("/quizzes/submit", async (req, res) => {
       return res.status(404).json({ message: "Quiz not found." });
     }
 
-    // Calculate the number of correct and wrong answers
+    // Calculate the number of correct and incorrect answers
     let correctAnswers = 0;
     const userAnswers = answers.map((answer) => {
-      const question = quiz.questions.find(
-        (q) => q.question === answer.question
-      );
-      const isCorrect =
-        question && question.correctOption === answer.selectedOption;
+      const question = quiz.questions.find((q) => q.question === answer.question);
+      const isCorrect = question && question.correctOption === answer.selectedOption;
+
       if (isCorrect) correctAnswers++;
+
       return {
         question: answer.question,
         selectedOption: answer.selectedOption,
-        isCorrect: isCorrect,
+        isCorrect,
       };
     });
 
     const totalQuestions = quiz.questions.length;
-    const wrongAnswers = totalQuestions - correctAnswers;
-    const percentage = (correctAnswers / totalQuestions) * 100;
+    const incorrectAnswers = totalQuestions - correctAnswers; // Updated variable name
+    const percentage = totalQuestions ? (correctAnswers / totalQuestions) * 100 : 0; // Handle division by zero
 
     // Save the result to the database
     const result = new Result({
-      quizId,
       userId,
+      quizId,
+
+      category: quiz.category,
       correctAnswers,
-      wrongAnswers,
+      incorrectAnswers, 
       totalQuestions,
       percentage,
       userAnswers,

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import jsPDF from 'jspdf';   // Import jsPDF
-import 'jspdf-autotable';    // Import autoTable to extend jsPDF
+import jsPDF from 'jspdf'; // Import jsPDF
+import 'jspdf-autotable'; // Import autoTable to extend jsPDF
 import { ChartOptions, ChartType, ChartData } from 'chart.js'; // Import other chart-related types
+import { ResultService } from '../../services/result.service'; // Import the service to fetch result data
+import { ActivatedRoute } from '@angular/router'; // To get query params like resultId
 
 @Component({
   selector: 'app-result',
@@ -9,16 +11,14 @@ import { ChartOptions, ChartType, ChartData } from 'chart.js'; // Import other c
   styleUrls: ['./result.component.css']
 })
 export class ResultComponent implements OnInit {
-
   displayedColumns: string[] = ['category', 'attempted', 'correct', 'score'];
-  dataSource: any;
+  dataSource: any = []; // Initialize dataSource as empty array
+  resultId: string = ''; // To store the resultId if passed as a query param
 
-  ELEMENT_DATA = [
-    { category: 'Mathematics', attempted: 25, correct: 20, score: '80%' },
-    { category: 'Science', attempted: 30, correct: 27, score: '90%' },
-    { category: 'History', attempted: 20, correct: 16, score: '80%' },
-    { category: 'General Knowledge', attempted: 15, correct: 12, score: '80%' }
-  ];
+  // Variables to hold dynamic results data
+  totalScore: number = 0; // Total score from results
+  percentage: number = 0; // Percentage from results
+  timeTaken: string = ''; // Time taken from results
 
   // Pie chart configuration
   public pieChartLabels: string[] = ['Correct Answers', 'Incorrect Answers'];
@@ -26,8 +26,8 @@ export class ResultComponent implements OnInit {
     labels: this.pieChartLabels,
     datasets: [
       {
-        data: [85, 15], // Example values, can be dynamic
-        backgroundColor: ['#388E3C', '#F44336'], // Optional: Color for each slice
+        data: [0, 0], // Initial values, will be updated dynamically
+        backgroundColor: ['#388E3C', '#F44336'], // Colors for correct/incorrect
       }
     ]
   };
@@ -37,16 +37,42 @@ export class ResultComponent implements OnInit {
   };
   public pieChartLegend = true;
 
+  constructor(private resultService: ResultService, private route: ActivatedRoute) { }
+
   ngOnInit() {
-    this.dataSource = this.ELEMENT_DATA;
+    // Get resultId from query params if available
+    this.route.queryParams.subscribe(params => {
+      this.resultId = params['resultId'];
+      if (this.resultId) {
+        this.loadResult(this.resultId);
+      }
+    });
+  }
 
-    // Dynamically calculate pie chart data based on total correct answers
-    const totalQuestions = this.ELEMENT_DATA.reduce((acc, val) => acc + val.attempted, 0);
-    const totalCorrect = this.ELEMENT_DATA.reduce((acc, val) => acc + val.correct, 0);
-    const totalIncorrect = totalQuestions - totalCorrect;
+  // Method to load the quiz result from the backend
+  loadResult(resultId: string) {
+    this.resultService.getResultById(resultId).subscribe(result => {
+      // Assuming result is returned in the following format:
+      // { correctAnswers: 85, wrongAnswers: 15, totalQuestions: 100, timeTaken: '35 minutes', categories: [...] }
+      this.totalScore = result.correctAnswers + result.wrongAnswers; // Calculate total score
+      this.percentage = (result.correctAnswers / this.totalScore) * 100; // Calculate percentage
+      this.timeTaken = result.timeTaken;
 
-    // Update pie chart data dynamically
-    this.pieChartData.datasets[0].data = [totalCorrect, totalIncorrect];
+      const totalQuestions = result.totalQuestions;
+      const totalCorrect = result.correctAnswers;
+      const totalIncorrect = result.wrongAnswers;
+
+      // Update pie chart data dynamically based on fetched result
+      this.pieChartData.datasets[0].data = [totalCorrect, totalIncorrect];
+
+      // Update table dataSource with category-wise performance
+      this.dataSource = result.categories.map((category: { category: string; attempted: number; correct: number; score: string }) => ({
+        category: category.category,
+        attempted: category.attempted,
+        correct: category.correct,
+        score: category.score
+      }));
+    });
   }
 
   downloadTable() {
@@ -58,8 +84,8 @@ export class ResultComponent implements OnInit {
     // Define table columns
     const columns = ['Category', 'Attempted', 'Correct', 'Score'];
 
-    // Define table rows based on ELEMENT_DATA
-    const rows = this.ELEMENT_DATA.map(item => [
+    // Define table rows based on the dynamically loaded dataSource
+    const rows = this.dataSource.map((item: any) => [
       item.category,
       item.attempted,
       item.correct,
