@@ -1,8 +1,8 @@
 export interface User {
-  _id?: string;  // Optional because new users don't have an ID yet
+  _id?: string;  
   name: string;
   email: string;
-  password?: string;  // Password might be optional when getting a user
+  password?: string;
   profileImage?: string;
   phone?: string;
   bio?: string;

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-profile',
@@ -7,15 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  user = {
-    name: 'Md Maruf Hosen',
-    email: 'maruf.hosen@example.com',
-    bio: 'My name is Md Maruf Hosen, and I am currently pursuing an MSc at Technische Universität Chemnitz. Alongside my studies, I work as a web developer at Bosch Rexroth, where I contribute to innovative web solutions and applications.',
-    profilePicture: 'assets/profile/profile.jpg'
-  };
+  user: User | null = null;  // Define user as User type from model
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.loadUserProfile();
+  }
+
+  loadUserProfile(): void {
+    const userId = this.userService.getCurrentUserId();  
+    if (userId) {
+      this.userService.getUserById(userId).subscribe(
+        (data: User) => {
+          this.user = data;
+        },
+        (error) => console.error('Error loading user profile:', error)
+      );
+    }
   }
 }

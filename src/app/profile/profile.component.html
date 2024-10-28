@@ -1,11 +1,15 @@
-<mat-card class="profile-card">
+<mat-card class="profile-card" *ngIf="user">
   <mat-card-header>
     <mat-card-title>
       <div class="profile-header">
-        <img class="profile-image" [src]="user.profilePicture" alt="Profile Picture">
+        <img
+          class="profile-image"
+          [src]="user.profileImage || 'assets/profile/profile.jpg'"
+          alt="Profile Picture"
+        />
         <div class="profile-info">
           <h2>{{ user.name }}</h2>
-          <p class="email" >{{ user.email }}</p>
+          <p class="email">{{ user.email }}</p>
           <p>{{ user.bio }}</p>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-update-profile',
@@ -8,39 +10,59 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UpdateProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
-  user = {
-    name: 'Md Maruf Hosen',
-    email: 'maruf.hosen@example.com',
-    bio: 'Web Developer at Bosch Rexroth.',
-    contactNumber: '+491234567890',
-    profilePicture: 'assets/profile/profile.jpg'
-  };
-  selectedProfileImage: string | ArrayBuffer | null = this.user.profilePicture;
-
-  // Track visibility for password fields
+  selectedProfileImage: string | ArrayBuffer | null = '';
+  user: User | null = null;  // Store user data
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    // Initialize form without values initially
     this.updateProfileForm = this.fb.group({
-      name: [this.user.name, Validators.required],
-      email: [this.user.email, [Validators.required, Validators.email]],
-      bio: [this.user.bio, Validators.required],
-      contactNumber: [this.user.contactNumber, [Validators.required, Validators.pattern(/^[0-9]*$/)]],
-      profilePicture: [null],
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      bio: ['', Validators.required],
+      phone: ['', [Validators.required]],
+      profileImage: [''],
       password: ['', [Validators.minLength(6)]],
       confirmPassword: ['']
     });
   }
 
   ngOnInit(): void {
+    this.loadUserProfile();
+  }
 
+  // Load user data from service and patch form values
+  loadUserProfile(): void {
+    const userId = this.userService.getCurrentUserId();
+    if (userId) {
+      this.userService.getUserById(userId).subscribe(
+        (data: User) => {
+          this.user = data;
+          this.selectedProfileImage = data.profileImage || 'assets/profile/profile.jpg';
+          this.updateProfileForm.patchValue({
+            name: data.name,
+            email: data.email,
+            bio: data.bio,
+            phone: data.phone,
+          });
+        },
+        (error) => console.error('Error fetching user data:', error)
+      );
+    }
   }
 
   onSubmit(): void {
     if (this.updateProfileForm.valid) {
-      const updatedUser = this.updateProfileForm.value;
-      console.log('Profile updated', updatedUser);
+      const updatedUser = { ...this.updateProfileForm.value };
+
+      // Call service to update user details
+      if (this.user && this.user._id) {
+        this.userService.updateUser(this.user._id, updatedUser).subscribe(
+          (response) => console.log('Profile updated successfully', response),
+          (error) => console.error('Error updating profile:', error)
+        );
+      }
     }
   }
 
