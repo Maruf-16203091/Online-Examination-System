@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
 })
 export class ProfileComponent implements OnInit {
 
-  user: User | null = null;  // Define user as User type from model
+  user: User | null = null;  
 
   constructor(private userService: UserService) { }
 
@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
   }
 
   loadUserProfile(): void {
-    const userId = this.userService.getCurrentUserId();  
+    const userId = this.userService.getCurrentUserId();
     if (userId) {
       this.userService.getUserById(userId).subscribe(
         (data: User) => {

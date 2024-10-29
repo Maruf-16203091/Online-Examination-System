@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -45,6 +46,8 @@ app.get("/", (req, res) => {
 
 // Use the user routes
 app.use("/api", userRoutes);
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Use the quiz routes
 app.use("/api", quizRoutes);

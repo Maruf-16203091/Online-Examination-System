@@ -36,10 +36,10 @@ export class UserService {
   }
 
   // Update an existing user
-  updateUser(id: string, user: User): Observable<User> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<User>(`${this.apiUrl}/${id}`, user, { headers });
+  updateUser(id: string, userData: FormData): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/${id}`, userData);
   }
+
 
   // Delete a user by ID (Admin)
   deleteUser(id: string): Observable<any> {

@@ -10,8 +10,8 @@ import { User } from '../models/user.model';
 })
 export class UpdateProfileComponent implements OnInit {
   updateProfileForm: FormGroup;
-  selectedProfileImage: string | ArrayBuffer | null = '';
-  user: User | null = null;  // Store user data
+  selectedProfileImage: string | ArrayBuffer | null = null;
+  user: User | null = null;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
@@ -54,11 +54,17 @@ export class UpdateProfileComponent implements OnInit {
 
   onSubmit(): void {
     if (this.updateProfileForm.valid) {
-      const updatedUser = { ...this.updateProfileForm.value };
+      const formData = new FormData();
 
-      // Call service to update user details
+      Object.keys(this.updateProfileForm.controls).forEach(key => {
+        const value = this.updateProfileForm.get(key)?.value;
+        if (value) {
+          formData.append(key, value);
+        }
+      });
+
       if (this.user && this.user._id) {
-        this.userService.updateUser(this.user._id, updatedUser).subscribe(
+        this.userService.updateUser(this.user._id, formData).subscribe(
           (response) => console.log('Profile updated successfully', response),
           (error) => console.error('Error updating profile:', error)
         );
@@ -66,17 +72,23 @@ export class UpdateProfileComponent implements OnInit {
     }
   }
 
+
   // Method to preview selected image
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
+      this.updateProfileForm.patchValue({
+        profileImage: file
+      });
+
       const reader = new FileReader();
       reader.onload = () => {
-        this.selectedProfileImage = reader.result;
+        this.selectedProfileImage = reader.result;  // For preview
       };
       reader.readAsDataURL(file);
     }
   }
+
 
   // Toggle password visibility
   togglePasswordVisibility(): void {

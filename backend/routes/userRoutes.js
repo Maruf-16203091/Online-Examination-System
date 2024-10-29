@@ -2,6 +2,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" }); 
 
 // @route GET /api/users
 // @desc Get all users
@@ -53,11 +55,24 @@ router.get("/users/:id", async (req, res) => {
 
 // @route PUT /api/users/:id
 // @desc Update a user by ID
-router.put("/users/:id", async (req, res) => {
+router.put("/users/:id", upload.single("profileImage"), async (req, res) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
+    const { name, email, bio, phone } = req.body;
+    const updatedData = { name, email, bio, phone };
+
+    // If there is a file, add it to updatedData
+    if (req.file) {
+      updatedData.profileImage = req.file.path; // Save path in database
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      {
+        new: true,
+      }
+    );
+
     if (!updatedUser) {
       return res.status(404).json({ message: "User not found" });
     }

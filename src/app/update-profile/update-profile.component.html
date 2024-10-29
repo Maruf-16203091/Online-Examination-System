@@ -52,10 +52,13 @@
           />
           <div class="profile-pic-preview">
             <img
-              [src]="selectedProfileImage"
-              alt="Profile Picture Preview"
-              *ngIf="selectedProfileImage"
-            />
+          class="profile-image"
+          [src]="
+            selectedProfileImage
+              ?? 'http://localhost:5000/uploads' + user?.profileImage
+          "
+          alt="Profile Picture"
+        />
           </div>
         </div>
 
