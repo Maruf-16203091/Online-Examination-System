@@ -52,13 +52,13 @@
           />
           <div class="profile-pic-preview">
             <img
-          class="profile-image"
-          [src]="
-            selectedProfileImage
-              ?? 'http://localhost:5000/uploads' + user?.profileImage
-          "
-          alt="Profile Picture"
-        />
+              class="profile-image"
+              [src]="
+                selectedProfileImage ??
+                'http://localhost:5000/' + user?.profileImage
+              "
+              alt="Profile Picture"
+            />
           </div>
         </div>
 

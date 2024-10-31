@@ -23,7 +23,7 @@ export class UpdateProfileComponent implements OnInit {
       bio: ['', Validators.required],
       phone: ['', [Validators.required]],
       profileImage: [''],
-      password: ['', [Validators.minLength(6)]],
+      password: ['', [Validators.minLength(3)]],
       confirmPassword: ['']
     });
   }
