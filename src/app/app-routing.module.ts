@@ -61,8 +61,8 @@ const routes: Routes = [
   { path: 'admin/settings', component: SettingsComponent, canActivate: [AdminGuard] },
 
   // Default and wildcard routes
-  { path: '', redirectTo: '/home', pathMatch: 'full' },  // Redirect to Home
-  { path: '**', redirectTo: '/home' },  // Wildcard route for invalid paths
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({
