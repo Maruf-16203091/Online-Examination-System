@@ -18,10 +18,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { QuizListComponent } from './quizzes/quiz-list/quiz-list.component';
-import { QuestionFormComponent } from './quizzes/question-form/question-form.component';
 import { QuizDetailComponent } from './quizzes/quiz-detail/quiz-detail.component';
-import { QuizTakeComponent } from './quizzes/quiz-take/quiz-take.component';
 import { ResultComponent } from './results/result/result.component';
 import { ResultsAdminComponent } from './results/results-admin/results-admin.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -74,10 +71,7 @@ import { ConfirmDialogComponent } from './confirmation/confirm-dialog/confirm-di
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    QuizListComponent,
-    QuestionFormComponent,
     QuizDetailComponent,
-    QuizTakeComponent,
     ResultComponent,
     ResultsAdminComponent,
     ProfileComponent,
