@@ -90,15 +90,16 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   submitQuiz() {
     this.clearTimer();
 
-    if (this.quiz && this.quiz._id && this.userId) { 
+    if (this.quiz && this.quiz._id && this.userId) {
       const userAnswers = this.questions.map((q, index) => {
-        const isCorrect = q.correctOption === this.selectedAnswers[index];
+        const selectedOption = this.selectedAnswers[index] || null;
+        const isCorrect = q.correctAnswer === selectedOption;
 
         return {
           question: q.question,
-          selectedOption: this.selectedAnswers[index] || null, // Get selected option or null if not answered
-          correctOption: q.correctOption, // Store the correct option for comparison
-          isCorrect: isCorrect, // Mark whether the answer was correct
+          selectedOption, // User's selected option
+          correctOption: q.correctAnswer, // Correct option for this question
+          isCorrect, // Boolean indicating if answer is correct
         };
       });
 
@@ -118,6 +119,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
       this.openDialog('Unable to submit the quiz. Quiz or User information is missing.', 'Error', 'error');
     }
   }
+
 
 
   startTimer() {

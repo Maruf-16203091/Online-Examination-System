@@ -68,6 +68,7 @@ export class AdminQuizAddComponent implements OnInit {
         setTime: this.setTime,
         difficulty: this.difficulty,
         questions: this.quizQuestions,
+
       }; +
 
         this.quizService.createQuiz(quizData).subscribe(
