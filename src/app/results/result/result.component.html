@@ -8,16 +8,13 @@
       <div class="overall-summary">
         <div class="summary-item">
           <h3>Total Score</h3>
-          <p>85 / 100</p>
+          <p>{{ totalScore }} / {{ totalQuestions }}</p>
         </div>
         <div class="summary-item">
           <h3>Percentage</h3>
-          <p>85%</p>
+          <p>{{ percentage.toFixed(2) }}%</p>
         </div>
-        <div class="summary-item">
-          <h3>Time Taken</h3>
-          <p>35 minutes</p>
-        </div>
+        <!-- Removed Time Taken field -->
       </div>
 
       <!-- Category-Wise Performance Table -->
@@ -41,7 +38,7 @@
         <!-- Correct Answers Column -->
         <ng-container matColumnDef="correct">
           <th mat-header-cell *matHeaderCellDef>Correct Answers</th>
-          <td mat-cell *matCellDef="let element">{{ element.correct }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.correctAnswers }}</td>
         </ng-container>
 
         <!-- Score Column -->
@@ -53,6 +50,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+
       <div class="buttons-container">
         <button mat-raised-button color="primary" (click)="downloadTable()">
           Download

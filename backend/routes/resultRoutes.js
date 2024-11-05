@@ -72,5 +72,28 @@ router.post("/quizzes/submit", async (req, res) => {
   }
 });
 
+// Add this route in your results API file (e.g., resultRoutes.js)
+router.get("/results/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Fetch results based on userId
+    const results = await Result.find({ userId }).populate(
+      "quizId",
+      "category"
+    ); // Populate quizId to get the category
+
+    if (!results.length) {
+      return res
+        .status(404)
+        .json({ message: "No results found for this user." });
+    }
+
+    res.json(results);
+  } catch (error) {
+    console.error("Error fetching results:", error);
+    res.status(500).json({ message: "Error fetching results." });
+  }
+});
 
 module.exports = router;
