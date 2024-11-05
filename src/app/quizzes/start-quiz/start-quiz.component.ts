@@ -90,7 +90,7 @@ export class StartQuizComponent implements OnInit, OnDestroy {
   submitQuiz() {
     this.clearTimer();
 
-    if (this.quiz && this.quiz._id && this.userId) {  // Ensure userId is passed
+    if (this.quiz && this.quiz._id && this.userId) { 
       const userAnswers = this.questions.map((q, index) => {
         const isCorrect = q.correctOption === this.selectedAnswers[index];
 

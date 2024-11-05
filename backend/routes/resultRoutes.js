@@ -43,10 +43,9 @@ router.post("/quizzes/submit", async (req, res) => {
     const result = new Result({
       userId,
       quizId,
-
       category: quiz.category,
       correctAnswers,
-      incorrectAnswers, 
+      incorrectAnswers,
       totalQuestions,
       percentage,
       userAnswers,
