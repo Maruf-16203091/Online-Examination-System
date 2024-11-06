@@ -67,16 +67,14 @@
 
 .soon-btn {
   color: #FF6F61 !important;
-  border-radius: 14px;
+
   font-weight: bolder;
 }
 
-.start-btn {
-  border-radius: 14px;
-}
+
 
 .result-btn {
-  border-radius: 14px;
+
   background-color: #FF6F61 !important;
   color: white !important;
 }

@@ -25,7 +25,6 @@ export class AllQuizComponent implements OnInit {
   filterQuizzesByCategory(category: string) {
     this.quizService.getQuizzes().subscribe(
       (data: Quiz[]) => {
-        // Filter quizzes by category on the frontend
         this.quizzes = data.filter(quiz => quiz.category === category);
       },
       (error) => {

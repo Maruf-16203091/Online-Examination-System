@@ -1,3 +1,18 @@
+/* Ensure the entire page takes up at least 100vh (viewport height) */
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* Main content should take up the remaining space */
+.main-content {
+  flex: 1;
+  /* This ensures the content area takes up all available space */
+}
+
+
 .quiz-list-container {
   margin: 20px;
 }
@@ -36,16 +51,13 @@ h2 {
 
 .soon-btn {
   color: #FF6F61 !important;
-  border-radius: 14px;
   font-weight: bolder;
 }
 
-.start-btn {
-  border-radius: 14px;
-}
+
 
 .result-btn {
-  border-radius: 14px;
+
   background-color: #FF6F61 !important;
   color: white !important;
 }

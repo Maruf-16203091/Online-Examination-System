@@ -26,19 +26,23 @@
         <!-- Category Column -->
         <ng-container matColumnDef="category">
           <th mat-header-cell *matHeaderCellDef>Category</th>
-          <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+          <td style="font-weight: 500" mat-cell *matCellDef="let element">
+            {{ element.category }}
+          </td>
         </ng-container>
 
         <!-- Questions Attempted Column -->
         <ng-container matColumnDef="attempted">
           <th mat-header-cell *matHeaderCellDef>Questions Attempted</th>
-          <td mat-cell *matCellDef="let element">{{ element.attempted }}</td>
+          <td style="font-weight: 500" mat-cell *matCellDef="let element">
+            {{ element.attempted }}
+          </td>
         </ng-container>
 
         <!-- Correct Answers Column -->
         <ng-container matColumnDef="correct">
           <th mat-header-cell *matHeaderCellDef>Correct Answers</th>
-          <td mat-cell *matCellDef="let element">
+          <td style="font-weight: 500" mat-cell *matCellDef="let element">
             {{ element.correctAnswers }}
           </td>
         </ng-container>
@@ -46,7 +50,7 @@
         <!-- Score Column -->
         <ng-container matColumnDef="score">
           <th mat-header-cell *matHeaderCellDef>Score</th>
-          <td mat-cell *matCellDef="let element">{{ element.score }}</td>
+          <td style="font-weight: 500"  mat-cell *matCellDef="let element">{{ element.score }}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -55,10 +59,10 @@
 
       <div class="buttons-container">
         <button mat-raised-button color="primary" (click)="downloadTable()">
-          Download
+          <mat-icon>file_download</mat-icon> Download
         </button>
         <button mat-raised-button color="accent" (click)="printTable()">
-          Print
+          <mat-icon>print</mat-icon> Print
         </button>
       </div>
 
