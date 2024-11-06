@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Result } from '../models/result.model'; // Adjust the path based on your project structure
+import { Result } from '../models/result.model'; // Make sure this matches your actual result model
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,12 @@ export class ResultService {
 
   constructor(private http: HttpClient) { }
 
+  // Get results by userId and quizId
+  getResultsByUserIdAndQuizId(userId: string, quizId: string): Observable<Result[]> {
+    return this.http.get<Result[]>(`${this.apiUrl}/user/${userId}/quiz/${quizId}`);
+  }
+
+  // Get results by userId (if needed for other purposes)
   getResultsByUserId(userId: string): Observable<Result[]> {
     return this.http.get<Result[]>(`${this.apiUrl}/${userId}`);
   }

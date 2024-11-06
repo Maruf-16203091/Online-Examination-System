@@ -3,43 +3,50 @@
 
   <!-- Pagination Controls -->
   <div class="pagination-controls">
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
   </div>
 
   <!-- Table -->
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- Question No. Column -->
     <ng-container matColumnDef="no">
-      <th mat-header-cell *matHeaderCellDef> Question No. </th>
-      <td mat-cell *matCellDef="let question; let i = index"> {{ i + 1 }} </td>
+      <th mat-header-cell *matHeaderCellDef>Question No.</th>
+      <td mat-cell *matCellDef="let question; let i = index">{{ i + 1 }}</td>
     </ng-container>
 
     <!-- Question Column -->
     <ng-container matColumnDef="question">
-      <th mat-header-cell *matHeaderCellDef> Question </th>
-      <td mat-cell *matCellDef="let question"> {{ question.question }} </td>
+      <th mat-header-cell *matHeaderCellDef>Question</th>
+      <td mat-cell *matCellDef="let question">{{ question.question }}</td>
     </ng-container>
 
     <!-- Correct Answer Column -->
     <ng-container matColumnDef="correctAnswer">
-      <th mat-header-cell *matHeaderCellDef> Correct Answer </th>
-      <td mat-cell *matCellDef="let question"> {{ question.correctAnswer }} </td>
+      <th mat-header-cell *matHeaderCellDef>Correct Answer</th>
+      <td mat-cell *matCellDef="let question">{{ question.correctAnswer }}</td>
     </ng-container>
 
     <!-- My Answer Column -->
     <ng-container matColumnDef="myAnswer">
-      <th mat-header-cell *matHeaderCellDef> My Answer </th>
-      <td mat-cell *matCellDef="let question"> {{ question.myAnswer }} </td>
+      <th mat-header-cell *matHeaderCellDef>My Answer</th>
+      <td mat-cell *matCellDef="let question">{{ question.myAnswer }}</td>
     </ng-container>
 
     <!-- Header and Row Definitions -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
   <!-- Buttons -->
   <div class="buttons-container">
-    <button mat-raised-button color="primary" (click)="downloadTable()">Download</button>
-    <button mat-raised-button color="accent" (click)="printTable()">Print</button>
+    <button mat-raised-button color="primary" (click)="downloadTable()">
+      Download
+    </button>
+    <button mat-raised-button color="accent" (click)="printTable()">
+      Print
+    </button>
   </div>
 </div>

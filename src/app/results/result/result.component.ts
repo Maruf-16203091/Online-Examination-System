@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultService } from '../../services/result.service';
-import { UserService } from '../../services/user.service'; // Import UserService to get user info
+import { UserService } from '../../services/user.service';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { ChartOptions, ChartType, ChartData } from 'chart.js';
@@ -43,7 +43,9 @@ interface AggregatedResult {
 export class ResultComponent implements OnInit {
 
   displayedColumns: string[] = ['category', 'attempted', 'correct', 'score'];
-  dataSource: AggregatedResult[] = []; // Initialize as empty array
+  dataSource: AggregatedResult[] = [];
+
+
 
   // Pie chart configuration
   public pieChartLabels: string[] = ['Correct Answers', 'Incorrect Answers'];
@@ -70,7 +72,7 @@ export class ResultComponent implements OnInit {
   constructor(private resultService: ResultService, private userService: UserService) { }
 
   ngOnInit() {
-    const userId = this.userService.getCurrentUserId(); // Fetch userId from UserService
+    const userId = this.userService.getCurrentUserId();
     if (userId) {
       this.resultService.getResultsByUserId(userId).subscribe(
         (results: Result[]) => {
