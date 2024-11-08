@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { ResultService } from '../../../services/result.service';
+
 
 export interface Result {
   userName: string;
@@ -49,11 +51,25 @@ export class ResultListComponent implements OnInit {
     }
   ];
 
-  dataSource = new MatTableDataSource<Result>(this.results);
+  dataSource = new MatTableDataSource<Result>();
 
-  constructor() { }
+  constructor(private resultService: ResultService) { }
 
-  ngOnInit(): void { }
+
+  ngOnInit(): void {
+    this.fetchResults();  // Call fetchResults to load data from backend
+  }
+
+  fetchResults(): void {
+    this.resultService.getAllResults().subscribe(
+      (results: Result[]) => {
+        this.dataSource.data = results;  // Assign data to dataSource for dynamic table rendering
+      },
+      (error) => {
+        console.error('Error fetching results:', error);
+      }
+    );
+  }
 
   // Generate PDF for individual user result
   generatePDF(result: Result): void {

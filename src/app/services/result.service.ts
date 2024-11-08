@@ -11,6 +11,10 @@ export class ResultService {
 
   constructor(private http: HttpClient) { }
 
+
+  getAllResults(): Observable<Result[]> {
+    return this.http.get<Result[]>(`${this.apiUrl}`);
+  }
   // Get results by userId and quizId
   getResultsByUserIdAndQuizId(userId: string, quizId: string): Observable<Result[]> {
     return this.http.get<Result[]>(`${this.apiUrl}/user/${userId}/quiz/${quizId}`);
