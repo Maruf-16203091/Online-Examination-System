@@ -24,4 +24,8 @@ export class ResultService {
   getResultsByUserId(userId: string): Observable<Result[]> {
     return this.http.get<Result[]>(`${this.apiUrl}/${userId}`);
   }
+
+  getResultByUserAndQuiz(userId: string, quizId: string): Observable<Result> {
+    return this.http.get<Result>(`${this.apiUrl}/user/${userId}/quiz/${quizId}`);
+  }
 }

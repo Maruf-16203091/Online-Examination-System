@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { ResultService } from '../../../services/result.service';
-
 
 export interface Result {
   userName: string;
@@ -24,8 +22,8 @@ export interface Result {
 export class ResultListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'no', 'userName', 'quizTitle', 'category', 'score',
-    'totalQuestions', 'correctAnswers', 'timeTaken', 'date', 'action'
+    'no', 'userName',  'category', 'score',
+    'totalQuestions', 'correctAnswers',  'date', 'action'
   ];
 
   results: Result[] = [
@@ -51,25 +49,11 @@ export class ResultListComponent implements OnInit {
     }
   ];
 
-  dataSource = new MatTableDataSource<Result>();
+  dataSource = new MatTableDataSource<Result>(this.results);
 
-  constructor(private resultService: ResultService) { }
+  constructor() { }
 
-
-  ngOnInit(): void {
-    this.fetchResults();  // Call fetchResults to load data from backend
-  }
-
-  fetchResults(): void {
-    this.resultService.getAllResults().subscribe(
-      (results: Result[]) => {
-        this.dataSource.data = results;  // Assign data to dataSource for dynamic table rendering
-      },
-      (error) => {
-        console.error('Error fetching results:', error);
-      }
-    );
-  }
+  ngOnInit(): void { }
 
   // Generate PDF for individual user result
   generatePDF(result: Result): void {
@@ -81,11 +65,9 @@ export class ResultListComponent implements OnInit {
     // Add user details
     const userDetails = [
       ['User Name', result.userName],
-      ['Quiz Title', result.quizTitle],
       ['Category', result.category],
       ['Score', result.score + '/' + result.totalQuestions],
       ['Correct Answers', result.correctAnswers.toString()],
-      ['Time Taken', result.timeTaken],
       ['Date', result.date]
     ];
 
