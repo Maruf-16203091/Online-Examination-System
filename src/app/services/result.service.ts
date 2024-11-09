@@ -7,7 +7,7 @@ import { Result } from '../models/result.model'; // Make sure this matches your 
   providedIn: 'root',
 })
 export class ResultService {
-  private apiUrl = 'http://localhost:5000/api/results'; // Adjust based on your backend URL
+  private apiUrl = 'http://localhost:5000/api/results'; 
 
   constructor(private http: HttpClient) { }
 
