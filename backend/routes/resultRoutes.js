@@ -27,7 +27,7 @@ router.post("/quizzes/submit", async (req, res) => {
         (q) => q.question === answer.question
       );
       const isCorrect =
-        question && question.correctAnswer === answer.selectedOption; // Ensure this uses `correctAnswer`
+        question && question.correctAnswer === answer.selectedOption;
 
       // Increment correctAnswers count if answer is correct
       if (isCorrect) correctAnswers++;
@@ -35,7 +35,7 @@ router.post("/quizzes/submit", async (req, res) => {
       return {
         question: answer.question,
         selectedOption: answer.selectedOption,
-        correctOption: question ? question.correctAnswer : null, // Ensure correct field here as well
+        correctOption: question ? question.correctAnswer : null,
         isCorrect,
       };
     });
