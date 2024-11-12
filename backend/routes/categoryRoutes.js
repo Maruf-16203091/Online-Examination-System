@@ -44,7 +44,7 @@ router.get("/category/:id", async (req, res) => {
   }
 });
 
-// @route PUT /api/category/:id
+
 // @desc Update a Category by ID
 router.put("/category/:id", async (req, res) => {
   try {

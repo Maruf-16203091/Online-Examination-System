@@ -5,10 +5,10 @@ const User = require("../models/userModel");
 const { protect } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
-// JWT Secret from env
+
 const JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
 
-// @route POST /api/auth/register
+
 // @desc Register a new user
 router.post("/register", async (req, res) => {
   const { name, email, password, phone, bio, role, profileImage } = req.body;
