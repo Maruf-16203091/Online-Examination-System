@@ -4,33 +4,30 @@
   height: 100vh;
 }
 
-/* Set the sidenav width to 20% */
+
 .sidenav {
   width: 20%;
-  /* Sidenav takes 20% of the width */
+
   background: #f8f2f2;
 }
 
 .active-link {
   color: #ff6f61;
-  /* Highlight active link */
+
   border-right: 8px solid #ff6f61;
   background-color: #fce4ec;
-  /* Background color for active state */
+
 }
 
 .mat-nav-list {
   padding: 0;
-  /* Remove default padding */
+
 }
 
 .mat-list-item {
   display: flex;
-  /* Use flexbox for alignment */
   align-items: center;
-  /* Center items vertically */
   padding: 10px 16px;
-  /* Add padding for better touch targets */
 }
 
 .mat-icon {
@@ -38,25 +35,21 @@
 
   font-size: 24px;
 }
-  /*color: #ff6f61;
-
-}
 
 
-/* The main content should take the remaining 80% */
 .main-content {
   flex-grow: 1;
   width: 80%;
-  /* Content takes the remaining 80% */
+
 
   margin: 0;
-  /* No margin to eliminate any extra space at the top */
+
   overflow-y: auto;
-  /* Allow content to scroll if needed */
+
   height: 100vh;
-  /* Ensure content fills the height of the viewport */
+
   box-sizing: border-box;
-  /* Ensure padding does not add extra space */
+
 }
 
 /* Remove the toolbar margin if there's any unwanted spacing */
@@ -67,7 +60,6 @@ mat-toolbar {
   background-color: #ff6f61 !important;
   color: white;
   margin: 0;
-  /* Ensure no extra space */
 }
 
 .container {
@@ -121,6 +113,7 @@ button:hover {
   background-color: #FF6F61 !important;
   color: white !important;
 }
+
 .nav-group-title {
   font-weight: bold;
   font-size: 14px;
