@@ -12,12 +12,12 @@ export class ConfirmDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { message: string }
   ) {}
 
-  // Close dialog and return true (confirm deletion)
+
   onConfirm(): void {
     this.dialogRef.close(true);
   }
 
-  // Close dialog and return false (cancel deletion)
+  
   onCancel(): void {
     this.dialogRef.close(false);
   }
