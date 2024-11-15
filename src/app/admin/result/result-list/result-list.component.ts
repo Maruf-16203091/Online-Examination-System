@@ -10,8 +10,7 @@ export interface Result {
   score: number;
   totalQuestions: number;
   correctAnswers: number;
-  timeTaken: string;  // in minutes or time format
-  date: string;       // date of the quiz
+  date: string;
 }
 
 @Component({
@@ -22,8 +21,8 @@ export interface Result {
 export class ResultListComponent implements OnInit {
 
   displayedColumns: string[] = [
-    'no', 'userName',  'category', 'score',
-    'totalQuestions', 'correctAnswers',  'date', 'action'
+    'no', 'userName', 'category', 'score',
+    'totalQuestions', 'correctAnswers', 'date', 'action'
   ];
 
   results: Result[] = [
@@ -34,7 +33,6 @@ export class ResultListComponent implements OnInit {
       score: 8,
       totalQuestions: 10,
       correctAnswers: 8,
-      timeTaken: '5 mins',
       date: '2024-09-20'
     },
     {
@@ -44,7 +42,6 @@ export class ResultListComponent implements OnInit {
       score: 7,
       totalQuestions: 10,
       correctAnswers: 7,
-      timeTaken: '7 mins',
       date: '2024-09-21'
     }
   ];
@@ -75,6 +72,7 @@ export class ResultListComponent implements OnInit {
       head: [['Field', 'Details']],
       body: userDetails,
       startY: 20,
+      headStyles: { fillColor: '#ff6f61' },
       theme: 'grid'
     });
 
@@ -109,7 +107,6 @@ export class ResultListComponent implements OnInit {
       result.score.toString(),
       result.totalQuestions.toString(),
       result.correctAnswers.toString(),
-      result.timeTaken,
       result.date
     ]);
 
@@ -118,7 +115,7 @@ export class ResultListComponent implements OnInit {
       body: rows,
       startY: 20,
       theme: 'grid',
-      headStyles: { fillColor: '#FF6F61' },
+      headStyles: { fillColor: '#ff6f61' },
     });
 
     doc.save('all_quiz_results.pdf');
