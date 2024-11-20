@@ -3,7 +3,7 @@ const Result = require("../models/resultModel");
 
 async function evaluateQuiz(quizId, userId, userAnswers) {
   try {
-    // Retrieve the quiz from the database
+
     const quiz = await Quiz.findById(quizId);
     if (!quiz) {
       throw new Error("Quiz not found");
@@ -13,7 +13,6 @@ async function evaluateQuiz(quizId, userId, userAnswers) {
     let correctAnswers = 0;
     let wrongAnswers = 0;
 
-    // Compare answers
     questions.forEach((question, index) => {
       const userAnswer = userAnswers[index];
       if (userAnswer === question.correctAnswer) {
