@@ -12,13 +12,12 @@ const resultRoutes = require("./routes/resultRoutes");
 
 dotenv.config();
 
-// Initialize Express app
+
 const app = express();
 
 // Enable CORS for all routes
 app.use(cors());
 
-// Middleware for parsing JSON bodies
 app.use(express.json());
 
 // MongoDB connection
@@ -31,7 +30,7 @@ const connectDB = async () => {
     console.log("MongoDB connected...");
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    process.exit(1); 
+    process.exit(1);
   }
 };
 
