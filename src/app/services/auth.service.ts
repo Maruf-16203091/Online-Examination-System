@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  // Function to log in user
+
   login(email: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, { email, password }).pipe(
       tap((response: any) => {
@@ -27,8 +27,8 @@ export class AuthService {
         }
       }),
       catchError(error => {
-        console.error('Login error:', error); // Log any error during the login
-        return of(null); // Return null to indicate failure
+
+        return of(null); 
       })
     );
   }

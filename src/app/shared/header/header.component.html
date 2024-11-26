@@ -112,7 +112,6 @@
         >
       </nav>
 
-      <!-- Profile Picture with Dropdown Trigger -->
       <div class="profile-menu" [matMenuTriggerFor]="profileMenu">
         <img
           src="assets/profile/profile.jpg"
@@ -122,7 +121,7 @@
         <mat-icon class="profile-arrow">expand_more</mat-icon>
       </div>
 
-      <!-- Profile Dropdown Menu -->
+
       <mat-menu #profileMenu="matMenu">
         <button mat-menu-item [routerLink]="'/profile'" (click)="goToProfile()">
           View Profile
